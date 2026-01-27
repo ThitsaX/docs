@@ -1,0 +1,712 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Mojaloop platform documentation">
+      
+      
+      
+        <link rel="canonical" href="https://thitsax.github.io/docs/latest/platform-architecture-overview/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Platform Architecture Overview (Hub, PM4ML, Tazama) - ThitsaWorks Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#platform-architecture-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ThitsaWorks Documentation" class="md-header__button md-logo" aria-label="ThitsaWorks Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ThitsaWorks Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Platform Architecture Overview (Hub, PM4ML, Tazama)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ThitsaWorks Documentation" class="md-nav__button md-logo" aria-label="ThitsaWorks Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    ThitsaWorks Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hub-pm4ml-security-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hub ↔ PM4ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-architectural-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Architectural Goals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deployment-topology-primarystandby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deployment Topology (Primary–Standby)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Deployment Topology (Primary–Standby)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primary Site
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standby-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standby Site
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-availability-and-resilience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Availability and Resilience
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-operational-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Operational Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-scope-clarification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Scope Clarification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="platform-architecture-overview">🏗️ Platform Architecture Overview</h1>
+<p><strong>Hub, PM4ML, and Tazama (Cloud &amp; On-Premise)</strong></p>
+<p>This document describes the <strong>reference architecture</strong> for deploying the <strong>Mojaloop Hub</strong>, <strong>PM4ML (Payment Manager for Mojaloop)</strong>, and <strong>Tazama</strong> platforms across <strong>cloud and on-premise datacenter environments</strong>.</p>
+<p>The architecture focuses on <strong>deployment topology, platform responsibilities, security boundaries, and operational separation</strong>, without exposing environment-specific or sensitive implementation details.</p>
+<blockquote>
+<p><strong>Note</strong><br />
+This document presents a reference architecture based on commonly adopted deployment patterns.<br />
+Specific implementations may vary depending on regulatory, organizational, and operational requirements.</p>
+</blockquote>
+<hr />
+<h2 id="1-architectural-goals">1. Architectural Goals</h2>
+<p>The architecture is designed to:</p>
+<ul>
+<li>Support <strong>secure financial transactions</strong></li>
+<li>Enable <strong>cloud, on-premise, and hybrid deployments</strong></li>
+<li>Provide <strong>operational resilience</strong> using a Primary–Standby model</li>
+<li>Maintain <strong>clear trust and responsibility boundaries</strong> between platforms</li>
+<li>Scale predictably based on transaction throughput</li>
+</ul>
+<hr />
+<h2 id="2-deployment-topology-primarystandby">2. Deployment Topology (Primary–Standby)</h2>
+<p>The platform is deployed across <strong>two independent sites</strong>:</p>
+<h3 id="primary-site">Primary Site</h3>
+<ul>
+<li>Active production environment</li>
+<li>Handles live transaction traffic</li>
+<li>Deployed in:</li>
+<li>Public cloud <strong>or</strong></li>
+<li>On-premise datacenter</li>
+</ul>
+<h3 id="standby-site">Standby Site</h3>
+<ul>
+<li>Secondary environment with reduced capacity</li>
+<li>Maintained for service continuity</li>
+<li>Deployed in a <strong>separate cloud region</strong> or <strong>physical datacenter</strong></li>
+</ul>
+<pre><code class="language-text">┌───────────────┐        Secure Connectivity       ┌───────────────┐
+│  Primary Site │  ◀────────────────────────────▶  │  Standby Site │
+│               │                                  │               │
+│ Hub           │                                  │ Hub           │
+│ PM4ML         │                                  │ PM4ML         │
+│ Tazama        │                                  │ Tazama        │
+└───────────────┘                                  └───────────────┘
+````
+
+Both sites share the same logical architecture. Differences are limited to **capacity sizing**, not functionality.
+
+---
+
+## 3. Platform Components
+
+### 3.1 Mojaloop Hub
+
+* Central transaction switching platform
+* Enables interoperability between participants
+* Deployed as containerized services
+* Acts as the **trust authority** for DFSP onboarding
+
+---
+
+### 3.2 PM4ML (Payment Manager for Mojaloop)
+
+* DFSP-facing payment management platform
+* Can be deployed:
+
+  * Per DFSP, or
+  * As a shared service
+* Supports both cloud-hosted and on-premise environments
+* Establishes business trust with the Hub
+
+---
+
+### 3.3 Tazama
+
+* Transaction monitoring and fraud detection platform
+* Consumes transaction events for analysis
+* Can be deployed centrally or regionally
+* Operates independently of transaction processing paths
+
+---
+
+## 4. Infrastructure Architecture
+
+### Runtime Platform
+
+* Kubernetes used as the common orchestration layer
+* Consistent deployment patterns across environments
+
+### Networking
+
+* Private, encrypted communication between platforms
+* Hybrid connectivity supported for cloud ↔ on-premise scenarios
+
+### Traffic Management
+
+* Controlled ingress and egress for platform services
+* Clear separation between internal and external traffic paths
+
+### Data Services
+
+* Databases and messaging systems sized per expected throughput
+* Logical isolation maintained between platforms
+
+---
+
+## 5. Security Architecture (High Level)
+
+```text
+┌────────┐      mTLS + JWS       ┌─────────┐
+│  Hub   │  ◀────────────────▶   │  PM4ML  │
+└────────┘                       └─────────┘
+       │
+       │  Transaction Events
+       ▼
+┌─────────┐
+│ Tazama  │
+└─────────┘
+</code></pre>
+<h3 id="security-principles">Security Principles</h3>
+<ul>
+<li>Encrypted communication for all inter-platform traffic</li>
+<li>Strong platform identity and authentication</li>
+<li>Separation of <strong>infrastructure trust</strong> and <strong>business trust</strong></li>
+<li>Centralized secrets and key management</li>
+</ul>
+<blockquote>
+<p>Detailed mTLS and JWS mechanisms are documented separately.</p>
+</blockquote>
+<hr />
+<h2 id="6-availability-and-resilience">6. Availability and Resilience</h2>
+<ul>
+<li>High availability within each site</li>
+<li>No active-active transaction processing across sites</li>
+<li>Standby site maintained in a ready state</li>
+<li>Recovery and failover procedures defined outside this document</li>
+</ul>
+<hr />
+<h2 id="7-operational-model">7. Operational Model</h2>
+<ul>
+<li>Infrastructure provisioned using automation</li>
+<li>Platform deployments follow GitOps practices</li>
+<li>Centralized monitoring, logging, and alerting</li>
+<li>Consistent operations across cloud and on-premise environments</li>
+</ul>
+<hr />
+<h2 id="8-scope-clarification">8. Scope Clarification</h2>
+<p>This document covers:</p>
+<ul>
+<li>Platform roles and responsibilities</li>
+<li>Deployment topology</li>
+<li>High-level security and connectivity patterns</li>
+</ul>
+<p>This document does <strong>not</strong> include:</p>
+<ul>
+<li>Environment-specific configurations</li>
+<li>Backup and restore procedures</li>
+<li>Incident response or failover runbooks</li>
+<li>Regulatory or compliance controls</li>
+</ul>
+<hr />
+<h2 id="9-key-takeaways">9. Key Takeaways</h2>
+<ul>
+<li>A single architecture supports <strong>cloud, on-premise, and hybrid</strong> deployments</li>
+<li>Primary–Standby model balances resilience and cost</li>
+<li>Hub, PM4ML, and Tazama have <strong>clearly separated responsibilities</strong></li>
+<li>Security is enforced at both transport and application layers</li>
+</ul>
+<hr />
+<h2 id="10-summary">10. Summary</h2>
+<blockquote>
+<p><strong>The Mojaloop Hub, PM4ML, and Tazama platforms are deployed using a consistent, secure, and flexible architecture that supports cloud and on-premise environments while maintaining clear trust boundaries and operational resilience.</strong></p>
+</blockquote>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "search.highlight", "search.suggest", "navigation.instant", "content.tabs.link", "navigation.footer", "header.autohide", "navigation.expand"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
