@@ -21,6 +21,28 @@ This site focuses on how the platform is **actually implemented and operated**, 
 
 ---
 
+## 🚧 Upcoming Documentation
+
+The following sections are planned and will be published incrementally:
+
+- 🏗 **Architecture Overview**
+- 🔁 **Certificate & Key Management**
+- 🚨 **Incident & Failure Scenarios**
+- 📐 **Environment & Capacity Model**
+- ⚙️ **Operational Runbooks**
+
+These documents will reflect **validated production behavior** and operational best practices.
+
+---
+
+## 🌐 More information
+
+For general information about **ThitsaWorks**, including our services and platform offerings, visit:
+
+👉 **[https://thitsaworks.com](https://thitsaworks.com)**
+
+---
+
 ## 📌 About this site
 
 This documentation reflects the **real-world implementation** and operational security practices used in Mojaloop-based deployments.  
