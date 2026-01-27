@@ -1,5 +1,6 @@
 site_name: ThitsaX Docs
 site_description: Platform security & architecture documentation
+site_url: https://thitsax.github.io/docs/
 
 theme:
   name: material
