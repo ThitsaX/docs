@@ -1104,6 +1104,7 @@ MCM Server
 <thead>
 <tr>
 <th>Item</th>
+<th>Direction</th>
 <th>Expires?</th>
 <th>Managed by</th>
 <th>Rotation method</th>
@@ -1112,30 +1113,49 @@ MCM Server
 <tbody>
 <tr>
 <td>Inbound mTLS cert (PM4ML server)</td>
+<td>Hub → PM4ML</td>
 <td>✅ Yes</td>
 <td>cert-manager</td>
 <td>Automatic</td>
 </tr>
 <tr>
-<td>Outbound mTLS cert (PM4ML client)</td>
+<td>Outbound mTLS cert (Hub as client)</td>
+<td>Hub → PM4ML</td>
 <td>✅ Yes</td>
 <td>Hub + Vault</td>
 <td>Manual / workflow</td>
 </tr>
 <tr>
-<td>JWS private key</td>
-<td>❌ No</td>
-<td>Policy</td>
-<td>Manual / Job</td>
+<td>Inbound mTLS cert (Hub server)</td>
+<td>PM4ML → Hub</td>
+<td>✅ Yes</td>
+<td>cert-manager</td>
+<td>Automatic</td>
 </tr>
 <tr>
-<td>JWS public key</td>
+<td>Outbound mTLS cert (PM4ML as client)</td>
+<td>PM4ML → Hub</td>
+<td>✅ Yes</td>
+<td>PM4ML + Vault</td>
+<td>Manual / workflow</td>
+</tr>
+<tr>
+<td>JWS public key (Hub)</td>
+<td>Hub → PM4ML</td>
 <td>❌ No</td>
-<td>MCM</td>
+<td>MCM-Server</td>
 <td>Published on rotation</td>
 </tr>
 <tr>
-<td>JWT token</td>
+<td>JWS public key (PM4ML)</td>
+<td>PM4ML → Hub</td>
+<td>❌ No</td>
+<td>MCM-Client</td>
+<td>Published on rotation</td>
+</tr>
+<tr>
+<td>JWT token (issued by Hub)</td>
+<td>Hub → PM4ML</td>
 <td>✅ Yes</td>
 <td>Application</td>
 <td><code>exp</code> claim</td>
