@@ -24,5 +24,10 @@ extra:
 
 nav:
   - Home: index.md
+
+  - Architecture:
+      - Platform Architecture Overview: platform-architecture-overview.md
+
   - Security:
       - Hub ↔ PM4ML: hub-pm4ml-security-architecture.md
+
