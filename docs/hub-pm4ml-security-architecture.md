@@ -191,13 +191,16 @@ Both layers must succeed for a request to be accepted.
 
 ## 8. Expiry & Rotation Summary
 
-| Item                              | Expires? | Managed by   | Rotation method       |
-| --------------------------------- | -------- | ------------ | --------------------- |
-| Inbound mTLS cert (PM4ML server)  | ✅ Yes    | cert-manager | Automatic             |
-| Outbound mTLS cert (PM4ML client) | ✅ Yes    | Hub + Vault  | Manual / workflow     |
-| JWS private key                   | ❌ No     | Policy       | Manual / Job          |
-| JWS public key                    | ❌ No     | MCM          | Published on rotation |
-| JWT token                         | ✅ Yes    | Application  | `exp` claim           |
+| Item                                      | Direction            | Expires? | Managed by        | Rotation method       |
+|-------------------------------------------|----------------------|----------|-------------------|-----------------------|
+| Inbound mTLS cert (PM4ML server)           | Hub → PM4ML          | ✅ Yes   | cert-manager      | Automatic             |
+| Outbound mTLS cert (Hub as client)         | Hub → PM4ML          | ✅ Yes   | Hub + Vault       | Manual / workflow     |
+| Inbound mTLS cert (Hub server)             | PM4ML → Hub          | ✅ Yes   | cert-manager      | Automatic             |
+| Outbound mTLS cert (PM4ML as client)       | PM4ML → Hub          | ✅ Yes   | PM4ML + Vault     | Manual / workflow     |
+| JWS public key (Hub)                       | Hub → PM4ML          | ❌ No    | MCM-Server        | Published on rotation |
+| JWS public key (PM4ML)                     | PM4ML → Hub          | ❌ No    | MCM-Client        | Published on rotation |
+| JWT token (issued by Hub)                  | Hub → PM4ML          | ✅ Yes   | Application       | `exp` claim           |
+
 
 ---
 
