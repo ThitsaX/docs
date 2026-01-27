@@ -10,6 +10,17 @@ This site focuses on how the platform is **actually implemented and operated**, 
 
 ---
 
+## 🏗️ Architecture
+
+- **[Platform Architecture Overview](platform-architecture-overview)**  
+  Provides a high-level reference architecture covering:
+  - Mojaloop Hub, PM4ML, and Tazama
+  - Cloud, on-premise, and hybrid deployments
+  - Primary–Standby topology
+  - Platform responsibilities and trust boundaries
+
+---
+
 ## 🔐 Security Architecture
 
 - **[Hub ↔ PM4ML Security Architecture](hub-pm4ml-security-architecture)**  
@@ -25,7 +36,6 @@ This site focuses on how the platform is **actually implemented and operated**, 
 
 The following sections are planned and will be published incrementally:
 
-- 🏗 **Architecture Overview**
 - 🔁 **Certificate & Key Management**
 - 🚨 **Incident & Failure Scenarios**
 - 📐 **Environment & Capacity Model**
@@ -45,5 +55,5 @@ For general information about **ThitsaWorks**, including our services and platfo
 
 ## 📌 About this site
 
-This documentation reflects the **real-world implementation** and operational security practices used in Mojaloop-based deployments.  
-It is intended for platform engineers, security engineers, and operators who need a **clear and practical understanding** of how the system is secured in production.
+This documentation reflects **real-world implementation** and operational security practices used in Mojaloop-based deployments.  
+It is intended for platform engineers, security engineers, and operators who need a **clear and practical understanding** of how the system is secured and operated in production.
