@@ -22,8 +22,6 @@ extra:
   version:
     provider: mike
 
-extra_files:
-  - index.html
 nav:
   - Home: index.md
   - Security:
