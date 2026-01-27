@@ -43,6 +43,7 @@ The platform is deployed across **two independent sites**:
 - Maintained for service continuity
 - Deployed in a **separate cloud region** or **physical datacenter**
 
+
 ```text
 ┌───────────────┐        Secure Connectivity       ┌───────────────┐
 │  Primary Site │  ◀────────────────────────────▶  │  Standby Site │
@@ -51,6 +52,7 @@ The platform is deployed across **two independent sites**:
 │ PM4ML         │                                  │ PM4ML         │
 │ Tazama        │                                  │ Tazama        │
 └───────────────┘                                  └───────────────┘
+
 ````
 
 Both sites share the same logical architecture. Differences are limited to **capacity sizing**, not functionality.
