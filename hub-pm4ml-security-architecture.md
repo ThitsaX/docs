@@ -1,3 +1,7 @@
+---
+title: Hub ↔ PM4ML Security Architecture
+---
+
 # 🔐 Hub ↔ PM4ML Security Architecture
 
 This document describes the **actual security architecture** between the **Hub** and **PM4ML**, covering **mTLS (transport security)** and **JWS (application-level signing)**, based on the current PM4ML implementation.

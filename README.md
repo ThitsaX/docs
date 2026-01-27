@@ -1,1 +1,5 @@
-# docs
+---
+title: Documentation
+---
+
+# Documentation
