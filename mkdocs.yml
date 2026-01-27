@@ -1,6 +1,7 @@
 site_name: ThitsaX Docs
 site_description: Platform security & architecture documentation
 site_url: https://thitsax.github.io/docs/
+use_directory_urls: true
 
 theme:
   name: material
@@ -21,6 +22,8 @@ extra:
   version:
     provider: mike
 
+extra_files:
+  - index.html
 nav:
   - Home: index.md
   - Security:
