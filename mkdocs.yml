@@ -3,11 +3,22 @@ site_description: Platform security & architecture documentation
 
 theme:
   name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
   features:
     - navigation.sections
     - navigation.top
     - search.highlight
     - search.suggest
+    - navigation.instant
+    - content.tabs.link
+    - navigation.footer
+    - header.autohide
+    - navigation.expand
+
+extra:
+  version:
+    provider: mike
 
 nav:
   - Home: index.md
