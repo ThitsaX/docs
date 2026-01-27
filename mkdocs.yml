@@ -1,5 +1,5 @@
-site_name: ThitsaX Docs
-site_description: Platform security & architecture documentation
+site_name: ThitsaWorks Documentation
+site_description: Mojaloop platform documentation
 site_url: https://thitsax.github.io/docs/
 use_directory_urls: true
 

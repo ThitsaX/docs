@@ -4,15 +4,24 @@ title: Documentation
 
 # 📘 Platform Documentation
 
-Welcome to the technical documentation for platform security and architecture.
+Welcome to the technical documentation for **platform security and architecture** within the **Mojaloop ecosystem**.
+
+This site focuses on how the platform is **actually implemented and operated**, rather than abstract or theoretical designs.
+
+---
 
 ## 🔐 Security Architecture
 
 - **[Hub ↔ PM4ML Security Architecture](hub-pm4ml-security-architecture)**  
-  Covers mTLS (transport security), JWS (application-level signing), certificate lifecycle, and trust boundaries.
+  Describes the end-to-end security model between the Hub and PM4ML, including:
+  - Mutual TLS (mTLS) for transport-level security  
+  - JWS for application-level message signing  
+  - Certificate lifecycle and rotation  
+  - Trust boundaries and ownership
 
 ---
 
 ## 📌 About this site
 
-This documentation reflects the **actual implementation** and operational security model used in the PM4ML ecosystem.
+This documentation reflects the **real-world implementation** and operational security practices used in Mojaloop-based deployments.  
+It is intended for platform engineers, security engineers, and operators who need a **clear and practical understanding** of how the system is secured in production.
