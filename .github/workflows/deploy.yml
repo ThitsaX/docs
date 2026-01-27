@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # IMPORTANT for tags
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,6 +26,11 @@ jobs:
       - name: Install MkDocs + Mike
         run: |
           pip install mkdocs-material mike
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
       - name: Deploy docs
         run: |
