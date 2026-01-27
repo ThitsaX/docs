@@ -199,7 +199,7 @@ Both layers must succeed for a request to be accepted.
 | Outbound mTLS cert (PM4ML as client)       | PM4ML → Hub          | ✅ Yes   | PM4ML + Vault     | Manual / workflow     |
 | JWS public key (Hub)                       | Hub → PM4ML          | ❌ No    | MCM-Server        | Published on rotation |
 | JWS public key (PM4ML)                     | PM4ML → Hub          | ❌ No    | MCM-Client        | Published on rotation |
-| JWT token (issued by Hub)                  | Hub → PM4ML          | ✅ Yes   | Application       | `exp` claim           |
+| JWT token (issued by Hub)                  | PM4ML → Hub          | ✅ Yes   | Application       | `exp` claim           |
 
 
 ---
