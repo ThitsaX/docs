@@ -1,6 +1,6 @@
 site_name: ThitsaWorks Documentation
 site_description: Mojaloop platform documentation
-site_url: https://thitsax.github.io/docs/
+site_url: https://docs.thitsaworks.com
 use_directory_urls: true
 
 theme:
