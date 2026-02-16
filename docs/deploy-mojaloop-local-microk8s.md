@@ -248,12 +248,17 @@ http://testing-toolkit.payee
 3. Import collections from:
 
 ```
-https://github.com/mojaloop/ml-testing-toolkit-test-cases
+https://github.com/mojaloop/testing-toolkit-test-cases
 ```
 
 Run:
 
-* hub_accounts.json
+```
+https://github.com/mojaloop/testing-toolkit-test-cases/blob/master/collections/hub/provisioning/new_hub/new_hub.json
+https://github.com/mojaloop/testing-toolkit-test-cases/blob/master/collections/hub/provisioning/new_participants/new_dfsp.json
+```
+
+* new_hub.json  (for hub)
 * new_dfsp.json (for payer)
 * new_dfsp.json (for payee)
 
