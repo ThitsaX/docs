@@ -319,3 +319,11 @@ This environment can be used for:
 * DFSP development
 * Integration testing
 * Architecture learning
+
+
+## 📚 References
+
+This guide is aligned with the official Mojaloop documentation:
+
+- [Mojaloop Helm Charts Repository](https://github.com/mojaloop/helm/blob/main/README.md)
+- [Mojaloop Deployment Guide (Legacy)](https://docs.mojaloop.io/legacy/deployment-guide/#mojaloop-deployment)
