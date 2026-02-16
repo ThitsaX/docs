@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#platform-documentation" class="md-skip">
+        <a href="#thitsaworks-platform-documentation" class="md-skip">
           Skip to content
         </a>
       
@@ -262,6 +262,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Getting Started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -284,10 +295,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#upcoming-documentation" class="md-nav__link">
+  <a href="#operations-reliability" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚧 Upcoming Documentation
+        ⚙️ Operations &amp; Reliability
       
     </span>
   </a>
@@ -298,7 +309,7 @@
   <a href="#more-information" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🌐 More information
+        🌐 More Information
       
     </span>
   </a>
@@ -309,7 +320,7 @@
   <a href="#about-this-site" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📌 About this site
+        📌 About This Site
       
     </span>
   </a>
@@ -502,6 +513,95 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deployment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deploy-mojaloop-local-microk8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Mojaloop Locally (MicroK8s)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -529,6 +629,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Getting Started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -551,10 +662,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#upcoming-documentation" class="md-nav__link">
+  <a href="#operations-reliability" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚧 Upcoming Documentation
+        ⚙️ Operations &amp; Reliability
       
     </span>
   </a>
@@ -565,7 +676,7 @@
   <a href="#more-information" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🌐 More information
+        🌐 More Information
       
     </span>
   </a>
@@ -576,7 +687,7 @@
   <a href="#about-this-site" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📌 About this site
+        📌 About This Site
       
     </span>
   </a>
@@ -600,9 +711,27 @@
 
 
 
-<h1 id="platform-documentation">📘 Platform Documentation</h1>
+<h1 id="thitsaworks-platform-documentation">📘 ThitsaWorks Platform Documentation</h1>
 <p>Welcome to the technical documentation for <strong>platform security and architecture</strong> within the <strong>Mojaloop ecosystem</strong>.</p>
-<p>This site focuses on how the platform is <strong>actually implemented and operated</strong>, rather than abstract or theoretical designs.</p>
+<p>This documentation describes how the platform is <strong>actually implemented, secured, deployed, and operated</strong> in real-world environments.</p>
+<p>It focuses on:</p>
+<ul>
+<li>Practical architecture</li>
+<li>Production security controls</li>
+<li>Deployment models</li>
+<li>Operational behavior</li>
+<li>Integration patterns</li>
+</ul>
+<p>This is <strong>implementation-driven documentation</strong>, not theoretical reference material.</p>
+<hr />
+<h2 id="getting-started">🚀 Getting Started</h2>
+<ul>
+<li><strong><a href="deploy-mojaloop-local-microk8s">Deploy Mojaloop Locally (MicroK8s)</a></strong><br />
+  Step-by-step guide to deploy Mojaloop locally using Ubuntu 24.04 and MicroK8s, including:</li>
+<li>Mojaloop core services</li>
+<li>DFSP onboarding</li>
+<li>P2P transfer simulation</li>
+</ul>
 <hr />
 <h2 id="architecture">🏗️ Architecture</h2>
 <ul>
@@ -621,26 +750,34 @@
 <li>Mutual TLS (mTLS) for transport-level security  </li>
 <li>JWS for application-level message signing  </li>
 <li>Certificate lifecycle and rotation  </li>
-<li>Trust boundaries and ownership</li>
+<li>Trust boundaries and ownership  </li>
 </ul>
 <hr />
-<h2 id="upcoming-documentation">🚧 Upcoming Documentation</h2>
-<p>The following sections are planned and will be published incrementally:</p>
+<h2 id="operations-reliability">⚙️ Operations &amp; Reliability</h2>
+<p>The following sections are being developed and will reflect validated production behavior:</p>
 <ul>
-<li>🔁 <strong>Certificate &amp; Key Management</strong></li>
-<li>🚨 <strong>Incident &amp; Failure Scenarios</strong></li>
-<li>📐 <strong>Environment &amp; Capacity Model</strong></li>
-<li>⚙️ <strong>Operational Runbooks</strong></li>
+<li>🔁 Certificate &amp; Key Management  </li>
+<li>🚨 Incident &amp; Failure Scenarios  </li>
+<li>📐 Environment &amp; Capacity Model  </li>
+<li>📊 Monitoring &amp; Alerting Architecture  </li>
+<li>🧾 Operational Runbooks  </li>
 </ul>
-<p>These documents will reflect <strong>validated production behavior</strong> and operational best practices.</p>
 <hr />
-<h2 id="more-information">🌐 More information</h2>
-<p>For general information about <strong>ThitsaWorks</strong>, including our services and platform offerings, visit:</p>
-<p>👉 <strong><a href="https://thitsaworks.com">https://thitsaworks.com</a></strong></p>
+<h2 id="more-information">🌐 More Information</h2>
+<p>For general information about <strong>ThitsaWorks</strong>, including services and platform offerings:</p>
+<p>👉 https://thitsaworks.com</p>
 <hr />
-<h2 id="about-this-site">📌 About this site</h2>
-<p>This documentation reflects <strong>real-world implementation</strong> and operational security practices used in Mojaloop-based deployments.<br />
-It is intended for platform engineers, security engineers, and operators who need a <strong>clear and practical understanding</strong> of how the system is secured and operated in production.</p>
+<h2 id="about-this-site">📌 About This Site</h2>
+<p>This documentation reflects <strong>real-world implementation and operational security practices</strong> used in Mojaloop-based deployments.</p>
+<p>It is intended for:</p>
+<ul>
+<li>Platform Engineers  </li>
+<li>Security Engineers  </li>
+<li>Infrastructure Engineers  </li>
+<li>DFSP Integration Teams  </li>
+<li>Operations Teams  </li>
+</ul>
+<p>The goal is to provide a <strong>clear, practical, and production-aligned understanding</strong> of how the system is secured, deployed, and operated.</p>
 
 
 
