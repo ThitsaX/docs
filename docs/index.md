@@ -2,11 +2,31 @@
 title: Documentation
 ---
 
-# 📘 Platform Documentation
+# 📘 ThitsaWorks Platform Documentation
 
 Welcome to the technical documentation for **platform security and architecture** within the **Mojaloop ecosystem**.
 
-This site focuses on how the platform is **actually implemented and operated**, rather than abstract or theoretical designs.
+This documentation describes how the platform is **actually implemented, secured, deployed, and operated** in real-world environments.
+
+It focuses on:
+
+- Practical architecture
+- Production security controls
+- Deployment models
+- Operational behavior
+- Integration patterns
+
+This is **implementation-driven documentation**, not theoretical reference material.
+
+---
+
+## 🚀 Getting Started
+
+- **[Deploy Mojaloop Locally (MicroK8s)](deploy-mojaloop-local-microk8s)**  
+  Step-by-step guide to deploy Mojaloop locally using Ubuntu 24.04 and MicroK8s, including:
+  - Mojaloop core services
+  - DFSP onboarding
+  - P2P transfer simulation
 
 ---
 
@@ -28,32 +48,40 @@ This site focuses on how the platform is **actually implemented and operated**, 
   - Mutual TLS (mTLS) for transport-level security  
   - JWS for application-level message signing  
   - Certificate lifecycle and rotation  
-  - Trust boundaries and ownership
+  - Trust boundaries and ownership  
 
 ---
 
-## 🚧 Upcoming Documentation
+## ⚙️ Operations & Reliability
 
-The following sections are planned and will be published incrementally:
+The following sections are being developed and will reflect validated production behavior:
 
-- 🔁 **Certificate & Key Management**
-- 🚨 **Incident & Failure Scenarios**
-- 📐 **Environment & Capacity Model**
-- ⚙️ **Operational Runbooks**
-
-These documents will reflect **validated production behavior** and operational best practices.
-
----
-
-## 🌐 More information
-
-For general information about **ThitsaWorks**, including our services and platform offerings, visit:
-
-👉 **[https://thitsaworks.com](https://thitsaworks.com)**
+- 🔁 Certificate & Key Management  
+- 🚨 Incident & Failure Scenarios  
+- 📐 Environment & Capacity Model  
+- 📊 Monitoring & Alerting Architecture  
+- 🧾 Operational Runbooks  
 
 ---
 
-## 📌 About this site
+## 🌐 More Information
 
-This documentation reflects **real-world implementation** and operational security practices used in Mojaloop-based deployments.  
-It is intended for platform engineers, security engineers, and operators who need a **clear and practical understanding** of how the system is secured and operated in production.
+For general information about **ThitsaWorks**, including services and platform offerings:
+
+👉 https://thitsaworks.com
+
+---
+
+## 📌 About This Site
+
+This documentation reflects **real-world implementation and operational security practices** used in Mojaloop-based deployments.
+
+It is intended for:
+
+- Platform Engineers  
+- Security Engineers  
+- Infrastructure Engineers  
+- DFSP Integration Teams  
+- Operations Teams  
+
+The goal is to provide a **clear, practical, and production-aligned understanding** of how the system is secured, deployed, and operated.

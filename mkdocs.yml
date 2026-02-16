@@ -31,3 +31,6 @@ nav:
   - Security:
       - Hub ↔ PM4ML: hub-pm4ml-security-architecture.md
 
+  - Deployment:
+      - Deploy Mojaloop Locally (MicroK8s): deploy-mojaloop-local-microk8s.md    
+
