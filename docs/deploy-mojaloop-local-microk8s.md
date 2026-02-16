@@ -36,7 +36,7 @@ Verify Ubuntu version:
 
 ```bash
 lsb_release -a
-````
+```
 
 ---
 
