@@ -17,6 +17,7 @@ theme:
     - navigation.footer
     - header.autohide
     - navigation.expand
+    - content.code.copy
 
 extra:
   version:
