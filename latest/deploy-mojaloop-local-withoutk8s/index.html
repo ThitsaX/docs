@@ -1608,19 +1608,20 @@
 
 
 <h1 id="local-deployment-guide-on-mojaloop-platform-components">Local Deployment Guide on Mojaloop Platform Components</h1>
-<p>This document reflects the local non-Kubernetes deployment maintained under Project:</p>
-<p>https://github.com/ThitsaX/mojaloop-local-deployment</p>
-<p>⚠️ <strong>Scope Notice</strong></p>
-<p>This deployment guide is intended for <strong>local development, testing, and learning purposes only</strong>.
- It is not production-hardened and does not include:</p>
-<ul>
-<li>High availability (HA)</li>
-<li>Horizontal scaling</li>
-<li>TLS/mTLS enforcement</li>
-<li>Network isolation</li>
-<li>Observability stack (Prometheus, Grafana, etc.)</li>
-</ul>
-<p>For production deployments, refer to the Platform Architecture and Security Architecture documentation.</p>
+<p>This document reflects the local non-Kubernetes deployment maintained under Project <strong>MELODY</strong>.</p>
+<p>👉 <a href="https://github.com/ThitsaX/mojaloop-local-deployment">Mojaloop Local Deployment Repository</a></p>
+<p>!!! warning "Scope Notice"</p>
+<pre><code>This deployment guide is intended for **local development, testing, and learning purposes only**.
+It is not production-hardened and does not include:
+
+- High availability (HA)
+- Horizontal scaling
+- TLS/mTLS enforcement
+- Network isolation
+- Observability stack (Prometheus, Grafana, etc.)
+
+For production deployments, refer to the Platform Architecture and Security Architecture documentation.
+</code></pre>
 <h2 id="introduction">Introduction</h2>
 <p><a href="https://mojaloop.io">Mojaloop</a> is an open-source platform that provides interoperable digital payment infrastructure. It was created by the Mojaloop Foundation to address the challenge of siloed payment systems that limit financial inclusion, particularly in emerging markets and underbanked regions. By offering a set of open standards and software, Mojaloop enables different financial service providers (FSPs) to connect and transact seamlessly — lowering costs and expanding access to digital financial services.</p>
 <p>This repository, which is part of Project <strong>MELODY</strong>, provides a guide and configuration for deploying Mojaloop's core platform services locally, without Kubernetes or Helm. It is intended for development, testing, and learning purposes.</p>
