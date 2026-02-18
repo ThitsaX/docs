@@ -1,22 +1,22 @@
 # Local Deployment Guide on Mojaloop Platform Components
 
 
-This document reflects the local non-Kubernetes deployment maintained under Project **MELODY**.
+This document reflects the local non-Kubernetes deployment maintained under Project:
 
 👉 [Mojaloop Local Deployment Repository](https://github.com/ThitsaX/mojaloop-local-deployment)
 
-!!! warning "Scope Notice"
+ ⚠️ **Scope Notice**
 
-    This deployment guide is intended for **local development, testing, and learning purposes only**.
-    It is not production-hardened and does not include:
+ This deployment guide is intended for **local development, testing, and learning purposes only**.
+ It is not production-hardened and does not include:
 
-    - High availability (HA)
-    - Horizontal scaling
-    - TLS/mTLS enforcement
-    - Network isolation
-    - Observability stack (Prometheus, Grafana, etc.)
+ - High availability (HA)
+ - Horizontal scaling
+ - TLS/mTLS enforcement
+ - Network isolation
+ - Observability stack (Prometheus, Grafana, etc.)
 
-    For production deployments, refer to the Platform Architecture and Security Architecture documentation.
+ For production deployments, refer to the Platform Architecture and Security Architecture documentation.
 
 ## Introduction
 
@@ -490,7 +490,3 @@ This final step reconciles the actual fund movements and completes the settlemen
 | account-lookup-service (Monitoring) | `4003` |
 | Wallet 1 (Inbound / Outbound) | `8081` / `8080` |
 | Wallet 2 (Inbound / Outbound) | `9091` / `9090` |
-
-
-Source Repository:
-https://github.com/ThitsaX/mojaloop-local-deployment
