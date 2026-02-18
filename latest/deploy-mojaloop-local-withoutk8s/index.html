@@ -1,0 +1,2424 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Mojaloop platform documentation">
+      
+      
+      
+        <link rel="canonical" href="https://docs.thitsaworks.com/latest/deploy-mojaloop-local-withoutk8s/">
+      
+      
+        <link rel="prev" href="../deploy-mojaloop-local-microk8s/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Deploy Mojaloop Locally (Without Kubernetes) - ThitsaWorks Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#local-deployment-guide-on-mojaloop-platform-components" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ThitsaWorks Documentation" class="md-header__button md-logo" aria-label="ThitsaWorks Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ThitsaWorks Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deploy Mojaloop Locally (Without Kubernetes)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ThitsaWorks Documentation" class="md-nav__button md-logo" aria-label="ThitsaWorks Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    ThitsaWorks Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hub-pm4ml-security-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hub ↔ PM4ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deployment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-mojaloop-local-microk8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Mojaloop Locally (MicroK8s)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Mojaloop Locally (Without Kubernetes)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Mojaloop Locally (Without Kubernetes)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Infrastructure Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-kafka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Kafka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Kafka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-configure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Configure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-initialize-and-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Initialize and Start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-create-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Create Topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-utility-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Utility Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-redpanda-console-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Redpanda Console (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-redis-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Redis Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Redis Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-start-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Start the Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-stop-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Stop the Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MySQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. MySQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-configure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Configure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-create-the-database-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Create the Database User
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-running-platform-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Running Platform Services
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Running Platform Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-central-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Central Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-account-lookup-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Account Lookup Service
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-quoting-service-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Quoting Service (API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-quoting-service-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Quoting Service (Handlers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-ml-api-adapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 ML API Adapter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-central-settlement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Central Settlement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-building-and-running-the-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Building and Running the Simulator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Building and Running the Simulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-build-the-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Build the Simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-prepare-the-wallets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Prepare the Wallets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-run-the-wallets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Run the Wallets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-onboarding-wallets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Onboarding Wallets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Onboarding Wallets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-setup-the-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Setup the Hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-create-participants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Create Participants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-register-wallet-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Register Wallet Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-performing-transfers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Performing Transfers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Performing Transfers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-run-a-transfer-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Run a Transfer Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-settlement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Settlement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Settlement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-close-the-current-settlement-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Close the Current Settlement Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-create-the-settlement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Create the Settlement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-update-the-settlement-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Update the Settlement Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-deposit-or-withdraw-funds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Deposit or Withdraw Funds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Infrastructure Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-kafka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Kafka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Kafka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-configure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Configure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-initialize-and-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Initialize and Start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-create-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Create Topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-utility-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Utility Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-redpanda-console-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Redpanda Console (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-redis-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Redis Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Redis Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-start-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Start the Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-stop-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Stop the Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MySQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. MySQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-configure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Configure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-create-the-database-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Create the Database User
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-running-platform-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Running Platform Services
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Running Platform Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-central-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Central Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-account-lookup-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Account Lookup Service
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-quoting-service-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Quoting Service (API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-quoting-service-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Quoting Service (Handlers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-ml-api-adapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 ML API Adapter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-central-settlement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Central Settlement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-building-and-running-the-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Building and Running the Simulator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Building and Running the Simulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-build-the-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Build the Simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-prepare-the-wallets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Prepare the Wallets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-run-the-wallets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Run the Wallets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-onboarding-wallets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Onboarding Wallets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Onboarding Wallets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-setup-the-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Setup the Hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-create-participants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Create Participants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-register-wallet-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Register Wallet Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-performing-transfers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Performing Transfers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Performing Transfers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-run-a-transfer-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Run a Transfer Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-settlement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Settlement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Settlement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-close-the-current-settlement-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Close the Current Settlement Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-create-the-settlement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Create the Settlement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-update-the-settlement-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Update the Settlement Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-deposit-or-withdraw-funds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Deposit or Withdraw Funds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="local-deployment-guide-on-mojaloop-platform-components">Local Deployment Guide on Mojaloop Platform Components</h1>
+<p>This document reflects the local non-Kubernetes deployment maintained under Project:</p>
+<p>https://github.com/ThitsaX/mojaloop-local-deployment</p>
+<p>⚠️ <strong>Scope Notice</strong></p>
+<p>This deployment guide is intended for <strong>local development, testing, and learning purposes only</strong>.
+ It is not production-hardened and does not include:</p>
+<ul>
+<li>High availability (HA)</li>
+<li>Horizontal scaling</li>
+<li>TLS/mTLS enforcement</li>
+<li>Network isolation</li>
+<li>Observability stack (Prometheus, Grafana, etc.)</li>
+</ul>
+<p>For production deployments, refer to the Platform Architecture and Security Architecture documentation.</p>
+<h2 id="introduction">Introduction</h2>
+<p><a href="https://mojaloop.io">Mojaloop</a> is an open-source platform that provides interoperable digital payment infrastructure. It was created by the Mojaloop Foundation to address the challenge of siloed payment systems that limit financial inclusion, particularly in emerging markets and underbanked regions. By offering a set of open standards and software, Mojaloop enables different financial service providers (FSPs) to connect and transact seamlessly — lowering costs and expanding access to digital financial services.</p>
+<p>This repository, which is part of Project <strong>MELODY</strong>, provides a guide and configuration for deploying Mojaloop's core platform services locally, without Kubernetes or Helm. It is intended for development, testing, and learning purposes.</p>
+<h2 id="platform-components">Platform Components</h2>
+<p>The core Mojaloop services included in this deployment are located in the <code>platform/</code> folder. Each subfolder contains the source for a specific version/tag of the component.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mojaloop/account-lookup-service">account-lookup-service</a></td>
+<td><code>17.14.4</code></td>
+<td>Handles participant discovery and routing. Maintains a registry of FSPs and their endpoints so the switch can locate the correct recipient institution for a payment.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mojaloop/quoting-service">quoting-service</a></td>
+<td><code>17.13.8</code></td>
+<td>Calculates fees and FSP commissions for interoperable transactions, giving both payer and payee FSPs a complete view of all costs involved.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mojaloop/central-ledger">central-ledger</a></td>
+<td><code>19.11.3</code></td>
+<td>The core ledger that manages transfers between participating institutions. Provides real-time clearing messages, maintains account positions, and handles scheme-level fees.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mojaloop/central-settlement">central-settlement</a></td>
+<td><code>17.2.6</code></td>
+<td>Manages settlement between FSPs and the central hub. Administers settlement windows, event triggers, and FSP account details.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mojaloop/ml-api-adapter">ml-api-adapter</a></td>
+<td><code>16.6.1</code></td>
+<td>A translation layer that converts between the Mojaloop API and the internal format used by the Central Services stack.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mojaloop/sdk-scheme-adapter">sdk-scheme-adapter</a></td>
+<td><code>0.0.70</code></td>
+<td>Bridges non-Mojaloop-compliant DFSP backends with the Mojaloop switch by translating synchronous HTTP calls into native Mojaloop API interactions.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="infrastructure-tools">Infrastructure Tools</h2>
+<p>Mojaloop's platform services depend on several infrastructure tools. Configuration and scripts for each are provided in the <code>tools/</code> folder.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Folder</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apache Kafka</td>
+<td><code>tools/kafka/</code></td>
+<td>Message broker for asynchronous event streaming between services.</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td><code>tools/redis/</code></td>
+<td>In-memory data store used as a distributed cache (runs as a 6-node cluster).</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td><code>tools/mysql/</code></td>
+<td>Relational database for central-ledger, quoting-service, and account-lookup-service.</td>
+</tr>
+<tr>
+<td>Redpanda</td>
+<td><code>tools/redpanda/</code></td>
+<td>Kafka-compatible streaming platform (alternative to Apache Kafka).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="additional-tools">Additional Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Folder</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Postman</td>
+<td><code>tools/postman/</code></td>
+<td>API collection (<code>Melody.postman_collection.json</code>) for testing Mojaloop endpoints.</td>
+</tr>
+<tr>
+<td>JMeter</td>
+<td><code>tools/jmeter/</code></td>
+<td>Performance/load testing scripts for wallet-to-wallet transfers.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="setup-guide">Setup Guide</h2>
+<h3 id="1-kafka">1. Kafka</h3>
+<p>Mojaloop uses Apache Kafka (in KRaft mode — no ZooKeeper) for event streaming between services. Download Kafka from https://dlcdn.apache.org/kafka/3.9.1/kafka_2.12-3.9.1.tgz.</p>
+<h4 id="11-configure">1.1 Configure</h4>
+<p>Copy the provided <code>server.properties</code> into your Kafka installation:</p>
+<pre><code class="language-bash">cp tools/kafka/server.properties &lt;KAFKA_HOME&gt;/config/server.properties
+</code></pre>
+<p>Key settings in the provided configuration:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>process.roles</code></td>
+<td><code>broker,controller</code></td>
+<td>Runs in KRaft mode (combined broker + controller)</td>
+</tr>
+<tr>
+<td><code>listeners</code></td>
+<td><code>INTERNAL://0.0.0.0:9092, EXTERNAL://0.0.0.0:9094, CONTROLLER://localhost:9093</code></td>
+<td>Internal for local services, External for Docker containers</td>
+</tr>
+<tr>
+<td><code>advertised.listeners</code></td>
+<td><code>INTERNAL://localhost:9092, EXTERNAL://host.docker.internal:9094</code></td>
+<td>Docker services connect via <code>host.docker.internal:9094</code></td>
+</tr>
+<tr>
+<td><code>log.dirs</code></td>
+<td><code>/home/mojaloop/storage</code></td>
+<td>Update this to your preferred data directory</td>
+</tr>
+</tbody>
+</table>
+<h4 id="12-initialize-and-start">1.2 Initialize and Start</h4>
+<pre><code class="language-bash"># From your Kafka installation directory:
+
+# Initialize the storage (first time only)
+./tools/kafka/scripts/init-kafka.sh
+
+# Start the broker
+./tools/kafka/scripts/start-kafka.sh
+</code></pre>
+<h4 id="13-create-topics">1.3 Create Topics</h4>
+<p>Mojaloop requires a set of predefined Kafka topics. Create them with:</p>
+<pre><code class="language-bash">./tools/kafka/scripts/create-topics.sh [KAFKA_HOST] [KAFKA_PORT]
+# Defaults to localhost:9092 if no arguments given
+</code></pre>
+<p>This creates the following topics (replication-factor=1, partitions=1):</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transfers</td>
+<td><code>topic-transfer-prepare</code>, <code>topic-transfer-position</code>, <code>topic-transfer-fulfil</code>, <code>topic-transfer-get</code>, <code>topic-transfer-position-batch</code></td>
+</tr>
+<tr>
+<td>Admin</td>
+<td><code>topic-admin-transfer</code></td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td><code>topic-notification-event</code></td>
+</tr>
+<tr>
+<td>Bulk</td>
+<td><code>topic-bulk-prepare</code>, <code>topic-bulk-fulfil</code>, <code>topic-bulk-processing</code>, <code>topic-bulk-get</code></td>
+</tr>
+<tr>
+<td>Quotes</td>
+<td><code>topic-quotes-post</code>, <code>topic-quotes-put</code>, <code>topic-quotes-get</code></td>
+</tr>
+<tr>
+<td>FX Quotes</td>
+<td><code>topic-fx-quotes-post</code>, <code>topic-fx-quotes-put</code>, <code>topic-fx-quotes-get</code></td>
+</tr>
+<tr>
+<td>Bulk Quotes</td>
+<td><code>topic-bulkquotes-post</code>, <code>topic-bulkquotes-put</code>, <code>topic-bulkquotes-get</code></td>
+</tr>
+<tr>
+<td>Settlement</td>
+<td><code>topic-deferredsettlement-close</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="14-utility-scripts">1.4 Utility Scripts</h4>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tools/kafka/scripts/list-group-details.sh</code></td>
+<td>Lists consumer group lag and offsets for all Mojaloop consumer groups</td>
+</tr>
+<tr>
+<td><code>tools/kafka/scripts/remove-all-topics.sh</code></td>
+<td>Deletes all non-internal topics (useful for a clean reset)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="15-redpanda-console-optional">1.5 Redpanda Console (Optional)</h4>
+<p>For a web UI to inspect Kafka topics, consumer groups, and messages, you can run the Redpanda Console:</p>
+<pre><code class="language-bash">docker compose -f tools/redpanda/docker-compose.yml up -d
+</code></pre>
+<p>The console will be available at http://localhost:18080. It connects to Kafka via <code>host.docker.internal:9094</code> (the EXTERNAL listener).</p>
+<hr />
+<h3 id="2-redis-cluster">2. Redis Cluster</h3>
+<p>Mojaloop uses a Redis cluster as a distributed cache. The provided script sets up a 3-node cluster locally.</p>
+<p><strong>Prerequisites:</strong> Redis <strong>7</strong> must be installed. Ensure <code>redis-server</code> and <code>redis-cli</code> are available on your <code>PATH</code>.</p>
+<h4 id="21-start-the-cluster">2.1 Start the Cluster</h4>
+<pre><code class="language-bash">cd tools/redis
+./start-redis-cluster.sh
+</code></pre>
+<p>This will:
+1. Create a <code>redis-cluster/</code> directory with per-node configuration and data
+2. Start 3 Redis instances on ports <strong>6379</strong>, <strong>6380</strong>, and <strong>6381</strong>
+3. Form them into a cluster with <code>--cluster-replicas 0</code> (no replicas, masters only)</p>
+<p>Each node runs with <code>cluster-enabled yes</code>, <code>appendonly yes</code>, and <code>protected-mode no</code>.</p>
+<h4 id="22-stop-the-cluster">2.2 Stop the Cluster</h4>
+<pre><code class="language-bash">cd tools/redis
+./stop-redis-cluster.sh
+</code></pre>
+<p>This shuts down all 3 nodes (ports 6379–6381) gracefully.</p>
+<hr />
+<h3 id="3-mysql">3. MySQL</h3>
+<p>Mojaloop's central-ledger, quoting-service, and account-lookup-service store data in MySQL. Version <strong>8.4</strong> or lower is supported (Mojaloop recommends <strong>5.7</strong>).</p>
+<h4 id="31-configure">3.1 Configure</h4>
+<p>Use the provided <code>my.cnf</code> as a template:</p>
+<pre><code class="language-ini">[mysqld]
+basedir=/&lt;your_mysql_location&gt;
+datadir=/&lt;your_mysql_location&gt;/data
+socket=/tmp/mysql.sock
+port=3306
+mysql_native_password=ON
+</code></pre>
+<blockquote>
+<p><strong>Important:</strong> If using MySQL 8.4+, the <code>mysql_native_password=ON</code> setting is required because Mojaloop's database libraries rely on the <code>mysql_native_password</code> authentication plugin.</p>
+</blockquote>
+<h4 id="32-create-the-database-user">3.2 Create the Database User</h4>
+<pre><code class="language-sql">-- Create the user (or alter if it already exists)
+ALTER USER 'central_ledger'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+
+-- Grant full privileges (required for Knex DB migrations)
+GRANT ALL PRIVILEGES ON *.* TO 'central_ledger'@'%';
+FLUSH PRIVILEGES;
+</code></pre>
+<p><code>central_ledger</code> is the default username used by Mojaloop services. You can change it, but you will need to update the service configurations accordingly.</p>
+<hr />
+<h3 id="4-running-platform-services">4. Running Platform Services</h3>
+<blockquote>
+<p><strong>Prerequisites:</strong> Ensure Kafka, Redis, and MySQL are running before starting any platform service.</p>
+</blockquote>
+<p>Each service is pre-configured with a <code>default.json</code> that points to the local infrastructure tools (Kafka at <code>localhost:9092</code>, Redis at <code>localhost:6379</code>, MySQL at <code>localhost:3306</code>). If you are using the same settings from the setup steps above, no configuration changes are needed.</p>
+<p>Services should be started in the following order:</p>
+<h4 id="41-central-ledger">4.1 Central Ledger</h4>
+<p>The central-ledger is the core service and must be started first, as other services depend on it.</p>
+<pre><code class="language-bash">cd platform/central-ledger-19.11.3
+npm install
+npm run start:api
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Port</td>
+<td><code>3001</code></td>
+</tr>
+<tr>
+<td>MySQL User / Schema</td>
+<td><code>central_ledger</code> / <code>central_ledger</code></td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>platform/central-ledger-19.11.3/config/default.json</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>On first run, Knex will automatically run database migrations (<code>MIGRATIONS.DISABLED: false</code>).</p>
+</blockquote>
+<h4 id="42-account-lookup-service">4.2 Account Lookup Service</h4>
+<pre><code class="language-bash">cd platform/account-lookup-service-17.14.4
+npm install
+npm run start:all
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin Port</td>
+<td><code>4001</code></td>
+</tr>
+<tr>
+<td>API Port</td>
+<td><code>4002</code></td>
+</tr>
+<tr>
+<td>Monitoring Port</td>
+<td><code>4003</code></td>
+</tr>
+<tr>
+<td>MySQL User / Schema</td>
+<td><code>account_lookup</code> / <code>account_lookup</code></td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>platform/account-lookup-service-17.14.4/config/default.json</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>This service uses a separate MySQL user (<code>account_lookup</code>). Make sure to create it the same way as <code>central_ledger</code> (see <a href="#32-create-the-database-user">Section 3.2</a>).</p>
+</blockquote>
+<h4 id="43-quoting-service-api">4.3 Quoting Service (API)</h4>
+<pre><code class="language-bash">cd platform/quoting-service-17.13.8
+npm install
+npm run start:api
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Port</td>
+<td><code>3002</code></td>
+</tr>
+<tr>
+<td>Monitoring Port</td>
+<td><code>3003</code></td>
+</tr>
+<tr>
+<td>MySQL User / Schema</td>
+<td><code>central_ledger</code> / <code>central_ledger</code></td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>platform/quoting-service-17.13.8/config/default.json</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="44-quoting-service-handlers">4.4 Quoting Service (Handlers)</h4>
+<p>In a <strong>separate terminal</strong>, start the Kafka consumer handlers for the quoting service:</p>
+<pre><code class="language-bash">cd platform/quoting-service-17.13.8
+npm run start:handlers
+</code></pre>
+<blockquote>
+<p>The handlers consume from Kafka topics (<code>topic-quotes-*</code>, <code>topic-bulkquotes-*</code>, <code>topic-fx-quotes-*</code>) and process quote requests asynchronously. <code>npm install</code> is not needed again if already done in step 4.3.</p>
+</blockquote>
+<h4 id="45-ml-api-adapter">4.5 ML API Adapter</h4>
+<pre><code class="language-bash">cd platform/ml-api-adapter-16.6.1
+npm install
+npm run start:api
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Port</td>
+<td><code>3000</code></td>
+</tr>
+<tr>
+<td>Central Ledger Endpoint</td>
+<td><code>http://localhost:3001</code></td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>platform/ml-api-adapter-16.6.1/config/default.json</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>This is the main entry point for FSPIOP API calls. It forwards transfer requests to the central-ledger via Kafka.</p>
+</blockquote>
+<h4 id="46-central-settlement">4.6 Central Settlement</h4>
+<pre><code class="language-bash">cd platform/central-settlement-17.2.6
+npm install
+npm run start:api
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Port</td>
+<td><code>3007</code></td>
+</tr>
+<tr>
+<td>MySQL User / Schema</td>
+<td><code>central_ledger</code> / <code>central_ledger</code></td>
+</tr>
+<tr>
+<td>Central Ledger Endpoint</td>
+<td><code>http://localhost:3001</code></td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>platform/central-settlement-17.2.6/config/default.json</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="5-building-and-running-the-simulator">5. Building and Running the Simulator</h3>
+<p>The simulator provides two wallet instances (wallet1 and wallet2) that act as DFSPs, allowing you to test end-to-end transfers through the Mojaloop platform.</p>
+<p>The simulator's <strong>Connector</strong> component is production-grade and can be used as the foundation for connecting your FSP to Mojaloop. It reduces one network hop compared to the standard approach:</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Flow</th>
+<th>Hops to Hub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Connector</strong> (recommended)</td>
+<td>FSP → Connector → Hub</td>
+<td>2</td>
+</tr>
+<tr>
+<td>sdk-scheme-adapter</td>
+<td>FSP → Core Connector → sdk-scheme-adapter → Hub</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Both approaches work, but if you want a leaner integration, the Connector provides a more direct path. Alternatively, you can use the <a href="https://github.com/mojaloop/sdk-scheme-adapter">sdk-scheme-adapter</a> with a <a href="https://docs.mojaloop.io/mojaloop-core-connector-specification/">Core Connector</a> if that better suits your architecture.</p>
+<blockquote>
+<p><strong>Note:</strong> If you need ready-made features such as mTLS, transaction logging, and a management portal, consider using <a href="https://github.com/pm4ml">PM4ML (Payment Manager for Mojaloop)</a>, which already bundles a Core Connector and sdk-scheme-adapter out of the box.</p>
+</blockquote>
+<p><strong>Prerequisites:</strong> Apache Maven and <strong>JDK 21</strong> (or 25) must be installed.</p>
+<h4 id="51-build-the-simulator">5.1 Build the Simulator</h4>
+<pre><code class="language-bash">cd simulator
+mvn install -DskipTests=true
+</code></pre>
+<h4 id="52-prepare-the-wallets">5.2 Prepare the Wallets</h4>
+<p>After the build completes, copy the connector JAR and its dependencies into the <code>wallets/</code> folder:</p>
+<pre><code class="language-bash">mkdir -p wallets/lib
+cp simulator/connector/target/mod_connector-1.0.0.jar wallets/
+cp simulator/connector/target/lib/* wallets/lib/
+</code></pre>
+<p>Your <code>wallets/</code> folder should look like this:</p>
+<pre><code>wallets/
+├── mod_connector-1.0.0.jar
+├── lib/                          # dependency JARs
+├── wallet1.sh
+├── wallet1-log4j2.xml
+├── wallet2.sh
+└── wallet2-log4j2.xml
+</code></pre>
+<h4 id="53-run-the-wallets">5.3 Run the Wallets</h4>
+<p>Start each wallet in a <strong>separate terminal</strong>:</p>
+<pre><code class="language-bash"># Terminal 1 — Wallet 1
+cd wallets
+./wallet1.sh
+</code></pre>
+<pre><code class="language-bash"># Terminal 2 — Wallet 2
+cd wallets
+./wallet2.sh
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Wallet</th>
+<th>FSP ID</th>
+<th>Inbound Port</th>
+<th>Outbound Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wallet 1</td>
+<td><code>wallet1</code></td>
+<td><code>8081</code></td>
+<td><code>8080</code></td>
+</tr>
+<tr>
+<td>Wallet 2</td>
+<td><code>wallet2</code></td>
+<td><code>9091</code></td>
+<td><code>9090</code></td>
+</tr>
+</tbody>
+</table>
+<p>Both wallets connect to the platform services at their default local ports (account-lookup on <code>4002</code>, quoting-service on <code>3002</code>, ml-api-adapter on <code>3000</code>).</p>
+<hr />
+<h3 id="6-onboarding-wallets">6. Onboarding Wallets</h3>
+<p>Once all platform services and wallets are running, you need to onboard the wallets (DFSPs) onto the Mojaloop hub. This is done using the Postman collection at <code>tools/postman/Melody.postman_collection.json</code>.</p>
+<p><strong>Prerequisites:</strong> Import the collection into <a href="https://www.postman.com/">Postman</a>.</p>
+<h4 id="61-setup-the-hub">6.1 Setup the Hub</h4>
+<p>Open the <strong>onboarding &gt; create-hub</strong> folder in the Postman collection and run each request in order:</p>
+<ol>
+<li><code>list enums</code> — verify the hub is reachable</li>
+<li><code>setup-HUB_MULTILATERAL_SETTLEMENT</code> — create the multilateral settlement account</li>
+<li><code>setup-HUB_RECONCILIATION</code> — create the reconciliation account</li>
+<li><code>create settlement model</code> — configure the settlement model</li>
+<li><code>add Oracle</code> <em>(optional)</em> — register the an oracle for party lookups. Skip this if you do not have Oracle.</li>
+<li><code>get Oracles</code> <em>(optional)</em> — verify the oracle was registered</li>
+</ol>
+<h4 id="62-create-participants">6.2 Create Participants</h4>
+<p>Open the <strong>onboarding &gt; create-participants</strong> folder. Run the requests for <strong>wallet1</strong> and <strong>wallet2</strong> (steps 1–4 in order):</p>
+<p>For each wallet:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Request</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>create new participant</code></td>
+<td>Register the DFSP with the hub</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>activate POSITION account</code></td>
+<td>Activate the position account</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>create limit and position</code></td>
+<td>Set the Net Debit Cap (NDC) limit</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>fund In to SETTLEMENT account</code></td>
+<td>Fund the settlement account</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>After creating participants, proceed to <a href="#63-register-wallet-endpoints">Section 6.3</a> to register the callback endpoints for wallet1 and wallet2.</p>
+</blockquote>
+<h4 id="63-register-wallet-endpoints">6.3 Register Wallet Endpoints</h4>
+<p>After completing the Postman steps above, run the endpoint registration scripts to register all FSPIOP callback URLs for each wallet:</p>
+<pre><code class="language-bash">./onboarding/register-wallet1-endpoints.sh
+./onboarding/register-wallet2-endpoints.sh
+</code></pre>
+<p>These scripts register callback endpoints (parties, quotes, transfers, bulk operations, etc.) against the central-ledger, pointing to each wallet's outbound port:</p>
+<table>
+<thead>
+<tr>
+<th>Wallet</th>
+<th>Callback Base URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wallet 1</td>
+<td><code>http://localhost:8080</code></td>
+</tr>
+<tr>
+<td>Wallet 2</td>
+<td><code>http://localhost:9090</code></td>
+</tr>
+</tbody>
+</table>
+<p>After this step, both wallets are fully onboarded and ready to send/receive transfers through the Mojaloop platform.</p>
+<hr />
+<h3 id="7-performing-transfers">7. Performing Transfers</h3>
+<p>With all services running and wallets onboarded, you can perform end-to-end transfers using Apache JMeter.</p>
+<p><strong>Prerequisites:</strong> <strong>JDK 21</strong> (or 25) and <a href="https://jmeter.apache.org/download_jmeter.cgi">Apache JMeter <strong>5.6.3</strong></a> must be installed.</p>
+<h4 id="71-run-a-transfer-test">7.1 Run a Transfer Test</h4>
+<ol>
+<li>Open Apache JMeter</li>
+<li>Load the test plan: <strong>File &gt; Open</strong> → <code>tools/jmeter/wallet1-to-wallet2.jmx</code></li>
+<li>Click the <strong>Start</strong> button (▶) to run the test</li>
+</ol>
+<p>The test plan sends transfers from <strong>wallet1</strong> to <strong>wallet2</strong> through the full Mojaloop flow (party lookup → quote → transfer). By default it runs with 1 thread and 100 iterations.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Payer FSP</td>
+<td><code>wallet1</code></td>
+</tr>
+<tr>
+<td>Payee FSP</td>
+<td><code>wallet2</code></td>
+</tr>
+<tr>
+<td>Target</td>
+<td><code>http://localhost:8081</code> (wallet1 inbound)</td>
+</tr>
+<tr>
+<td>Threads</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Loop Count</td>
+<td><code>100</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>A reverse test plan (<code>wallet2-to-wallet1.jmx</code>) is also available in the same folder for testing transfers in the opposite direction.</p>
+</blockquote>
+<hr />
+<h3 id="8-settlement">8. Settlement</h3>
+<p>After performing transfers, you can settle the net positions between participants. The settlement process is available in the Postman collection under the <strong>settlement</strong> folder.</p>
+<p>Follow these steps in order:</p>
+<h4 id="81-close-the-current-settlement-window">8.1 Close the Current Settlement Window</h4>
+<p>Close the currently open settlement window so that all completed transfers are captured for settlement.</p>
+<h4 id="82-create-the-settlement">8.2 Create the Settlement</h4>
+<p>Create a new settlement to calculate the net amounts to be settled between participants. This will show how much each FSP owes or is owed based on the transfers that occurred within the closed window.</p>
+<h4 id="83-update-the-settlement-status">8.3 Update the Settlement Status</h4>
+<p>Update the settlement status to progress it through the settlement lifecycle (e.g., from <code>PENDING_SETTLEMENT</code> to <code>PS_TRANSFERS_RECORDED</code> to <code>PS_TRANSFERS_COMMITTED</code>).</p>
+<h4 id="84-deposit-or-withdraw-funds">8.4 Deposit or Withdraw Funds</h4>
+<p>Based on the net settlement amounts from step 8.2:
+- <strong>Deposit</strong> funds into the settlement account for FSPs that owe money (net debtors)
+- <strong>Withdraw</strong> funds from the settlement account for FSPs that are owed money (net creditors)</p>
+<p>This final step reconciles the actual fund movements and completes the settlement cycle.</p>
+<hr />
+<h3 id="port-summary">Port Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Port(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ml-api-adapter</td>
+<td><code>3000</code></td>
+</tr>
+<tr>
+<td>central-ledger</td>
+<td><code>3001</code></td>
+</tr>
+<tr>
+<td>quoting-service (API)</td>
+<td><code>3002</code></td>
+</tr>
+<tr>
+<td>quoting-service (Monitoring)</td>
+<td><code>3003</code></td>
+</tr>
+<tr>
+<td>central-settlement</td>
+<td><code>3007</code></td>
+</tr>
+<tr>
+<td>account-lookup-service (Admin)</td>
+<td><code>4001</code></td>
+</tr>
+<tr>
+<td>account-lookup-service (API)</td>
+<td><code>4002</code></td>
+</tr>
+<tr>
+<td>account-lookup-service (Monitoring)</td>
+<td><code>4003</code></td>
+</tr>
+<tr>
+<td>Wallet 1 (Inbound / Outbound)</td>
+<td><code>8081</code> / <code>8080</code></td>
+</tr>
+<tr>
+<td>Wallet 2 (Inbound / Outbound)</td>
+<td><code>9091</code> / <code>9090</code></td>
+</tr>
+</tbody>
+</table>
+<p>Source Repository:
+https://github.com/ThitsaX/mojaloop-local-deployment</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../deploy-mojaloop-local-microk8s/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Deploy Mojaloop Locally (MicroK8s)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Deploy Mojaloop Locally (MicroK8s)
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "search.highlight", "search.suggest", "navigation.instant", "content.tabs.link", "navigation.footer", "header.autohide", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
