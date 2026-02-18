@@ -22,11 +22,10 @@ This is **implementation-driven documentation**, not theoretical reference mater
 
 ## 🚀 Getting Started
 
-- **[Deploy Mojaloop Locally (MicroK8s)](deploy-mojaloop-local-microk8s)**  
-  Step-by-step guide to deploy Mojaloop locally using Ubuntu 24.04 and MicroK8s, including:
-  - Mojaloop core services
-  - DFSP onboarding
-  - P2P transfer simulation
+Choose the deployment model that matches your environment:
+
+- **[Deploy Mojaloop Locally (MicroK8s)](deploy-mojaloop-local-microk8s)**
+- **[Deploy Mojaloop Locally (Without Kubernetes)](deploy-mojaloop-local-without8s)**
 
 ---
 
