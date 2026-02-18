@@ -25,7 +25,7 @@ This is **implementation-driven documentation**, not theoretical reference mater
 Choose the deployment model that matches your environment:
 
 - **[Deploy Mojaloop Locally (MicroK8s)](deploy-mojaloop-local-microk8s)**
-- **[Deploy Mojaloop Locally (Without Kubernetes)](deploy-mojaloop-local-without8s)**
+- **[Deploy Mojaloop Locally (Without Kubernetes)](deploy-mojaloop-local-withoutk8s)**
 
 ---
 
