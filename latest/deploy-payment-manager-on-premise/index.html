@@ -1135,8 +1135,9 @@ walletX.&lt;domain&gt; → &lt;external_haproxy_ip&gt;
 </ul>
 <hr />
 <h2 id="8-manual-secret-hub-integration">8. Manual Secret (Hub Integration)</h2>
-<p>To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.</p>
-<p>Create in Vault:</p>
+<p>To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.
+The client secret must be obtained securely from the Mojaloop Hub operator.</p>
+<p>Create in Vault (KV path):</p>
 <pre><code>secret/&lt;pm4ml_id&gt;/
 </code></pre>
 <p>Key:</p>
