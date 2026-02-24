@@ -186,4 +186,4 @@ This document does **not** include:
 
 ## 10. Summary
 
-> **The Mojaloop Hub, PM4ML, and Tazama platforms are deployed using a consistent, secure, and flexible architecture that supports cloud and on-premise environments while maintaining clear trust boundaries and operational resilience.**
+**The Mojaloop Hub, PM4ML, and Tazama platforms are deployed using a consistent, secure, and flexible architecture that supports cloud and on-premise environments while maintaining clear trust boundaries and operational resilience.**
