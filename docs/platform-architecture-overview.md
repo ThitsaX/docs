@@ -136,9 +136,8 @@ Both sites share the same logical architecture. Differences are limited to **cap
 * Separation of **infrastructure trust** and **business trust**
 * Centralized secrets and key management
 
-> Detailed mTLS and JWS mechanisms are documented separately.
 
----
+👉 [Detailed mTLS and JWS mechanisms are documented separately.](https://docs.thitsaworks.com/latest/hub-pm4ml-security-architecture/)
 
 ## 6. Availability and Resilience
 
