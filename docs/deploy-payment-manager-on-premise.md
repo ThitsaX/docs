@@ -56,9 +56,9 @@ The following diagram illustrates the logical and network architecture of the PM
 
 ---
 
-## 1.3 Network Port Requirements
+### 1.3 Network Port Requirements
 
-### 1.3.1 Public Network (External Access)
+#### 1.3.1 Public Network (External Access)
 
 Ports exposed to the internet or external partners.
 
@@ -73,12 +73,12 @@ Ports exposed to the internet or external partners.
 
 ---
 
-### 1.3.2 Private Network (Internal Communication)
+#### 1.3.2 Private Network (Internal Communication)
 
 Ports used for internal cluster, storage, and load balancer communication.  
 These ports must not be exposed publicly.
 
-#### MicroK8s (Kubernetes Cluster)
+##### MicroK8s (Kubernetes Cluster)
 
 | Port         | Protocol | Purpose                            |
 |-------------|----------|------------------------------------|
@@ -89,7 +89,7 @@ These ports must not be exposed publicly.
 
 ---
 
-#### Istio Ingress Gateways (NodePort)
+##### Istio Ingress Gateways (NodePort)
 
 HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 
@@ -114,7 +114,7 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 
 ---
 
-#### MicroCeph (Ceph Cluster)
+##### MicroCeph (Ceph Cluster)
 
 | Port       | Protocol | Purpose                     |
 |-----------|----------|-----------------------------|
@@ -124,7 +124,7 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 
 ---
 
-#### HAProxy (Load Balancer)
+##### HAProxy (Load Balancer)
 
 | Port | Protocol | Purpose                         |
 |------|----------|---------------------------------|
@@ -134,7 +134,7 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 
 ---
 
-#### Internal Security Controls
+##### Internal Security Controls
 
 - NodePort ranges must be restricted to HAProxy source IPs only.  
 - Kubernetes control-plane ports must be restricted to cluster nodes.  
