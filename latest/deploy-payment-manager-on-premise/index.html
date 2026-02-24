@@ -587,6 +587,643 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code-base-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Base Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pm4ml-on-premise-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PM4ML On-Premise Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PM4ML On-Premise Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logical-architecture-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical Architecture View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-architecture-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Architecture View
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-infrastructure-requirements-production-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Infrastructure Requirements (Production Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-network-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Network Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-network-port-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Network Port Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Network Port Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-public-network-external-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1 Public Network (External Access)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-private-network-internal-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2 Private Network (Internal Communication)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.2 Private Network (Internal Communication)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microk8s-kubernetes-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroK8s (Kubernetes Cluster)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#istio-ingress-gateways-nodeport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istio Ingress Gateways (NodePort)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microceph-ceph-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroCeph (Ceph Cluster)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haproxy-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HAProxy (Load Balancer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-security-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Security Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-storage-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Storage Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tools-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tools &amp; Versions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-vm-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. VM Provisioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-infrastructure-sizing-by-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Infrastructure Sizing by Environment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Infrastructure Sizing by Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-production-environment-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Production Environment (PROD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-production-infrastructure-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Production Infrastructure Sizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cold-storage-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cold Storage Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vm-based-cold-storage-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM-Based Cold Storage Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vm-based-cold-storage-is-acceptable-only-when-the-virtualization-platform-provides-guaranteed-performance-and-isolation-equivalent-to-dedicated-physical-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#42-staging-environment-stg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Staging Environment (STG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-staging-infrastructure-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Staging Infrastructure Sizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-environment-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Environment Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-master-and-worker-on-same-node-risk-acceptance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Master and Worker on Same Node (Risk Acceptance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-haproxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. HAProxy Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. HAProxy Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-architecture-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Architecture Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Architecture Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perimeter-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perimeter Firewall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HAProxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#istio-ingress-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istio Ingress Gateway
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-haproxy-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 HAProxy Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-tls-termination-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 TLS Termination Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-high-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 High Availability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-security-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Security Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-public-and-private-ip-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Public and Private IP Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#private-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Private IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-gitops-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. GitOps Deployment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. GitOps Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-platform-applications-deployment-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Platform Applications Deployment Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-clone-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Clone Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-pre-deployment-checklist-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Pre-Deployment Checklist (Applications)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#certificates-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificates &amp; TLS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets &amp; Integrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-run-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Run Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-manual-secret-hub-integrationonboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Manual Secret (Hub Integration/Onboarding)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -640,6 +1277,643 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#code-base-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Base Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pm4ml-on-premise-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PM4ML On-Premise Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PM4ML On-Premise Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logical-architecture-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical Architecture View
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-architecture-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Architecture View
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-infrastructure-requirements-production-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Infrastructure Requirements (Production Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-network-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Network Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-network-port-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Network Port Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Network Port Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-public-network-external-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1 Public Network (External Access)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-private-network-internal-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2 Private Network (Internal Communication)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.2 Private Network (Internal Communication)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microk8s-kubernetes-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroK8s (Kubernetes Cluster)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#istio-ingress-gateways-nodeport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istio Ingress Gateways (NodePort)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microceph-ceph-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroCeph (Ceph Cluster)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haproxy-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HAProxy (Load Balancer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-security-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Security Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-storage-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Storage Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tools-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tools &amp; Versions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-vm-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. VM Provisioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-infrastructure-sizing-by-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Infrastructure Sizing by Environment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Infrastructure Sizing by Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-production-environment-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Production Environment (PROD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-production-infrastructure-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Production Infrastructure Sizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cold-storage-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cold Storage Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vm-based-cold-storage-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM-Based Cold Storage Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vm-based-cold-storage-is-acceptable-only-when-the-virtualization-platform-provides-guaranteed-performance-and-isolation-equivalent-to-dedicated-physical-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#42-staging-environment-stg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Staging Environment (STG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-staging-infrastructure-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Staging Infrastructure Sizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-environment-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Environment Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-master-and-worker-on-same-node-risk-acceptance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Master and Worker on Same Node (Risk Acceptance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-haproxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. HAProxy Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. HAProxy Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-architecture-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Architecture Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Architecture Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perimeter-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perimeter Firewall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HAProxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#istio-ingress-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istio Ingress Gateway
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-haproxy-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 HAProxy Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-tls-termination-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 TLS Termination Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-high-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 High Availability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-security-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Security Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-public-and-private-ip-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Public and Private IP Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#private-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Private IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-gitops-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. GitOps Deployment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. GitOps Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-platform-applications-deployment-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Platform Applications Deployment Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-clone-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Clone Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-pre-deployment-checklist-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Pre-Deployment Checklist (Applications)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#certificates-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificates &amp; TLS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets &amp; Integrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-run-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Run Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-manual-secret-hub-integrationonboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Manual Secret (Hub Integration/Onboarding)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -668,20 +1942,21 @@
 <li>HAProxy (External &amp; Internal Load Balancer)</li>
 <li>WireGuard VPN (Optional)</li>
 </ul>
-<h1 id="code-base-reference">Code Base Reference</h1>
+<hr />
+<h2 id="code-base-reference">Code Base Reference</h2>
 <p>This deployment architecture is derived from the official Mojaloop Infrastructure as Code (IaC) modules:</p>
-<ul>
-<li>Mojaloop IaC Modules: https://github.com/mojaloop/iac-modules</li>
-</ul>
+<p><a href="https://github.com/mojaloop/iac-modules">https://github.com/mojaloop/iac-modules</a></p>
 <p>The original AWS-focused implementation has been adapted and extended to support on-premise infrastructure using MicroK8s, HAProxy, and GitOps-based workflows.</p>
-<h1 id="pm4ml-on-premise-architecture-overview">PM4ML On-Premise Architecture Overview</h1>
+<hr />
+<h2 id="pm4ml-on-premise-architecture-overview">PM4ML On-Premise Architecture Overview</h2>
 <p>The following diagram illustrates the logical and network architecture of the PM4ML on-premise deployment.</p>
-<h2 id="logical-architecture-view">Logical Architecture View</h2>
+<h3 id="logical-architecture-view">Logical Architecture View</h3>
 <p><img alt="Logical Architecture View" src="https://github.com/user-attachments/assets/4d244515-a0f3-47ef-b878-663da6c894c9" /></p>
-<h2 id="network-architecture-view">Network Architecture View</h2>
+<h3 id="network-architecture-view">Network Architecture View</h3>
 <p><img alt="Network Architecture View" src="https://github.com/user-attachments/assets/d48490fd-e95c-4956-9b8d-293f17af03d0" /></p>
-<h1 id="1-prerequisites">1. Prerequisites</h1>
-<h2 id="11-infrastructure-requirements-production-recommended">1.1 Infrastructure Requirements (Production Recommended)</h2>
+<hr />
+<h2 id="1-prerequisites">1. Prerequisites</h2>
+<h3 id="11-infrastructure-requirements-production-recommended">1.1 Infrastructure Requirements (Production Recommended)</h3>
 <table>
 <thead>
 <tr>
@@ -713,13 +1988,15 @@
 </tr>
 </tbody>
 </table>
-<h2 id="12-network-requirements">1.2 Network Requirements</h2>
+<hr />
+<h3 id="12-network-requirements">1.2 Network Requirements</h3>
 <ul>
 <li>Static IP address for each VM  </li>
 <li>Dedicated internal subnet (e.g., <code>10.10.0.0/16</code>)  </li>
 <li>Public IP mapped to HAProxy via firewall or edge device  </li>
 <li>DNS zone (AWS Route53, Cloudflare, or enterprise DNS)  </li>
 </ul>
+<hr />
 <h2 id="13-network-port-requirements">1.3 Network Port Requirements</h2>
 <h3 id="131-public-network-external-access">1.3.1 Public Network (External Access)</h3>
 <p>Ports exposed to the internet or external partners.</p>
@@ -762,6 +2039,7 @@
 <blockquote>
 <p>Replace the WireGuard port with the actual port configured on your firewall or edge device (e.g., FortiGate, F5, or equivalent).</p>
 </blockquote>
+<hr />
 <h3 id="132-private-network-internal-communication">1.3.2 Private Network (Internal Communication)</h3>
 <p>Ports used for internal cluster, storage, and load balancer communication.<br />
 These ports must not be exposed publicly.</p>
@@ -797,6 +2075,7 @@ These ports must not be exposed publicly.</p>
 </tr>
 </tbody>
 </table>
+<hr />
 <h4 id="istio-ingress-gateways-nodeport">Istio Ingress Gateways (NodePort)</h4>
 <p>HAProxy forwards traffic to Kubernetes nodes via NodePort services.</p>
 <p><strong>External Istio Ingress Gateway</strong></p>
@@ -857,6 +2136,7 @@ These ports must not be exposed publicly.</p>
 <p>These NodePorts must be accessible only from HAProxy source IP addresses.<br />
 They must not be exposed to public networks.</p>
 </blockquote>
+<hr />
 <h4 id="microceph-ceph-cluster">MicroCeph (Ceph Cluster)</h4>
 <table>
 <thead>
@@ -884,6 +2164,7 @@ They must not be exposed to public networks.</p>
 </tr>
 </tbody>
 </table>
+<hr />
 <h4 id="haproxy-load-balancer">HAProxy (Load Balancer)</h4>
 <table>
 <thead>
@@ -911,7 +2192,8 @@ They must not be exposed to public networks.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="internal-security-controls">Internal Security Controls</h3>
+<hr />
+<h4 id="internal-security-controls">Internal Security Controls</h4>
 <ul>
 <li>NodePort ranges must be restricted to HAProxy source IPs only.  </li>
 <li>Kubernetes control-plane ports must be restricted to cluster nodes.  </li>
@@ -920,13 +2202,15 @@ They must not be exposed to public networks.</p>
 <li>All ingress traffic must pass through HAProxy before reaching Istio.  </li>
 <li>TLS or mTLS must be enforced where applicable.  </li>
 </ul>
+<hr />
 <h2 id="14-storage-requirements">1.4 Storage Requirements</h2>
 <ul>
 <li>Ceph RBD for Kubernetes persistent volumes  </li>
 <li>Ceph-backed storage for logs, backups, and non-transaction-critical workloads  </li>
 <li>Transaction-critical databases and messaging systems should use local high-performance storage (e.g., NVMe) where required  </li>
 </ul>
-<h1 id="2-tools-versions">2. Tools &amp; Versions</h1>
+<hr />
+<h2 id="2-tools-versions">2. Tools &amp; Versions</h2>
 <table>
 <thead>
 <tr>
@@ -961,7 +2245,8 @@ They must not be exposed to public networks.</p>
 </tr>
 </tbody>
 </table>
-<h1 id="3-vm-provisioning">3. VM Provisioning</h1>
+<hr />
+<h2 id="3-vm-provisioning">3. VM Provisioning</h2>
 <p>VMs may be provisioned using:</p>
 <ul>
 <li>VMware</li>
@@ -970,8 +2255,9 @@ They must not be exposed to public networks.</p>
 <li>CloudStack</li>
 <li>Bare Metal</li>
 </ul>
-<h1 id="4-infrastructure-sizing-by-environment">4. Infrastructure Sizing by Environment</h1>
-<h2 id="41-production-environment-prod">4.1 Production Environment (PROD)</h2>
+<hr />
+<h2 id="4-infrastructure-sizing-by-environment">4. Infrastructure Sizing by Environment</h2>
+<h3 id="41-production-environment-prod">4.1 Production Environment (PROD)</h3>
 <h3 id="recommended-production-infrastructure-sizing">Recommended Production Infrastructure Sizing</h3>
 <table>
 <thead>
@@ -1029,12 +2315,13 @@ They must not be exposed to public networks.</p>
 <tr>
 <td>Backup Target</td>
 <td>×1</td>
-<td>Enterprise backup system</td>
+<td>External USB backup system</td>
 <td>External</td>
 <td>Off-site backup retention</td>
 </tr>
 </tbody>
 </table>
+<hr />
 <h3 id="cold-storage-purpose">Cold Storage Purpose</h3>
 <p>Cold storage infrastructure is designated exclusively for:</p>
 <ul>
@@ -1050,6 +2337,7 @@ They must not be exposed to public networks.</p>
 <li>Messaging systems or performance-critical services  </li>
 </ul>
 <p>This separation ensures optimal transaction performance while meeting regulatory compliance and retention requirements.</p>
+<hr />
 <h3 id="vm-based-cold-storage-considerations">VM-Based Cold Storage Considerations</h3>
 <p>If cold storage is deployed using virtual machines instead of physical servers, the following conditions must be met:</p>
 <ul>
@@ -1059,8 +2347,8 @@ They must not be exposed to public networks.</p>
 <li>Network bandwidth must be sufficient (minimum 10 Gbps recommended)</li>
 <li>Backup and redundancy policies must match physical deployment standards</li>
 </ul>
-<p>VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.</p>
-<h2 id="42-staging-environment-stg">4.2 Staging Environment (STG)</h2>
+<h2 id="vm-based-cold-storage-is-acceptable-only-when-the-virtualization-platform-provides-guaranteed-performance-and-isolation-equivalent-to-dedicated-physical-storage">VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.</h2>
+<h3 id="42-staging-environment-stg">4.2 Staging Environment (STG)</h3>
 <p>Designed for:</p>
 <ul>
 <li>Functional testing</li>
@@ -1103,14 +2391,16 @@ They must not be exposed to public networks.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="43-environment-policy">4.3 Environment Policy</h2>
+<hr />
+<h3 id="43-environment-policy">4.3 Environment Policy</h3>
 <ul>
 <li>Production must use dedicated control plane nodes</li>
 <li>Production must maintain high availability</li>
 <li>Staging may operate with reduced redundancy</li>
 <li>Any deviation from Production requirements must be formally approved</li>
 </ul>
-<h2 id="44-master-and-worker-on-same-node-risk-acceptance">4.4 Master and Worker on Same Node (Risk Acceptance)</h2>
+<hr />
+<h3 id="44-master-and-worker-on-same-node-risk-acceptance">4.4 Master and Worker on Same Node (Risk Acceptance)</h3>
 <p>Combining control plane and worker workloads is technically possible but not recommended for production.</p>
 <p>Risks:</p>
 <ul>
@@ -1127,34 +2417,37 @@ They must not be exposed to public networks.</p>
 <li>No scheduling on control plane nodes</li>
 </ul>
 <p>If combined, formal risk acceptance is required.</p>
-<h1 id="5-haproxy-configuration-on-premise">5. HAProxy Configuration (On-Premise)</h1>
-<h2 id="51-overview">5.1 Overview</h2>
+<hr />
+<h2 id="5-haproxy-configuration">5. HAProxy Configuration</h2>
+<h3 id="51-overview">5.1 Overview</h3>
 <p>HAProxy acts as the ingress load-balancing layer in front of the MicroK8s cluster.</p>
 <p>Architecture:</p>
 <pre><code>Client → Perimeter Firewall → HAProxy → Istio Ingress Gateway → PM4ML Services
 </code></pre>
-<h2 id="52-architecture-components">5.2 Architecture Components</h2>
-<h3 id="perimeter-firewall">Perimeter Firewall</h3>
+<hr />
+<h3 id="52-architecture-components">5.2 Architecture Components</h3>
+<h4 id="perimeter-firewall">Perimeter Firewall</h4>
 <ul>
 <li>First security boundary</li>
 <li>Filters inbound traffic</li>
 <li>May perform NAT</li>
 <li>Centralized logging</li>
 </ul>
-<h3 id="haproxy">HAProxy</h3>
+<h4 id="haproxy">HAProxy</h4>
 <ul>
 <li>Layer 4 (TCP) load balancing</li>
 <li>Forwards traffic to Kubernetes nodes</li>
 <li>Does not terminate TLS</li>
 </ul>
-<h3 id="istio-ingress-gateway">Istio Ingress Gateway</h3>
+<h4 id="istio-ingress-gateway">Istio Ingress Gateway</h4>
 <ul>
 <li>Terminates TLS</li>
 <li>Applies routing policies</li>
 <li>Enforces service mesh security</li>
 <li>Routes traffic to PM4ML</li>
 </ul>
-<h2 id="53-haproxy-interfaces">5.3 HAProxy Interfaces</h2>
+<hr />
+<h3 id="53-haproxy-interfaces">5.3 HAProxy Interfaces</h3>
 <table>
 <thead>
 <tr>
@@ -1173,7 +2466,8 @@ They must not be exposed to public networks.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="54-tls-termination-strategy">5.4 TLS Termination Strategy</h2>
+<hr />
+<h3 id="54-tls-termination-strategy">5.4 TLS Termination Strategy</h3>
 <p>TLS termination occurs at Istio Ingress Gateway.</p>
 <p>Benefits:</p>
 <ul>
@@ -1182,20 +2476,23 @@ They must not be exposed to public networks.</p>
 <li>Improved observability</li>
 <li>Reduced HAProxy complexity</li>
 </ul>
-<h2 id="55-high-availability">5.5 High Availability</h2>
+<hr />
+<h3 id="55-high-availability">5.5 High Availability</h3>
 <ul>
 <li>Two HAProxy nodes (Production)</li>
 <li>Firewall-level failover or VIP</li>
 <li>Separate physical hosts where possible</li>
 </ul>
-<h2 id="56-security-controls">5.6 Security Controls</h2>
+<hr />
+<h3 id="56-security-controls">5.6 Security Controls</h3>
 <ul>
 <li>Expose only required ports (typically 443)</li>
 <li>Restrict SSH access</li>
 <li>Apply host-level firewall rules</li>
 <li>Integrate logs into monitoring/SIEM</li>
 </ul>
-<h2 id="57-public-and-private-ip-requirements">5.7 Public and Private IP Requirements</h2>
+<hr />
+<h3 id="57-public-and-private-ip-requirements">5.7 Public and Private IP Requirements</h3>
 <h3 id="public-ip">Public IP</h3>
 <ul>
 <li>Assigned at firewall layer</li>
@@ -1213,9 +2510,10 @@ They must not be exposed to public networks.</p>
 <li>Kubernetes Masters</li>
 <li>Kubernetes Workers</li>
 <li>Storage Cluster</li>
-<li>Bastion Host(Optional)</li>
+<li>Bastion Host</li>
 </ul>
-<h1 id="6-gitops-deployment">6. GitOps Deployment</h1>
+<hr />
+<h2 id="6-gitops-deployment">6. GitOps Deployment</h2>
 <p>The customer must provide and maintain their own Git repository for GitOps-based deployment.</p>
 <p>Requirements:</p>
 <ul>
@@ -1225,7 +2523,8 @@ They must not be exposed to public networks.</p>
 <li>Access configured in Argo CD</li>
 </ul>
 <p>All platform manifests and Helm values must be stored in the customer's repository.</p>
-<h2 id="61-platform-applications-deployment-order">6.1 Platform Applications Deployment Order</h2>
+<hr />
+<h3 id="61-platform-applications-deployment-order">6.1 Platform Applications Deployment Order</h3>
 <p>Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.</p>
 <ul>
 <li><strong>Base Utilities</strong></li>
@@ -1304,11 +2603,13 @@ They must not be exposed to public networks.</p>
 </li>
 <li><code>pm4ml</code></li>
 </ul>
-<h2 id="62-clone-repository">6.2 Clone Repository</h2>
+<hr />
+<h3 id="62-clone-repository">6.2 Clone Repository</h3>
 <pre><code class="language-bash">git clone &lt;your-onprem-gitops-repo&gt;
 cd &lt;repo&gt;
 </code></pre>
-<h2 id="63-pre-deployment-checklist-applications">6.3 Pre-Deployment Checklist (Applications)</h2>
+<hr />
+<h3 id="63-pre-deployment-checklist-applications">6.3 Pre-Deployment Checklist (Applications)</h3>
 <p>Before running <code>5.apps_setup.yml</code>, verify the following:</p>
 <h3 id="configuration">Configuration</h3>
 <ul>
@@ -1346,7 +2647,8 @@ cd &lt;repo&gt;
 <li>[ ] HPA configuration validated (if enabled)</li>
 </ul>
 <p>Deployment must not proceed unless all checklist items are verified.</p>
-<h2 id="64-run-deployment">6.4 Run Deployment</h2>
+<hr />
+<h3 id="64-run-deployment">6.4 Run Deployment</h3>
 <p>Execute in order:</p>
 <pre><code class="language-bash">ansible-playbook -i inventory.ini 1.microk8s_setup.yml
 ansible-playbook -i inventory.ini 2.argocd_setup.yml
@@ -1355,7 +2657,8 @@ ansible-playbook -i inventory.ini 4.ceph.yml
 ansible-playbook -i inventory.ini 5.apps_setup.yml
 ansible-playbook -i inventory.ini 6.system-tuning.yml
 </code></pre>
-<h2 id="65-manual-secret-hub-integrationonboarding">6.5 Manual Secret (Hub Integration/Onboarding)</h2>
+<hr />
+<h3 id="65-manual-secret-hub-integrationonboarding">6.5 Manual Secret (Hub Integration/Onboarding)</h3>
 <p>To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.
 The client secret must be obtained securely from the Mojaloop Hub operator.</p>
 <p>Create in Vault (KV path):</p>
@@ -1364,7 +2667,8 @@ The client secret must be obtained securely from the Mojaloop Hub operator.</p>
 <p>Key:</p>
 <pre><code>mcmdev_client_secret
 </code></pre>
-<h2 id="66-verification">6.6 Verification</h2>
+<hr />
+<h3 id="66-verification">6.6 Verification</h3>
 <pre><code class="language-bash">kubectl get nodes
 kubectl get app -A
 </code></pre>
