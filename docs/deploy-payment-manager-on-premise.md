@@ -11,29 +11,32 @@ This document provides step-by-step guidance for deploying **Payment Manager for
 * HAProxy (External & Internal Load Balancer)
 * WireGuard VPN (Optional)
 
+---
 
-# Code Base Reference
+## Code Base Reference
 
 This deployment architecture is derived from the official Mojaloop Infrastructure as Code (IaC) modules:
 
-- Mojaloop IaC Modules: https://github.com/mojaloop/iac-modules
+[https://github.com/mojaloop/iac-modules](https://github.com/mojaloop/iac-modules)
 
 The original AWS-focused implementation has been adapted and extended to support on-premise infrastructure using MicroK8s, HAProxy, and GitOps-based workflows.
 
-# PM4ML On-Premise Architecture Overview
+---
+## PM4ML On-Premise Architecture Overview
 
 The following diagram illustrates the logical and network architecture of the PM4ML on-premise deployment.
 
-## Logical Architecture View
+### Logical Architecture View
 ![Logical Architecture View](https://github.com/user-attachments/assets/4d244515-a0f3-47ef-b878-663da6c894c9)
 
 
-## Network Architecture View
+### Network Architecture View
 ![Network Architecture View](https://github.com/user-attachments/assets/d48490fd-e95c-4956-9b8d-293f17af03d0)
 
-# 1. Prerequisites
+---
+## 1. Prerequisites
 
-## 1.1 Infrastructure Requirements (Production Recommended)
+### 1.1 Infrastructure Requirements (Production Recommended)
 
 | Component               | Count | Purpose                                |
 | ----------------------- | ----- | -------------------------------------- |
@@ -42,14 +45,16 @@ The following diagram illustrates the logical and network architecture of the PM
 | Worker Nodes            | 3+    | Application workloads                  |
 | Storage Servers (Ceph)  | 3+    | Distributed storage cluster            |
 
+---
 
-## 1.2 Network Requirements
+### 1.2 Network Requirements
 
 - Static IP address for each VM  
 - Dedicated internal subnet (e.g., `10.10.0.0/16`)  
 - Public IP mapped to HAProxy via firewall or edge device  
 - DNS zone (AWS Route53, Cloudflare, or enterprise DNS)  
 
+---
 
 ## 1.3 Network Port Requirements
 
@@ -66,6 +71,7 @@ Ports exposed to the internet or external partners.
 
 > Replace the WireGuard port with the actual port configured on your firewall or edge device (e.g., FortiGate, F5, or equivalent).
 
+---
 
 ### 1.3.2 Private Network (Internal Communication)
 
@@ -81,6 +87,7 @@ These ports must not be exposed publicly.
 | 25000       | TCP      | MicroK8s Cluster Agent             |
 | 12379-12380 | TCP      | etcd (MicroK8s datastore)          |
 
+---
 
 #### Istio Ingress Gateways (NodePort)
 
@@ -105,6 +112,7 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 > These NodePorts must be accessible only from HAProxy source IP addresses.  
 > They must not be exposed to public networks.
 
+---
 
 #### MicroCeph (Ceph Cluster)
 
@@ -114,6 +122,7 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 | 3300      | TCP      | Ceph Monitor (v2)           |
 | 6800-7300 | TCP      | Ceph OSD communication      |
 
+---
 
 #### HAProxy (Load Balancer)
 
@@ -123,8 +132,9 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 | 443  | TCP      | Frontend HTTPS                  |
 | 8404 | TCP      | HAProxy statistics (if enabled) |
 
+---
 
-### Internal Security Controls
+#### Internal Security Controls
 
 - NodePort ranges must be restricted to HAProxy source IPs only.  
 - Kubernetes control-plane ports must be restricted to cluster nodes.  
@@ -133,14 +143,16 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 - All ingress traffic must pass through HAProxy before reaching Istio.  
 - TLS or mTLS must be enforced where applicable.  
 
+---
 
 ## 1.4 Storage Requirements
 
 - Ceph RBD for Kubernetes persistent volumes  
 - Ceph-backed storage for logs, backups, and non-transaction-critical workloads  
 - Transaction-critical databases and messaging systems should use local high-performance storage (e.g., NVMe) where required  
+---
 
-# 2. Tools & Versions
+## 2. Tools & Versions
 
 | Tool     | Version                  |
 | -------- | ------------------------ |
@@ -151,8 +163,9 @@ HAProxy forwards traffic to Kubernetes nodes via NodePort services.
 | kubectl  | Matching cluster version |
 | Git      | Latest stable            |
 
+---
 
-# 3. VM Provisioning
+## 3. VM Provisioning
 
 VMs may be provisioned using:
 
@@ -162,9 +175,11 @@ VMs may be provisioned using:
 * CloudStack
 * Bare Metal
 
-# 4. Infrastructure Sizing by Environment
+---
 
-## 4.1 Production Environment (PROD)
+## 4. Infrastructure Sizing by Environment
+
+### 4.1 Production Environment (PROD)
 
 ### Recommended Production Infrastructure Sizing
 
@@ -176,7 +191,9 @@ VMs may be provisioned using:
 | Cold Data Storage Cluster        | ×3 Servers | 16 CPU Cores, 64 GB RAM; OS: 2 × 500 GB SSD (RAID1); Data: 6 × 8 TB HDD; Network: 2 × 10 Gbps | Physical       | Recommended enterprise-grade storage     |
 | Cold Data Storage Cluster (Alternative)  | ×3 VMs     | 16 vCPU, 64 GB RAM; OS: 200 GB SSD; Data: 20–40 TB dedicated enterprise block storage                | VM             | Must match physical capacity & IOPS SLA  |
 | Bastion Host (Optional)          | ×1 Server  | 2 CPU Cores, 8 GB RAM, 50 GB SSD                                                                | VM             | Secure administrative access             |
-| Backup Target                    | ×1         | Enterprise backup system                                                        | External       | Off-site backup retention                |
+| Backup Target                    | ×1         | External USB backup system                                                        | External       | Off-site backup retention                |
+
+---
 
 ### Cold Storage Purpose
 
@@ -195,6 +212,7 @@ Cold storage must **not** be used for:
 
 This separation ensures optimal transaction performance while meeting regulatory compliance and retention requirements.
 
+---
 
 ### VM-Based Cold Storage Considerations
 
@@ -207,8 +225,9 @@ If cold storage is deployed using virtual machines instead of physical servers, 
 - Backup and redundancy policies must match physical deployment standards
 
 VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.
+---
 
-## 4.2 Staging Environment (STG)
+### 4.2 Staging Environment (STG)
 
 Designed for:
 
@@ -225,16 +244,18 @@ Designed for:
 | Load Balancer (HAProxy)    | ×1 Server  | 2 CPU Cores, 4 GB RAM, 100 GB SSD                                   | VM             | Single instance                      |
 | Cold Data Storage          | ×1 Server  | 8 CPU Cores, 32 GB RAM; OS: 200 GB SSD; Data: 2 × 2 TB HDD | VM or Physical | Reduced retention, non-production logs |
 
+---
 
-## 4.3 Environment Policy
+### 4.3 Environment Policy
 
 * Production must use dedicated control plane nodes
 * Production must maintain high availability
 * Staging may operate with reduced redundancy
 * Any deviation from Production requirements must be formally approved
 
+---
 
-## 4.4 Master and Worker on Same Node (Risk Acceptance)
+### 4.4 Master and Worker on Same Node (Risk Acceptance)
 
 Combining control plane and worker workloads is technically possible but not recommended for production.
 
@@ -254,9 +275,11 @@ Production recommendation:
 
 If combined, formal risk acceptance is required.
 
-# 5. HAProxy Configuration (On-Premise)
+---
 
-## 5.1 Overview
+## 5. HAProxy Configuration
+
+### 5.1 Overview
 
 HAProxy acts as the ingress load-balancing layer in front of the MicroK8s cluster.
 
@@ -266,37 +289,42 @@ Architecture:
 Client → Perimeter Firewall → HAProxy → Istio Ingress Gateway → PM4ML Services
 ```
 
-## 5.2 Architecture Components
+---
 
-### Perimeter Firewall
+### 5.2 Architecture Components
+
+#### Perimeter Firewall
 
 * First security boundary
 * Filters inbound traffic
 * May perform NAT
 * Centralized logging
 
-### HAProxy
+#### HAProxy
 
 * Layer 4 (TCP) load balancing
 * Forwards traffic to Kubernetes nodes
 * Does not terminate TLS
 
-### Istio Ingress Gateway
+#### Istio Ingress Gateway
 
 * Terminates TLS
 * Applies routing policies
 * Enforces service mesh security
 * Routes traffic to PM4ML
 
-## 5.3 HAProxy Interfaces
+---
+
+### 5.3 HAProxy Interfaces
 
 | Interface | Purpose                        |
 | --------- | ------------------------------ |
 | Public    | Receives traffic from firewall |
 | Private   | Forwards traffic to Kubernetes |
 
+---
 
-## 5.4 TLS Termination Strategy
+### 5.4 TLS Termination Strategy
 
 TLS termination occurs at Istio Ingress Gateway.
 
@@ -307,20 +335,26 @@ Benefits:
 * Improved observability
 * Reduced HAProxy complexity
 
-## 5.5 High Availability
+---
+
+### 5.5 High Availability
 
 * Two HAProxy nodes (Production)
 * Firewall-level failover or VIP
 * Separate physical hosts where possible
 
-## 5.6 Security Controls
+---
+
+### 5.6 Security Controls
 
 * Expose only required ports (typically 443)
 * Restrict SSH access
 * Apply host-level firewall rules
 * Integrate logs into monitoring/SIEM
 
-## 5.7 Public and Private IP Requirements
+---
+
+### 5.7 Public and Private IP Requirements
 
 ### Public IP
 
@@ -343,9 +377,11 @@ Required for:
 * Kubernetes Masters
 * Kubernetes Workers
 * Storage Cluster
-* Bastion Host(Optional)
+* Bastion Host
 
-# 6. GitOps Deployment
+---
+
+## 6. GitOps Deployment
 
 The customer must provide and maintain their own Git repository for GitOps-based deployment.
 
@@ -358,7 +394,8 @@ Requirements:
 
 All platform manifests and Helm values must be stored in the customer's repository.
 
-## 6.1 Platform Applications Deployment Order
+---
+### 6.1 Platform Applications Deployment Order
 
 Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.
 
@@ -407,15 +444,18 @@ Argo CD applications must be deployed in the following sequence to satisfy depen
 
 - **PM4ML Core**
   - `pm4ml`
+---
 
-## 6.2 Clone Repository
+### 6.2 Clone Repository
 
 ```bash
 git clone <your-onprem-gitops-repo>
 cd <repo>
 ```
 
-## 6.3 Pre-Deployment Checklist (Applications)
+---
+
+### 6.3 Pre-Deployment Checklist (Applications)
 
 Before running `5.apps_setup.yml`, verify the following:
 
@@ -456,7 +496,9 @@ Before running `5.apps_setup.yml`, verify the following:
 
 Deployment must not proceed unless all checklist items are verified.
 
-## 6.4 Run Deployment
+---
+
+### 6.4 Run Deployment
 
 Execute in order:
 
@@ -469,7 +511,9 @@ ansible-playbook -i inventory.ini 5.apps_setup.yml
 ansible-playbook -i inventory.ini 6.system-tuning.yml
 ```
 
-## 6.5 Manual Secret (Hub Integration/Onboarding)
+---
+
+### 6.5 Manual Secret (Hub Integration/Onboarding)
 
 To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.
 The client secret must be obtained securely from the Mojaloop Hub operator.
@@ -486,7 +530,9 @@ Key:
 mcmdev_client_secret
 ```
 
-## 6.6 Verification
+---
+
+### 6.6 Verification
 
 ```bash
 kubectl get nodes
