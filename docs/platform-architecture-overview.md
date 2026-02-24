@@ -116,15 +116,17 @@ Both sites share the same logical architecture. Differences are limited to **cap
 ## 5. Security Architecture (High Level)
 
 ```text
-┌────────┐      mTLS + JWS       ┌─────────┐
-│  Hub   │  ◀────────────────▶   │  PM4ML  │
-└────────┘                       └─────────┘
-       │
-       │  Transaction Events
-       ▼
-┌─────────┐
-│ Tazama  │
-└─────────┘
+                     ┌─────────┐
+                     │ Tazama  │
+                     └─────────┘
+                      ▲      ▲
+                      │      │
+        Transaction   │      │  Transaction
+        Events        │      │  Events
+                      │      │
+┌────────┐   HTTPS + Security Stack   ┌─────────┐
+│  Hub   │  ◀──────────────────────▶  │  PM4ML  │
+└────────┘  mTLS + OAuth2 + JWS + ILP └─────────┘
 ```
 
 ### Security Principles
