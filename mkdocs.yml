@@ -35,4 +35,4 @@ nav:
   - Deployment:
       - Deploy Mojaloop Locally (MicroK8s): deploy-mojaloop-local-microk8s.md    
       - Deploy Mojaloop Locally (Without Kubernetes): deploy-mojaloop-local-withoutk8s.md
-      - Deploy Mojaloop Payment Manager (On-Premise): deploy-mojaloop-payment-manager-on-premise.md
+      - Deploy Mojaloop Payment Manager (On-Premise): deploy-payment-manager-on-premise.md
