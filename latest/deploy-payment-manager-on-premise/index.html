@@ -23,7 +23,7 @@
     
     
       
-        <title>🏢 Draft - Payment Manager for Mojaloop Production Deployment (On-Premise) - ThitsaWorks Documentation</title>
+        <title>🏢 Payment Manager for Mojaloop (PM4ML) - ThitsaWorks Documentation</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#draft-payment-manager-for-mojaloop-production-deployment-on-premise" class="md-skip">
+        <a href="#payment-manager-for-mojaloop-pm4ml" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              🏢 Draft - Payment Manager for Mojaloop Production Deployment (On-Premise)
+              🏢 Payment Manager for Mojaloop (PM4ML)
             
           </span>
         </div>
@@ -542,10 +542,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#code-base-reference" class="md-nav__link">
+  <a href="#production-deployment-guide-on-premise" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📦 Code Base Reference
+        Production Deployment Guide (On-Premise)
       
     </span>
   </a>
@@ -569,86 +569,29 @@
 
 
 
-<h1 id="draft-payment-manager-for-mojaloop-production-deployment-on-premise">🏢 Draft - Payment Manager for Mojaloop Production Deployment (On-Premise)</h1>
-<p>This guide provides step-by-step instructions for deploying <strong>Payment Manager for Mojaloop (PM4ML)</strong> in an <strong>on-premise data center environment</strong> using:</p>
+<h1 id="payment-manager-for-mojaloop-pm4ml">🏢 Payment Manager for Mojaloop (PM4ML)</h1>
+<h2 id="production-deployment-guide-on-premise">Production Deployment Guide (On-Premise)</h2>
+<p>This document provides step-by-step guidance for deploying <strong>Payment Manager for Mojaloop (PM4ML)</strong> in an on-premise data center environment using:</p>
 <ul>
 <li>Ubuntu 24.04 LTS</li>
 <li>MicroK8s (Kubernetes)</li>
 <li>Ansible</li>
-<li>GitOps with ArgoCD</li>
+<li>GitOps with Argo CD</li>
 <li>HAProxy (External &amp; Internal Load Balancer)</li>
 <li>WireGuard VPN (Optional)</li>
 </ul>
 <hr />
-<h2 id="code-base-reference">📦 Code Base Reference</h2>
+<h1 id="code-base-reference">📦 Code Base Reference</h1>
 <p>This deployment architecture is derived from the official Mojaloop Infrastructure as Code (IaC) modules:</p>
-<p>👉 https://github.com/mojaloop/iac-modules</p>
+<p><a href="https://github.com/mojaloop/iac-modules">https://github.com/mojaloop/iac-modules</a></p>
 <p>The original AWS-focused implementation has been adapted and extended to support on-premise infrastructure using MicroK8s, HAProxy, and GitOps-based workflows.</p>
 <hr />
-<h1 id="platform-applications-deployment-order">🚀 Platform Applications Deployment Order</h1>
-<p>The following ArgoCD applications are deployed in a structured sequence to satisfy dependencies and ensure system stability.</p>
-<hr />
-<h2 id="1-base-utilities">1️⃣ Base Utilities</h2>
-<ul>
-<li><code>base-utils</code></li>
-</ul>
-<h2 id="2-storage-layer">2️⃣ Storage Layer</h2>
-<ul>
-<li><code>storage-app</code></li>
-</ul>
-<h2 id="3-certificate-management">3️⃣ Certificate Management</h2>
-<ul>
-<li><code>certmanager-helm</code></li>
-<li><code>certmanager-app</code></li>
-<li><code>certmanager-clusterissuers</code></li>
-</ul>
-<h2 id="4-service-mesh">4️⃣ Service Mesh</h2>
-<ul>
-<li><code>istio-app</code></li>
-<li><code>istio-main-app</code></li>
-<li><code>istio-gateways-app</code></li>
-</ul>
-<h2 id="5-dns-management">5️⃣ DNS Management</h2>
-<ul>
-<li><code>external-dns-app</code></li>
-</ul>
-<h2 id="6-vault-storage-backend">6️⃣ Vault Storage Backend</h2>
-<ul>
-<li><code>consul-app</code><br />
-<em>(Provides the storage backend for HashiCorp Vault)</em></li>
-</ul>
-<h2 id="7-vault-secrets-management">7️⃣ Vault &amp; Secrets Management</h2>
-<ul>
-<li><code>vault-app</code></li>
-<li><code>vault</code></li>
-<li><code>vault-config-operator</code></li>
-<li><code>vault-pki-app</code></li>
-</ul>
-<h2 id="8-stateful-resources">8️⃣ Stateful Resources</h2>
-<ul>
-<li><code>stateful-resources-operators-app</code></li>
-<li><code>common-stateful-resources-app</code></li>
-</ul>
-<h2 id="9-monitoring-stack">9️⃣ Monitoring Stack</h2>
-<ul>
-<li><code>monitoring-app</code></li>
-<li><code>monitoring-install</code></li>
-<li><code>monitoring-post-config</code></li>
-</ul>
-<h2 id="10-identity-access-management">🔐 1️⃣0️⃣ Identity &amp; Access Management</h2>
-<ul>
-<li><code>keycloak-app</code></li>
-<li><code>keycloak-install</code></li>
-<li><code>keycloak-post-config</code></li>
-<li><code>ory-app</code></li>
-</ul>
-<h2 id="11-pm4ml-core">💳 1️⃣1️⃣ PM4ML Core</h2>
-<ul>
-<li><code>pm4ml</code></li>
-</ul>
-<hr />
-<h1 id="1-prerequisites">📌 1. Prerequisites</h1>
-<h2 id="infrastructure-requirements-production-recommended">🖥 Infrastructure Requirements (Production Recommended)</h2>
+<h1 id="pm4ml-on-premise-architecture-overview">🏗 PM4ML On-Premise Architecture Overview</h1>
+<p>The following diagram illustrates the logical and network architecture of the PM4ML on-premise deployment.</p>
+<p>(Insert Mermaid diagram here)</p>
+<h2 id="_1"><img width="1585" height="1046" alt="image" src="https://github.com/user-attachments/assets/27e7d7e6-9642-4b9c-8365-0e538ad9fc81" /></h2>
+<h1 id="1-prerequisites">1. Prerequisites</h1>
+<h2 id="11-infrastructure-requirements-production-recommended">1.1 Infrastructure Requirements (Production Recommended)</h2>
 <table>
 <thead>
 <tr>
@@ -679,7 +622,7 @@
 <td>Cold storage</td>
 </tr>
 <tr>
-<td>Bastion Host(Optional)</td>
+<td>Bastion Host (Optional)</td>
 <td>1</td>
 <td>Secure administrative access</td>
 </tr>
@@ -691,14 +634,14 @@
 </tbody>
 </table>
 <hr />
-<h2 id="network-requirements">🌐 Network Requirements</h2>
+<h2 id="12-network-requirements">1.2 Network Requirements</h2>
 <ul>
-<li>Static IP for each VM</li>
-<li>Internal subnet (e.g. <code>10.10.0.0/16</code>)</li>
-<li>Public IP mapped to HAProxy</li>
-<li>DNS zone (AWS or Cloudflare)</li>
-<li>Required Ports:</li>
+<li>Static IP address for each VM</li>
+<li>Internal subnet (e.g., <code>10.10.0.0/16</code>)</li>
+<li>Public IP mapped to HAProxy via firewall</li>
+<li>DNS zone (AWS, Cloudflare, or enterprise DNS)</li>
 </ul>
+<h3 id="required-ports">Required Ports</h3>
 <table>
 <thead>
 <tr>
@@ -720,19 +663,19 @@
 <td>HTTPS</td>
 </tr>
 <tr>
-<td>WireGuard port</td>
+<td>WireGuard Port</td>
 <td>VPN (if enabled)</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="storage-requirements">💾 Storage Requirements</h2>
+<h2 id="13-storage-requirements">1.3 Storage Requirements</h2>
 <ul>
 <li>Ceph RBD / CephFS</li>
-<li>S3-compatible</li>
+<li>S3-compatible storage</li>
 </ul>
 <hr />
-<h1 id="2-tools-versions">📦 2. Tools &amp; Versions</h1>
+<h1 id="2-tools-versions">2. Tools &amp; Versions</h1>
 <table>
 <thead>
 <tr>
@@ -763,13 +706,13 @@
 </tr>
 <tr>
 <td>Git</td>
-<td>Latest</td>
+<td>Latest stable</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h1 id="3-vm-provisioning">🏗 3. VM Provisioning</h1>
-<p>Provision VMs using:</p>
+<h1 id="3-vm-provisioning">3. VM Provisioning</h1>
+<p>VMs may be provisioned using:</p>
 <ul>
 <li>VMware</li>
 <li>Proxmox</li>
@@ -777,69 +720,338 @@
 <li>CloudStack</li>
 <li>Bare Metal</li>
 </ul>
-<h3 id="recommended-vm-sizing">Recommended VM Sizing</h3>
+<hr />
+<h1 id="4-infrastructure-sizing-by-environment">4. Infrastructure Sizing by Environment</h1>
+<h2 id="41-production-environment-prod">4.1 Production Environment (PROD)</h2>
+<h3 id="recommended-production-infrastructure-sizing">Recommended Production Infrastructure Sizing</h3>
 <table>
 <thead>
 <tr>
-<th>Role</th>
-<th>vCPU</th>
-<th>RAM</th>
-<th>Disk</th>
+<th>Component</th>
+<th>Quantity</th>
+<th>CPU / RAM / Storage (Per Server)</th>
+<th>Deployment Type</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Master</td>
-<td>4</td>
-<td>16GB</td>
-<td>200GB</td>
+<td>Master Node Cluster</td>
+<td>×3 Servers</td>
+<td>8 CPU Cores, 32 GB RAM, 2 × 300 GB NVMe</td>
+<td>VM</td>
+<td>Dedicated control plane nodes</td>
 </tr>
 <tr>
-<td>Worker</td>
-<td>8</td>
-<td>16GB</td>
-<td>200GB</td>
+<td>Worker Node Cluster</td>
+<td>×3 Servers</td>
+<td>16 CPU Cores, 64 GB RAM, 2 × 500 GB NVMe</td>
+<td>VM</td>
+<td>Application workloads only</td>
 </tr>
 <tr>
-<td>HAProxy</td>
-<td>2</td>
-<td>4GB</td>
-<td>50GB</td>
+<td>Load Balancers (HAProxy)</td>
+<td>×2 Servers</td>
+<td>4 CPU Cores, 16 GB RAM, 100 GB SSD</td>
+<td>VM</td>
+<td>Active/Active or Active/Standby</td>
 </tr>
 <tr>
-<td>Bastion(Optional)</td>
-<td>2</td>
-<td>4GB</td>
-<td>40GB</td>
+<td>Cold Data Storage Cluster</td>
+<td>×3 Servers</td>
+<td>16 CPU Cores, 64 GB RAM; OS: 2 × 500 GB SSD (RAID1); Data: 6 × 8 TB HDD; Network: 2 × 10 Gbps</td>
+<td>Physical</td>
+<td>Enterprise storage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cold-storage-purpose">Cold Storage Purpose</h3>
+<p>Cold storage devices are intended exclusively for:</p>
+<ul>
+<li>Long-term regulatory record retention</li>
+<li>Backup archives</li>
+<li>Ledger export snapshots</li>
+<li>Log archival storage</li>
+</ul>
+<p>Cold storage must not be used for latency-sensitive transaction processing workloads.</p>
+<hr />
+<h2 id="42-staging-environment-stg">4.2 Staging Environment (STG)</h2>
+<p>Designed for:</p>
+<ul>
+<li>Functional testing</li>
+<li>Integration testing</li>
+<li>Performance validation</li>
+<li>Pre-production validation</li>
+</ul>
+<h3 id="recommended-staging-infrastructure-sizing">Recommended Staging Infrastructure Sizing</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Quantity</th>
+<th>CPU / RAM / Storage (Per Server)</th>
+<th>Deployment Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Master Node Cluster</td>
+<td>×3 Servers</td>
+<td>4 CPU Cores, 16 GB RAM, 200 GB SSD</td>
+<td>VM</td>
+<td>Control plane</td>
 </tr>
 <tr>
-<td>Storage</td>
-<td>8</td>
-<td>32GB</td>
-<td>Based on workload</td>
+<td>Worker Node Cluster</td>
+<td>×2 Servers</td>
+<td>8 CPU Cores, 32 GB RAM, 300 GB SSD</td>
+<td>VM</td>
+<td>Application workloads</td>
+</tr>
+<tr>
+<td>Load Balancer (HAProxy)</td>
+<td>×1 Server</td>
+<td>2 CPU Cores, 8 GB RAM, 50 GB SSD</td>
+<td>VM</td>
+<td>Single instance</td>
+</tr>
+<tr>
+<td>Cold Storage</td>
+<td>Optional</td>
+<td>Reduced capacity</td>
+<td>VM or Shared Storage</td>
+<td>Optional</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h1 id="5-haproxy-configuration-on-prem">🌍 5. HAProxy Configuration (On-Prem)</h1>
-<h2 id="haproxy">HAProxy</h2>
+<h2 id="43-environment-policy">4.3 Environment Policy</h2>
 <ul>
-<li>Two network interfaces required</li>
-<li>Binds to public IP for public subnet</li>
-<li>Binds to private IP for private subnet </li>
+<li>Production must use dedicated control plane nodes</li>
+<li>Production must maintain high availability</li>
+<li>Staging may operate with reduced redundancy</li>
+<li>Any deviation from Production requirements must be formally approved</li>
 </ul>
 <hr />
-<h1 id="6-gitops-deployment">🔁 6. GitOps Deployment</h1>
-<h2 id="clone-gitops-repository">Clone GitOps Repository</h2>
+<h2 id="44-master-and-worker-on-same-node-risk-acceptance">4.4 Master and Worker on Same Node (Risk Acceptance)</h2>
+<p>Combining control plane and worker workloads is technically possible but not recommended for production.</p>
+<p>Risks:</p>
+<ul>
+<li>Resource contention</li>
+<li>Reduced stability under load</li>
+<li>Increased blast radius</li>
+<li>Difficult capacity planning</li>
+<li>Potential Kubernetes API impact</li>
+</ul>
+<p>Production recommendation:</p>
+<ul>
+<li>3 dedicated master nodes</li>
+<li>Workloads only on worker nodes</li>
+<li>No scheduling on control plane nodes</li>
+</ul>
+<p>If combined, formal risk acceptance is required.</p>
+<hr />
+<h1 id="5-haproxy-configuration-on-premise">5. HAProxy Configuration (On-Premise)</h1>
+<h2 id="51-overview">5.1 Overview</h2>
+<p>HAProxy acts as the ingress load-balancing layer in front of the MicroK8s cluster.</p>
+<p>Architecture:</p>
+<pre><code>Client → Perimeter Firewall → HAProxy → Istio Ingress Gateway → PM4ML Services
+</code></pre>
+<hr />
+<h2 id="52-architecture-components">5.2 Architecture Components</h2>
+<h3 id="perimeter-firewall">Perimeter Firewall</h3>
+<ul>
+<li>First security boundary</li>
+<li>Filters inbound traffic</li>
+<li>May perform NAT</li>
+<li>Centralized logging</li>
+</ul>
+<h3 id="haproxy">HAProxy</h3>
+<ul>
+<li>Layer 4 (TCP) load balancing</li>
+<li>Forwards traffic to Kubernetes nodes</li>
+<li>Does not terminate TLS</li>
+</ul>
+<h3 id="istio-ingress-gateway">Istio Ingress Gateway</h3>
+<ul>
+<li>Terminates TLS</li>
+<li>Applies routing policies</li>
+<li>Enforces service mesh security</li>
+<li>Routes traffic to PM4ML</li>
+</ul>
+<hr />
+<h2 id="53-haproxy-interfaces">5.3 HAProxy Interfaces</h2>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public</td>
+<td>Receives traffic from firewall</td>
+</tr>
+<tr>
+<td>Private</td>
+<td>Forwards traffic to Kubernetes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="54-tls-termination-strategy">5.4 TLS Termination Strategy</h2>
+<p>TLS termination occurs at Istio Ingress Gateway.</p>
+<p>Benefits:</p>
+<ul>
+<li>Centralized certificate lifecycle management</li>
+<li>Better integration with service mesh policies</li>
+<li>Improved observability</li>
+<li>Reduced HAProxy complexity</li>
+</ul>
+<hr />
+<h2 id="55-high-availability">5.5 High Availability</h2>
+<ul>
+<li>Two HAProxy nodes (Production)</li>
+<li>Firewall-level failover or VIP</li>
+<li>Separate physical hosts where possible</li>
+</ul>
+<hr />
+<h2 id="56-security-controls">5.6 Security Controls</h2>
+<ul>
+<li>Expose only required ports (typically 443)</li>
+<li>Restrict SSH access</li>
+<li>Apply host-level firewall rules</li>
+<li>Integrate logs into monitoring/SIEM</li>
+</ul>
+<hr />
+<h2 id="57-public-and-private-ip-requirements">5.7 Public and Private IP Requirements</h2>
+<h3 id="public-ip">Public IP</h3>
+<ul>
+<li>Assigned at firewall layer</li>
+<li>NAT to HAProxy private IP</li>
+<li>Minimum: 1 Public IP</li>
+<li>Recommended: 1 Public VIP</li>
+</ul>
+<p>Example:</p>
+<pre><code>Internet → Firewall → NAT → HAProxy → Istio → Services
+</code></pre>
+<h3 id="private-ip">Private IP</h3>
+<p>Required for:</p>
+<ul>
+<li>HAProxy</li>
+<li>Kubernetes Masters</li>
+<li>Kubernetes Workers</li>
+<li>Storage Cluster</li>
+<li>Bastion Host</li>
+</ul>
+<hr />
+<h1 id="6-gitops-deployment">6. GitOps Deployment</h1>
+<h2 id="61-platform-applications-deployment-order">6.1 Platform Applications Deployment Order</h2>
+<p>Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.</p>
+<ol>
+<li>
+<p>Base Utilities</p>
+</li>
+<li>
+<p><code>base-utils</code></p>
+</li>
+<li>
+<p>Storage Layer</p>
+</li>
+<li>
+<p><code>storage-app</code></p>
+</li>
+<li>
+<p>Certificate Management</p>
+</li>
+<li>
+<p><code>certmanager-helm</code></p>
+</li>
+<li><code>certmanager-app</code></li>
+<li>
+<p><code>certmanager-clusterissuers</code></p>
+</li>
+<li>
+<p>Service Mesh</p>
+</li>
+<li>
+<p><code>istio-app</code></p>
+</li>
+<li><code>istio-main-app</code></li>
+<li>
+<p><code>istio-gateways-app</code></p>
+</li>
+<li>
+<p>DNS Management</p>
+</li>
+<li>
+<p><code>external-dns-app</code></p>
+</li>
+<li>
+<p>Vault Storage Backend</p>
+</li>
+<li>
+<p><code>consul-app</code></p>
+</li>
+<li>
+<p>Vault &amp; Secrets Management</p>
+</li>
+<li>
+<p><code>vault-app</code></p>
+</li>
+<li><code>vault</code></li>
+<li><code>vault-config-operator</code></li>
+<li>
+<p><code>vault-pki-app</code></p>
+</li>
+<li>
+<p>Stateful Resources</p>
+</li>
+<li>
+<p><code>stateful-resources-operators-app</code></p>
+</li>
+<li>
+<p><code>common-stateful-resources-app</code></p>
+</li>
+<li>
+<p>Monitoring Stack</p>
+</li>
+<li>
+<p><code>monitoring-app</code></p>
+</li>
+<li><code>monitoring-install</code></li>
+<li>
+<p><code>monitoring-post-config</code></p>
+</li>
+<li>
+<p>Identity &amp; Access Management</p>
+</li>
+<li>
+<p><code>keycloak-app</code></p>
+</li>
+<li><code>keycloak-install</code></li>
+<li><code>keycloak-post-config</code></li>
+<li>
+<p><code>ory-app</code></p>
+</li>
+<li>
+<p>PM4ML Core</p>
+</li>
+<li>
+<p><code>pm4ml</code></p>
+</li>
+</ol>
+<hr />
+<h2 id="62-clone-repository">6.2 Clone Repository</h2>
 <pre><code class="language-bash">git clone &lt;your-onprem-gitops-repo&gt;
 cd &lt;repo&gt;
 </code></pre>
-<h2 id="update-configuration">Update Configuration</h2>
-<p>Modify:</p>
-<ul>
-<li><code>ansible/inventory.ini</code></li>
-</ul>
-<pre><code>[cluster]
+<hr />
+<h2 id="63-update-configuration">6.3 Update Configuration</h2>
+<h3 id="ansibleinventoryini">ansible/inventory.ini</h3>
+<pre><code class="language-ini">[cluster]
 node1 ansible_host=10.x.x.x role=master
 node2 ansible_host=10.x.x.x role=master
 node3 ansible_host=10.x.x.x role=master
@@ -849,7 +1061,7 @@ node6 ansible_host=10.x.x.x role=worker
 ;if you want both master and worker in one single node remove the role
 
 [haproxy]
-haproxy ansible_host=10.x.x.x.x ext_haproxy_ip=13.x.x.x int_haproxy_ip=10.x.x.x 
+haproxy ansible_host=10.x.x.x ext_haproxy_ip=13.x.x.x int_haproxy_ip=10.x.x.x 
 
 [ceph]
 node1 ansible_host=10.x.x.x
@@ -860,12 +1072,10 @@ node3 ansible_host=10.x.x.x
 ansible_user=ubuntu
 ansible_ssh_private_key_file=~/&lt;sshkeyname&gt;
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-
 </code></pre>
-<ul>
-<li><code>ansible/group_vars/all.yml</code></li>
-</ul>
-<pre><code>microk8s_version : &quot;1.31/stable&quot;
+<hr />
+<h3 id="ansiblegroup_varsallyml">ansible/group_vars/all.yml</h3>
+<pre><code class="language-yaml">microk8s_version : &quot;1.31/stable&quot;
 git_url: &quot;https://&lt;your gitops repo&gt;.git&quot;
 git_branch: &quot;&lt;user main branch or tag&gt;&quot;
 git_user: &quot;&lt;git username&gt;&quot;
@@ -880,7 +1090,7 @@ nic_iface: &lt;eth0&gt;
 <li>PM4ML configurations</li>
 </ul>
 <hr />
-<h1 id="7-run-ansible-playbooks">🚀 7. Run Ansible Playbooks</h1>
+<h2 id="64-run-ansible-playbooks">6.4 Run Ansible Playbooks</h2>
 <pre><code class="language-bash">ansible-playbook -i inventory.ini 1.microk8s_setup.yml
 ansible-playbook -i inventory.ini 2.argocd_setup.yml
 ansible-playbook -i inventory.ini 3.haproxy_setup.yml
@@ -889,21 +1099,18 @@ ansible-playbook -i inventory.ini 5.apps_setup.yml
 ansible-playbook -i inventory.ini 6.system-tuning.yml
 </code></pre>
 <hr />
-<h1 id="8-storage-configuration-changes">💾 8. Storage Configuration Changes</h1>
-<h2 id="longhorn-backup-nfs-example">Longhorn Backup (NFS Example)</h2>
-<p>Replace S3 configuration with:</p>
+<h1 id="7-storage-configuration-changes">7. Storage Configuration Changes</h1>
+<h2 id="71-longhorn-backup-nfs-example">7.1 Longhorn Backup (NFS Example)</h2>
 <pre><code class="language-yaml">backupTarget: &quot;nfs://10.10.0.50:/longhorn-backup&quot;
 </code></pre>
-<hr />
-<h2 id="loki-configuration-filesystem">Loki Configuration (Filesystem)</h2>
+<h2 id="72-loki-configuration">7.2 Loki Configuration</h2>
 <pre><code class="language-yaml">loki:
   storage:
     type: filesystem
     filesystem:
       directory: /var/loki
 </code></pre>
-<hr />
-<h2 id="tempo-configuration">Tempo Configuration</h2>
+<h2 id="73-tempo-configuration">7.3 Tempo Configuration</h2>
 <pre><code class="language-yaml">tempo:
   storage:
     trace:
@@ -912,10 +1119,10 @@ ansible-playbook -i inventory.ini 6.system-tuning.yml
         path: /var/tempo
 </code></pre>
 <hr />
-<h1 id="9-certificate-management">🔐 9. Certificate Management</h1>
-<h2 id="option-a-public-domain-http01">Option A – Public Domain (HTTP01)</h2>
+<h1 id="8-certificate-management">8. Certificate Management</h1>
+<h3 id="option-a-public-domain-http01">Option A – Public Domain (HTTP01)</h3>
 <p>Use HTTP challenge if publicly reachable.</p>
-<h2 id="option-b-internal-ca">Option B – Internal CA</h2>
+<h3 id="option-b-internal-ca">Option B – Internal CA</h3>
 <p>Use:</p>
 <ul>
 <li>Vault PKI</li>
@@ -923,21 +1130,21 @@ ansible-playbook -i inventory.ini 6.system-tuning.yml
 </ul>
 <p>Remove Route53 DNS01 solver configuration.</p>
 <hr />
-<h1 id="10-dns-configuration">🌐 10. DNS Configuration</h1>
-<p>Create manual A records:</p>
+<h1 id="9-dns-configuration">9. DNS Configuration</h1>
+<p>Create A records:</p>
 <pre><code>argocd.prod-pm4ml.domain.com → External HAProxy IP
 wallet1.prod-pm4ml.domain.com → External HAProxy IP
 </code></pre>
 <hr />
-<h1 id="11-vault-configuration">🔐 11. Vault Configuration</h1>
+<h1 id="10-vault-configuration">10. Vault Configuration</h1>
 <ul>
 <li>Use Integrated Storage (Raft)</li>
-<li>Disable AWS KMS auto-unseal (if previously used)</li>
+<li>Disable AWS KMS auto-unseal</li>
 <li>Configure Vault PKI</li>
 <li>Enable Kubernetes Auth</li>
 </ul>
 <hr />
-<h1 id="12-monitoring-stack-adjustments">📊 12. Monitoring Stack Adjustments</h1>
+<h1 id="11-monitoring-stack-adjustments">11. Monitoring Stack Adjustments</h1>
 <p>Replace:</p>
 <ul>
 <li>S3-backed Loki</li>
@@ -955,10 +1162,9 @@ wallet1.prod-pm4ml.domain.com → External HAProxy IP
 <li><code>values-tempo.yaml</code></li>
 </ul>
 <hr />
-<h1 id="13-manual-secret-sync-hub-pm4ml">🔁 13. Manual Secret Sync (Hub → PM4ML)</h1>
-<h2 id="ask-hub-operator-for-client-secret-for-authentication-to-hub">Ask hub operator for client secret for authentication to hub</h2>
-<p>Then create secret in the PM4ML vault
-Path:</p>
+<h1 id="12-manual-secret-sync-hub-pm4ml">12. Manual Secret Sync (Hub → PM4ML)</h1>
+<p>Request client secret from Hub operator.</p>
+<p>Create secret in Vault:</p>
 <pre><code>secret/&lt;yourpm4ml_id&gt;
 </code></pre>
 <p>Key:</p>
@@ -968,11 +1174,11 @@ Path:</p>
 <pre><code>secret_key_from_hub_operator
 </code></pre>
 <hr />
-<h1 id="15-verification">🔎 15. Verification</h1>
+<h1 id="13-verification">13. Verification</h1>
 <h2 id="verify-cluster">Verify Cluster</h2>
 <pre><code class="language-bash">kubectl get nodes
 </code></pre>
-<h2 id="verify-argocd-apps">Verify ArgoCD Apps</h2>
+<h2 id="verify-argo-cd-applications">Verify Argo CD Applications</h2>
 <pre><code class="language-bash">kubectl get app -A
 </code></pre>
 <h2 id="verify-haproxy">Verify HAProxy</h2>
