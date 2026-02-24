@@ -276,17 +276,25 @@ If combined, formal risk acceptance is required.
 
 ---
 
-## 5. HAProxy Configuration
+## 5. Ingress Architecture and Traffic Flow
 
-### 5.1 Overview
+In the on-premise deployment model, the ingress layer provides a controlled and secure entry point into the PM4ML Kubernetes environment.
 
-HAProxy acts as the ingress load-balancing layer in front of the MicroK8s cluster.
+External traffic is not permitted to directly access Kubernetes nodes, NodePort services, or internal cluster components. All inbound requests must traverse a layered ingress architecture designed to enforce network security, traffic distribution, and service-level isolation.
 
-Architecture:
+### 5.1 Traffic Flow
+
+All inbound traffic follows the controlled path below:
 
 ```
 Client → Perimeter Firewall → HAProxy → Istio Ingress Gateway → PM4ML Services
 ```
+Each layer performs a distinct security and routing function:
+
+- The perimeter firewall enforces IP filtering and port restrictions.
+- HAProxy distributes TCP traffic across Kubernetes worker nodes.
+- Istio Ingress Gateway terminates TLS and applies routing policies.
+- PM4ML services operate within the Kubernetes cluster and are exposed externally only through the Istio Ingress Gateway.
 
 ---
 
