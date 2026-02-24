@@ -26,9 +26,13 @@ The original AWS-focused implementation has been adapted and extended to support
 
 The following diagram illustrates the logical and network architecture of the PM4ML on-premise deployment.
 
-(Insert Mermaid diagram here)
+## Logical Architecture View
+<img width="1427" height="906" alt="image" src="https://github.com/user-attachments/assets/4d244515-a0f3-47ef-b878-663da6c894c9" />
 
-<img width="1585" height="1046" alt="image" src="https://github.com/user-attachments/assets/27e7d7e6-9642-4b9c-8365-0e538ad9fc81" />
+
+## Network Architecture View
+<img width="746" height="636" alt="image" src="https://github.com/user-attachments/assets/d48490fd-e95c-4956-9b8d-293f17af03d0" />
+
 ---
 
 
