@@ -23,7 +23,7 @@
     
     
       
-        <title>🏢 Payment Manager for Mojaloop (PM4ML) - ThitsaWorks Documentation</title>
+        <title>Payment Manager for Mojaloop (PM4ML) - ThitsaWorks Documentation</title>
       
     
     
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              🏢 Payment Manager for Mojaloop (PM4ML)
+              Payment Manager for Mojaloop (PM4ML)
             
           </span>
         </div>
@@ -569,7 +569,7 @@
 
 
 
-<h1 id="payment-manager-for-mojaloop-pm4ml">🏢 Payment Manager for Mojaloop (PM4ML)</h1>
+<h1 id="payment-manager-for-mojaloop-pm4ml">Payment Manager for Mojaloop (PM4ML)</h1>
 <h2 id="production-deployment-guide-on-premise">Production Deployment Guide (On-Premise)</h2>
 <p>This document provides step-by-step guidance for deploying <strong>Payment Manager for Mojaloop (PM4ML)</strong> in an on-premise data center environment using:</p>
 <ul>
@@ -581,12 +581,12 @@
 <li>WireGuard VPN (Optional)</li>
 </ul>
 <hr />
-<h1 id="code-base-reference">📦 Code Base Reference</h1>
+<h1 id="code-base-reference">Code Base Reference</h1>
 <p>This deployment architecture is derived from the official Mojaloop Infrastructure as Code (IaC) modules:</p>
 <p><a href="https://github.com/mojaloop/iac-modules">https://github.com/mojaloop/iac-modules</a></p>
 <p>The original AWS-focused implementation has been adapted and extended to support on-premise infrastructure using MicroK8s, HAProxy, and GitOps-based workflows.</p>
 <hr />
-<h1 id="pm4ml-on-premise-architecture-overview">🏗 PM4ML On-Premise Architecture Overview</h1>
+<h1 id="pm4ml-on-premise-architecture-overview">PM4ML On-Premise Architecture Overview</h1>
 <p>The following diagram illustrates the logical and network architecture of the PM4ML on-premise deployment.</p>
 <h2 id="logical-architecture-view">Logical Architecture View</h2>
 <p><img width="1427" height="906" alt="image" src="https://github.com/user-attachments/assets/4d244515-a0f3-47ef-b878-663da6c894c9" /></p>
@@ -674,8 +674,8 @@
 <hr />
 <h2 id="13-storage-requirements">1.3 Storage Requirements</h2>
 <ul>
-<li>Ceph RBD / CephFS</li>
-<li>S3-compatible storage</li>
+<li>Ceph RBD for persistent storage</li>
+<li>Ceph-backed storage for logs,backups and non-critical workloads</li>
 </ul>
 <hr />
 <h1 id="2-tools-versions">2. Tools &amp; Versions</h1>
@@ -951,6 +951,16 @@
 </ul>
 <hr />
 <h1 id="6-gitops-deployment">6. GitOps Deployment</h1>
+<p>The customer must provide and maintain their own Git repository for GitOps-based deployment.</p>
+<p>Requirements:</p>
+<ul>
+<li>Repository accessible from the cluster (HTTPS or SSH)</li>
+<li>Proper branch or tag strategy defined</li>
+<li>Secure credential/token management</li>
+<li>Access configured in Argo CD</li>
+</ul>
+<p>All platform manifests and Helm values must be stored in the customer's repository.</p>
+<hr />
 <h2 id="61-platform-applications-deployment-order">6.1 Platform Applications Deployment Order</h2>
 <p>Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.</p>
 <ol>
@@ -1052,48 +1062,36 @@
 cd &lt;repo&gt;
 </code></pre>
 <hr />
-<h2 id="63-update-configuration">6.3 Update Configuration</h2>
-<h3 id="ansibleinventoryini">ansible/inventory.ini</h3>
-<pre><code class="language-ini">[cluster]
-node1 ansible_host=10.x.x.x role=master
-node2 ansible_host=10.x.x.x role=master
-node3 ansible_host=10.x.x.x role=master
-node4 ansible_host=10.x.x.x role=worker
-node5 ansible_host=10.x.x.x role=worker
-node6 ansible_host=10.x.x.x role=worker
-;if you want both master and worker in one single node remove the role
-
-[haproxy]
-haproxy ansible_host=10.x.x.x ext_haproxy_ip=13.x.x.x int_haproxy_ip=10.x.x.x 
-
-[ceph]
-node1 ansible_host=10.x.x.x
-node2 ansible_host=10.x.x.x
-node3 ansible_host=10.x.x.x
-
-[all:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file=~/&lt;sshkeyname&gt;
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-</code></pre>
-<hr />
-<h3 id="ansiblegroup_varsallyml">ansible/group_vars/all.yml</h3>
-<pre><code class="language-yaml">microk8s_version : &quot;1.31/stable&quot;
-git_url: &quot;https://&lt;your gitops repo&gt;.git&quot;
-git_branch: &quot;&lt;user main branch or tag&gt;&quot;
-git_user: &quot;&lt;git username&gt;&quot;
-git_password: &quot;&lt;git password or toen&gt;&quot;
-nic_iface: &lt;eth0&gt;
+<h1 id="pm4ml-deployment-quick-guide">PM4ML Deployment – Quick Guide</h1>
+<h2 id="1-configure-inventory">1. Configure Inventory</h2>
+<p>Edit:</p>
+<pre><code>ansible/inventory.ini
 </code></pre>
 <p>Update:</p>
 <ul>
-<li>DNS configurations</li>
-<li>URLs</li>
-<li>S3 bucket configurations</li>
-<li>PM4ML configurations</li>
+<li>Cluster node IPs (master/worker)</li>
+<li>HAProxy internal and external IPs</li>
+<li>Ceph node IPs</li>
+<li>SSH key path</li>
 </ul>
 <hr />
-<h2 id="64-run-ansible-playbooks">6.4 Run Ansible Playbooks</h2>
+<h2 id="2-configure-global-variables">2. Configure Global Variables</h2>
+<p>Edit:</p>
+<pre><code>ansible/group_vars/all.yml
+</code></pre>
+<p>Update:</p>
+<ul>
+<li><code>microk8s_version</code></li>
+<li><code>git_url</code></li>
+<li><code>git_branch</code></li>
+<li><code>git_user</code></li>
+<li><code>git_password</code></li>
+<li><code>nic_iface</code></li>
+<li>DNS and storage settings</li>
+</ul>
+<hr />
+<h2 id="3-run-deployment">3. Run Deployment</h2>
+<p>Execute in order:</p>
 <pre><code class="language-bash">ansible-playbook -i inventory.ini 1.microk8s_setup.yml
 ansible-playbook -i inventory.ini 2.argocd_setup.yml
 ansible-playbook -i inventory.ini 3.haproxy_setup.yml
@@ -1102,91 +1100,60 @@ ansible-playbook -i inventory.ini 5.apps_setup.yml
 ansible-playbook -i inventory.ini 6.system-tuning.yml
 </code></pre>
 <hr />
-<h1 id="7-storage-configuration-changes">7. Storage Configuration Changes</h1>
-<h2 id="71-longhorn-backup-nfs-example">7.1 Longhorn Backup (NFS Example)</h2>
-<pre><code class="language-yaml">backupTarget: &quot;nfs://10.10.0.50:/longhorn-backup&quot;
-</code></pre>
-<h2 id="72-loki-configuration">7.2 Loki Configuration</h2>
-<pre><code class="language-yaml">loki:
-  storage:
-    type: filesystem
-    filesystem:
-      directory: /var/loki
-</code></pre>
-<h2 id="73-tempo-configuration">7.3 Tempo Configuration</h2>
-<pre><code class="language-yaml">tempo:
-  storage:
-    trace:
-      backend: local
-      local:
-        path: /var/tempo
-</code></pre>
-<hr />
-<h1 id="8-certificate-management">8. Certificate Management</h1>
-<h3 id="option-a-public-domain-http01">Option A – Public Domain (HTTP01)</h3>
-<p>Use HTTP challenge if publicly reachable.</p>
-<h3 id="option-b-internal-ca">Option B – Internal CA</h3>
-<p>Use:</p>
+<h2 id="4-storage-backend">4. Storage Backend</h2>
+<p>Use <strong>Ceph</strong> for:</p>
 <ul>
-<li>Vault PKI</li>
-<li>Corporate CA</li>
+<li>Loki log storage</li>
+<li>Non-critical persistent volume workloads</li>
 </ul>
-<p>Remove Route53 DNS01 solver configuration.</p>
+<p>Ceph is <strong>not</strong> used for latency-sensitive or transaction-critical workloads.</p>
+<p>Ensure:</p>
+<ul>
+<li>The Ceph cluster is healthy</li>
+<li>A proper StorageClass is configured</li>
+<li>Relevant applications reference the Ceph StorageClass in their Helm values</li>
+</ul>
 <hr />
-<h1 id="9-dns-configuration">9. DNS Configuration</h1>
+<h2 id="5-certificate-configuration">5. Certificate Configuration</h2>
+<p>Choose one:</p>
+<ul>
+<li>Public domain → HTTP01 challenge</li>
+<li>Internal environment → Vault PKI or Corporate CA</li>
+</ul>
+<hr />
+<h2 id="6-dns-records">6. DNS Records</h2>
 <p>Create A records:</p>
-<pre><code>argocd.prod-pm4ml.domain.com → External HAProxy IP
-wallet1.prod-pm4ml.domain.com → External HAProxy IP
+<pre><code>argocd.&lt;domain&gt; → &lt;external_haproxy_ip&gt;
+walletX.&lt;domain&gt; → &lt;external_haproxy_ip&gt;
 </code></pre>
 <hr />
-<h1 id="10-vault-configuration">10. Vault Configuration</h1>
+<h2 id="7-vault-setup">7. Vault Setup</h2>
 <ul>
-<li>Use Integrated Storage (Raft)</li>
-<li>Disable AWS KMS auto-unseal</li>
-<li>Configure Vault PKI</li>
+<li>Use Raft storage</li>
+<li>Enable PKI</li>
 <li>Enable Kubernetes Auth</li>
 </ul>
 <hr />
-<h1 id="11-monitoring-stack-adjustments">11. Monitoring Stack Adjustments</h1>
-<p>Replace:</p>
-<ul>
-<li>S3-backed Loki</li>
-<li>S3-backed Tempo</li>
-</ul>
-<p>With:</p>
-<ul>
-<li>NFS</li>
-<li>Ceph</li>
-<li>MinIO (optional)</li>
-</ul>
-<p>Update:</p>
-<ul>
-<li><code>values-loki.yaml</code></li>
-<li><code>values-tempo.yaml</code></li>
-</ul>
-<hr />
-<h1 id="12-manual-secret-sync-hub-pm4ml">12. Manual Secret Sync (Hub → PM4ML)</h1>
-<p>Request client secret from Hub operator.</p>
-<p>Create secret in Vault:</p>
-<pre><code>secret/&lt;yourpm4ml_id&gt;
+<h2 id="8-manual-secret-hub-integration">8. Manual Secret (Hub Integration)</h2>
+<p>To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.</p>
+<p>Create in Vault:</p>
+<pre><code>secret/&lt;pm4ml_id&gt;/
 </code></pre>
 <p>Key:</p>
 <pre><code>mcmdev_client_secret
 </code></pre>
-<p>Value:</p>
-<pre><code>secret_key_from_hub_operator
-</code></pre>
 <hr />
-<h1 id="13-verification">13. Verification</h1>
-<h2 id="verify-cluster">Verify Cluster</h2>
+<h2 id="9-verification">9. Verification</h2>
 <pre><code class="language-bash">kubectl get nodes
+kubectl get app -A
+systemctl status haproxy
 </code></pre>
-<h2 id="verify-argo-cd-applications">Verify Argo CD Applications</h2>
-<pre><code class="language-bash">kubectl get app -A
-</code></pre>
-<h2 id="verify-haproxy">Verify HAProxy</h2>
-<pre><code class="language-bash">systemctl status haproxy
-</code></pre>
+<p>Deployment is successful when:</p>
+<ul>
+<li>All nodes are <code>Ready</code></li>
+<li>Argo CD applications are <code>Synced</code> and <code>Healthy</code></li>
+<li>HAProxy service is <code>active</code></li>
+</ul>
 <hr />
 
 
