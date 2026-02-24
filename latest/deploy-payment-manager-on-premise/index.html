@@ -620,62 +620,232 @@
 <td>Application workloads</td>
 </tr>
 <tr>
-<td>Storage Server (Ceph)</td>
+<td>Storage Servers (Ceph)</td>
 <td>3+</td>
-<td>Cold storage</td>
-</tr>
-<tr>
-<td>Bastion Host (Optional)</td>
-<td>1</td>
-<td>Secure administrative access</td>
-</tr>
-<tr>
-<td>NAT Gateway (Optional)</td>
-<td>1</td>
-<td>Outbound internet for private subnet</td>
+<td>Distributed storage cluster</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="12-network-requirements">1.2 Network Requirements</h2>
 <ul>
-<li>Static IP address for each VM</li>
-<li>Internal subnet (e.g., <code>10.10.0.0/16</code>)</li>
-<li>Public IP mapped to HAProxy via firewall</li>
-<li>DNS zone (AWS, Cloudflare, or enterprise DNS)</li>
+<li>Static IP address for each VM  </li>
+<li>Dedicated internal subnet (e.g., <code>10.10.0.0/16</code>)  </li>
+<li>Public IP mapped to HAProxy via firewall or edge device  </li>
+<li>DNS zone (AWS Route53, Cloudflare, or enterprise DNS)  </li>
 </ul>
-<h3 id="required-ports">Required Ports</h3>
+<hr />
+<h2 id="13-network-port-requirements">1.3 Network Port Requirements</h2>
+<h3 id="131-public-network-external-access">1.3.1 Public Network (External Access)</h3>
+<p>Ports exposed to the internet or external partners.</p>
 <table>
 <thead>
 <tr>
 <th>Port</th>
+<th>Protocol</th>
 <th>Purpose</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>22</td>
+<td>TCP</td>
 <td>SSH</td>
+<td>Restricted by IP whitelist</td>
 </tr>
 <tr>
 <td>80</td>
+<td>TCP</td>
 <td>HTTP</td>
+<td>Redirect to HTTPS</td>
 </tr>
 <tr>
 <td>443</td>
+<td>TCP</td>
 <td>HTTPS</td>
+<td>Public API / Portal</td>
 </tr>
 <tr>
-<td>WireGuard Port</td>
-<td>VPN (if enabled)</td>
+<td>51820</td>
+<td>UDP</td>
+<td>WireGuard VPN</td>
+<td>If WireGuard VPN is enabled</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Replace the WireGuard port with the actual port configured on your firewall or edge device (e.g., FortiGate, F5, or equivalent).</p>
+</blockquote>
+<hr />
+<h3 id="132-private-network-internal-communication">1.3.2 Private Network (Internal Communication)</h3>
+<p>Ports used for internal cluster, storage, and load balancer communication.<br />
+These ports must not be exposed publicly.</p>
+<h4 id="microk8s-kubernetes-cluster">MicroK8s (Kubernetes Cluster)</h4>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6443</td>
+<td>TCP</td>
+<td>Kubernetes API Server</td>
+</tr>
+<tr>
+<td>10250</td>
+<td>TCP</td>
+<td>Kubelet</td>
+</tr>
+<tr>
+<td>25000</td>
+<td>TCP</td>
+<td>MicroK8s Cluster Agent</td>
+</tr>
+<tr>
+<td>12379-12380</td>
+<td>TCP</td>
+<td>etcd (MicroK8s datastore)</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="13-storage-requirements">1.3 Storage Requirements</h2>
+<h4 id="istio-ingress-gateways-nodeport">Istio Ingress Gateways (NodePort)</h4>
+<p>HAProxy forwards traffic to Kubernetes nodes via NodePort services.</p>
+<p><strong>External Istio Ingress Gateway</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32080</td>
+<td>TCP</td>
+<td>HTTP (NodePort)</td>
+</tr>
+<tr>
+<td>32443</td>
+<td>TCP</td>
+<td>HTTPS (NodePort)</td>
+</tr>
+<tr>
+<td>32081</td>
+<td>TCP</td>
+<td>Status Port (15021)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Internal Istio Ingress Gateway</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>31080</td>
+<td>TCP</td>
+<td>HTTP (NodePort)</td>
+</tr>
+<tr>
+<td>31443</td>
+<td>TCP</td>
+<td>HTTPS (NodePort)</td>
+</tr>
+<tr>
+<td>31081</td>
+<td>TCP</td>
+<td>Status Port (15021)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>These NodePorts must be accessible only from HAProxy source IP addresses.<br />
+They must not be exposed to public networks.</p>
+</blockquote>
+<hr />
+<h4 id="microceph-ceph-cluster">MicroCeph (Ceph Cluster)</h4>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6789</td>
+<td>TCP</td>
+<td>Ceph Monitor (v1)</td>
+</tr>
+<tr>
+<td>3300</td>
+<td>TCP</td>
+<td>Ceph Monitor (v2)</td>
+</tr>
+<tr>
+<td>6800-7300</td>
+<td>TCP</td>
+<td>Ceph OSD communication</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="haproxy-load-balancer">HAProxy (Load Balancer)</h4>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocol</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80</td>
+<td>TCP</td>
+<td>Frontend HTTP</td>
+</tr>
+<tr>
+<td>443</td>
+<td>TCP</td>
+<td>Frontend HTTPS</td>
+</tr>
+<tr>
+<td>8404</td>
+<td>TCP</td>
+<td>HAProxy statistics (if enabled)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="internal-security-controls">Internal Security Controls</h3>
 <ul>
-<li>Ceph RBD for persistent storage</li>
-<li>Ceph-backed storage for logs,backups and non-critical workloads</li>
+<li>NodePort ranges must be restricted to HAProxy source IPs only.  </li>
+<li>Kubernetes control-plane ports must be restricted to cluster nodes.  </li>
+<li>Ceph cluster traffic must remain within the private storage network.  </li>
+<li>No NodePort service may be directly exposed to the internet.  </li>
+<li>All ingress traffic must pass through HAProxy before reaching Istio.  </li>
+<li>TLS or mTLS must be enforced where applicable.  </li>
+</ul>
+<hr />
+<h2 id="14-storage-requirements">1.4 Storage Requirements</h2>
+<ul>
+<li>Ceph RBD for Kubernetes persistent volumes  </li>
+<li>Ceph-backed storage for logs, backups, and non-transaction-critical workloads  </li>
+<li>Transaction-critical databases and messaging systems should use local high-performance storage (e.g., NVMe) where required  </li>
 </ul>
 <hr />
 <h1 id="2-tools-versions">2. Tools &amp; Versions</h1>
@@ -764,20 +934,58 @@
 <td>×3 Servers</td>
 <td>16 CPU Cores, 64 GB RAM; OS: 2 × 500 GB SSD (RAID1); Data: 6 × 8 TB HDD; Network: 2 × 10 Gbps</td>
 <td>Physical</td>
-<td>Enterprise storage</td>
+<td>Recommended enterprise-grade storage</td>
+</tr>
+<tr>
+<td>Cold Data Storage Cluster (Alternative)</td>
+<td>×3 VMs</td>
+<td>16 vCPU, 64 GB RAM; OS: 200 GB SSD; Data: 20–40 TB dedicated enterprise block storage</td>
+<td>VM</td>
+<td>Must match physical capacity &amp; IOPS SLA</td>
+</tr>
+<tr>
+<td>Bastion Host (Optional)</td>
+<td>×1 Server</td>
+<td>2 CPU Cores, 8 GB RAM, 50 GB SSD</td>
+<td>VM</td>
+<td>Secure administrative access</td>
+</tr>
+<tr>
+<td>Backup Target</td>
+<td>×1</td>
+<td>External USB backup system</td>
+<td>External</td>
+<td>Off-site backup retention</td>
 </tr>
 </tbody>
 </table>
-<h3 id="cold-storage-purpose">Cold Storage Purpose</h3>
-<p>Cold storage devices are intended exclusively for:</p>
-<ul>
-<li>Long-term regulatory record retention</li>
-<li>Backup archives</li>
-<li>Ledger export snapshots</li>
-<li>Log archival storage</li>
-</ul>
-<p>Cold storage must not be used for latency-sensitive transaction processing workloads.</p>
 <hr />
+<h3 id="cold-storage-purpose">Cold Storage Purpose</h3>
+<p>Cold storage infrastructure is designated exclusively for:</p>
+<ul>
+<li>Long-term regulatory record retention  </li>
+<li>Backup archives  </li>
+<li>Ledger export snapshots  </li>
+<li>Log archival storage  </li>
+</ul>
+<p>Cold storage must <strong>not</strong> be used for:</p>
+<ul>
+<li>Latency-sensitive transaction processing  </li>
+<li>Real-time database workloads  </li>
+<li>Messaging systems or performance-critical services  </li>
+</ul>
+<p>This separation ensures optimal transaction performance while meeting regulatory compliance and retention requirements.</p>
+<hr />
+<h3 id="vm-based-cold-storage-considerations">VM-Based Cold Storage Considerations</h3>
+<p>If cold storage is deployed using virtual machines instead of physical servers, the following conditions must be met:</p>
+<ul>
+<li>Underlying storage must be enterprise-grade (SAN, NAS, or dedicated block storage)</li>
+<li>Storage must not be oversubscribed</li>
+<li>IOPS and throughput guarantees must be documented</li>
+<li>Network bandwidth must be sufficient (minimum 10 Gbps recommended)</li>
+<li>Backup and redundancy policies must match physical deployment standards</li>
+</ul>
+<h2 id="vm-based-cold-storage-is-acceptable-only-when-the-virtualization-platform-provides-guaranteed-performance-and-isolation-equivalent-to-dedicated-physical-storage">VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.</h2>
 <h2 id="42-staging-environment-stg">4.2 Staging Environment (STG)</h2>
 <p>Designed for:</p>
 <ul>
@@ -799,32 +1007,25 @@
 </thead>
 <tbody>
 <tr>
-<td>Master Node Cluster</td>
-<td>×3 Servers</td>
-<td>4 CPU Cores, 16 GB RAM, 200 GB SSD</td>
-<td>VM</td>
-<td>Control plane</td>
-</tr>
-<tr>
-<td>Worker Node Cluster</td>
+<td>Master + Worker Cluster</td>
 <td>×2 Servers</td>
-<td>8 CPU Cores, 32 GB RAM, 300 GB SSD</td>
+<td>8 CPU Cores, 16-32 GB RAM, 500 GB SSD</td>
 <td>VM</td>
-<td>Application workloads</td>
+<td>Combined control plane &amp; workloads</td>
 </tr>
 <tr>
 <td>Load Balancer (HAProxy)</td>
 <td>×1 Server</td>
-<td>2 CPU Cores, 8 GB RAM, 50 GB SSD</td>
+<td>2 CPU Cores, 4 GB RAM, 100 GB SSD</td>
 <td>VM</td>
 <td>Single instance</td>
 </tr>
 <tr>
-<td>Cold Storage</td>
-<td>Optional</td>
-<td>Reduced capacity</td>
-<td>VM or Shared Storage</td>
-<td>Optional</td>
+<td>Cold Data Storage</td>
+<td>×1 Server</td>
+<td>8 CPU Cores, 32 GB RAM; OS: 200 GB SSD; Data: 2 × 2 TB HDD</td>
+<td>VM or Physical</td>
+<td>Reduced retention, non-production logs</td>
 </tr>
 </tbody>
 </table>
@@ -964,9 +1165,7 @@
 <h2 id="61-platform-applications-deployment-order">6.1 Platform Applications Deployment Order</h2>
 <p>Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.</p>
 <ol>
-<li>
-<p>Base Utilities</p>
-</li>
+<li>Base Utilities</li>
 <li>
 <p><code>base-utils</code></p>
 </li>
@@ -979,9 +1178,7 @@
 <li>
 <p>Certificate Management</p>
 </li>
-<li>
-<p><code>certmanager-helm</code></p>
-</li>
+<li><code>certmanager-helm</code></li>
 <li><code>certmanager-app</code></li>
 <li>
 <p><code>certmanager-clusterissuers</code></p>
@@ -989,9 +1186,7 @@
 <li>
 <p>Service Mesh</p>
 </li>
-<li>
-<p><code>istio-app</code></p>
-</li>
+<li><code>istio-app</code></li>
 <li><code>istio-main-app</code></li>
 <li>
 <p><code>istio-gateways-app</code></p>
@@ -1011,9 +1206,7 @@
 <li>
 <p>Vault &amp; Secrets Management</p>
 </li>
-<li>
-<p><code>vault-app</code></p>
-</li>
+<li><code>vault-app</code></li>
 <li><code>vault</code></li>
 <li><code>vault-config-operator</code></li>
 <li>
@@ -1022,18 +1215,14 @@
 <li>
 <p>Stateful Resources</p>
 </li>
-<li>
-<p><code>stateful-resources-operators-app</code></p>
-</li>
+<li><code>stateful-resources-operators-app</code></li>
 <li>
 <p><code>common-stateful-resources-app</code></p>
 </li>
 <li>
 <p>Monitoring Stack</p>
 </li>
-<li>
-<p><code>monitoring-app</code></p>
-</li>
+<li><code>monitoring-app</code></li>
 <li><code>monitoring-install</code></li>
 <li>
 <p><code>monitoring-post-config</code></p>
@@ -1041,9 +1230,7 @@
 <li>
 <p>Identity &amp; Access Management</p>
 </li>
-<li>
-<p><code>keycloak-app</code></p>
-</li>
+<li><code>keycloak-app</code></li>
 <li><code>keycloak-install</code></li>
 <li><code>keycloak-post-config</code></li>
 <li>
@@ -1052,9 +1239,7 @@
 <li>
 <p>PM4ML Core</p>
 </li>
-<li>
-<p><code>pm4ml</code></p>
-</li>
+<li><code>pm4ml</code></li>
 </ol>
 <hr />
 <h2 id="62-clone-repository">6.2 Clone Repository</h2>
@@ -1062,35 +1247,46 @@
 cd &lt;repo&gt;
 </code></pre>
 <hr />
-<h1 id="pm4ml-deployment-quick-guide">PM4ML Deployment – Quick Guide</h1>
-<h2 id="1-configure-inventory">1. Configure Inventory</h2>
-<p>Edit:</p>
-<pre><code>ansible/inventory.ini
-</code></pre>
-<p>Update:</p>
+<h2 id="63-pre-deployment-checklist-applications">6.3 Pre-Deployment Checklist (Applications)</h2>
+<p>Before running <code>5.apps_setup.yml</code>, verify the following:</p>
+<h3 id="configuration">Configuration</h3>
 <ul>
-<li>Cluster node IPs (master/worker)</li>
-<li>HAProxy internal and external IPs</li>
-<li>Ceph node IPs</li>
-<li>SSH key path</li>
+<li>[ ] Environment values updated (prod / staging)</li>
+<li>[ ] DNS hostnames updated</li>
+<li>[ ] Istio Gateway hosts updated</li>
+<li>[ ] VirtualService URLs updated</li>
+<li>[ ] PM4ML endpoints configured correctly</li>
 </ul>
-<hr />
-<h2 id="2-configure-global-variables">2. Configure Global Variables</h2>
-<p>Edit:</p>
-<pre><code>ansible/group_vars/all.yml
-</code></pre>
-<p>Update:</p>
+<h3 id="certificates-tls">Certificates &amp; TLS</h3>
 <ul>
-<li><code>microk8s_version</code></li>
-<li><code>git_url</code></li>
-<li><code>git_branch</code></li>
-<li><code>git_user</code></li>
-<li><code>git_password</code></li>
-<li><code>nic_iface</code></li>
-<li>DNS and storage settings</li>
+<li>[ ] cert-manager Issuer / ClusterIssuer configured</li>
+<li>[ ] TLS secrets created or auto-generated</li>
+<li>[ ] DNS challenge credentials configured (if applicable)</li>
+<li>[ ] Certificate CN/SAN matches domain</li>
+<li>[ ] mTLS configuration validated (if required)</li>
 </ul>
+<h3 id="secrets-integrations">Secrets &amp; Integrations</h3>
+<ul>
+<li>[ ] Database credentials updated</li>
+<li>[ ] External service credentials updated</li>
+<li>[ ] Vault / ExternalSecrets configuration validated</li>
+<li>[ ] No placeholder secrets remain</li>
+</ul>
+<h3 id="storage">Storage</h3>
+<ul>
+<li>[ ] Correct StorageClass referenced</li>
+<li>[ ] PVC sizes reviewed</li>
+<li>[ ] Stateful workloads reference correct volumes</li>
+</ul>
+<h3 id="resource-management">Resource Management</h3>
+<ul>
+<li>[ ] CPU requests and limits defined</li>
+<li>[ ] Memory requests and limits defined</li>
+<li>[ ] HPA configuration validated (if enabled)</li>
+</ul>
+<p>Deployment must not proceed unless all checklist items are verified.</p>
 <hr />
-<h2 id="3-run-deployment">3. Run Deployment</h2>
+<h2 id="64-run-deployment">6.4 Run Deployment</h2>
 <p>Execute in order:</p>
 <pre><code class="language-bash">ansible-playbook -i inventory.ini 1.microk8s_setup.yml
 ansible-playbook -i inventory.ini 2.argocd_setup.yml
@@ -1100,41 +1296,7 @@ ansible-playbook -i inventory.ini 5.apps_setup.yml
 ansible-playbook -i inventory.ini 6.system-tuning.yml
 </code></pre>
 <hr />
-<h2 id="4-storage-backend">4. Storage Backend</h2>
-<p>Use <strong>Ceph</strong> for:</p>
-<ul>
-<li>Loki log storage</li>
-<li>Non-critical persistent volume workloads</li>
-</ul>
-<p>Ceph is <strong>not</strong> used for latency-sensitive or transaction-critical workloads.</p>
-<p>Ensure:</p>
-<ul>
-<li>The Ceph cluster is healthy</li>
-<li>A proper StorageClass is configured</li>
-<li>Relevant applications reference the Ceph StorageClass in their Helm values</li>
-</ul>
-<hr />
-<h2 id="5-certificate-configuration">5. Certificate Configuration</h2>
-<p>Choose one:</p>
-<ul>
-<li>Public domain → HTTP01 challenge</li>
-<li>Internal environment → Vault PKI or Corporate CA</li>
-</ul>
-<hr />
-<h2 id="6-dns-records">6. DNS Records</h2>
-<p>Create A records:</p>
-<pre><code>argocd.&lt;domain&gt; → &lt;external_haproxy_ip&gt;
-walletX.&lt;domain&gt; → &lt;external_haproxy_ip&gt;
-</code></pre>
-<hr />
-<h2 id="7-vault-setup">7. Vault Setup</h2>
-<ul>
-<li>Use Raft storage</li>
-<li>Enable PKI</li>
-<li>Enable Kubernetes Auth</li>
-</ul>
-<hr />
-<h2 id="8-manual-secret-hub-integration">8. Manual Secret (Hub Integration)</h2>
+<h2 id="65-manual-secret-hub-integrationonboarding">6.5 Manual Secret (Hub Integration/Onboarding)</h2>
 <p>To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.
 The client secret must be obtained securely from the Mojaloop Hub operator.</p>
 <p>Create in Vault (KV path):</p>
@@ -1144,18 +1306,19 @@ The client secret must be obtained securely from the Mojaloop Hub operator.</p>
 <pre><code>mcmdev_client_secret
 </code></pre>
 <hr />
-<h2 id="9-verification">9. Verification</h2>
+<h2 id="66-verification">6.6 Verification</h2>
 <pre><code class="language-bash">kubectl get nodes
 kubectl get app -A
-systemctl status haproxy
 </code></pre>
 <p>Deployment is successful when:</p>
 <ul>
 <li>All nodes are <code>Ready</code></li>
 <li>Argo CD applications are <code>Synced</code> and <code>Healthy</code></li>
 <li>HAProxy service is <code>active</code></li>
+<li><code>https://argocd.&lt;domain&gt;</code> is accessible and displays the Argo CD login page</li>
+<li>PM4ML endpoint URLs respond with expected HTTP status codes</li>
+<li>Internal services are reachable from within the cluster</li>
 </ul>
-<hr />
 
 
 
