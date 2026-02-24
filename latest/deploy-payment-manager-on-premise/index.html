@@ -1252,10 +1252,8 @@ They must not be exposed to public networks.</p>
 <hr />
 <h2 id="61-platform-applications-deployment-order">6.1 Platform Applications Deployment Order</h2>
 <p>Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.</p>
-<ol>
-<li>
-<p><strong>Base Utilities</strong></p>
-</li>
+<ul>
+<li><strong>Base Utilities</strong></li>
 <li>
 <p><code>base-utils</code></p>
 </li>
@@ -1268,9 +1266,7 @@ They must not be exposed to public networks.</p>
 <li>
 <p><strong>Certificate Management</strong></p>
 </li>
-<li>
-<p><code>certmanager-helm</code></p>
-</li>
+<li><code>certmanager-helm</code></li>
 <li><code>certmanager-app</code></li>
 <li>
 <p><code>certmanager-clusterissuers</code></p>
@@ -1278,9 +1274,7 @@ They must not be exposed to public networks.</p>
 <li>
 <p><strong>Service Mesh</strong></p>
 </li>
-<li>
-<p><code>istio-app</code></p>
-</li>
+<li><code>istio-app</code></li>
 <li><code>istio-main-app</code></li>
 <li>
 <p><code>istio-gateways-app</code></p>
@@ -1300,9 +1294,7 @@ They must not be exposed to public networks.</p>
 <li>
 <p><strong>Vault &amp; Secrets Management</strong></p>
 </li>
-<li>
-<p><code>vault-app</code></p>
-</li>
+<li><code>vault-app</code></li>
 <li><code>vault</code></li>
 <li><code>vault-config-operator</code></li>
 <li>
@@ -1311,38 +1303,32 @@ They must not be exposed to public networks.</p>
 <li>
 <p><strong>Stateful Resources</strong></p>
 </li>
-<li>
-<p><code>stateful-resources-operators-app</code></p>
-</li>
+<li><code>stateful-resources-operators-app</code></li>
 <li>
 <p><code>common-stateful-resources-app</code></p>
 </li>
 <li>
 <p><strong>Monitoring Stack</strong></p>
 </li>
-<li>
-<p><code>monitoring-app</code></p>
-</li>
+<li><code>monitoring-app</code></li>
 <li><code>monitoring-install</code></li>
 <li>
 <p><code>monitoring-post-config</code></p>
 </li>
 <li>
 <p><strong>Identity &amp; Access Management</strong></p>
-<ul>
+</li>
 <li><code>keycloak-app</code></li>
 <li><code>keycloak-install</code></li>
 <li><code>keycloak-post-config</code></li>
-<li><code>ory-app</code></li>
-</ul>
+<li>
+<p><code>ory-app</code></p>
 </li>
 <li>
 <p><strong>PM4ML Core</strong></p>
-<ul>
+</li>
 <li><code>pm4ml</code></li>
 </ul>
-</li>
-</ol>
 <hr />
 <h2 id="62-clone-repository">6.2 Clone Repository</h2>
 <pre><code class="language-bash">git clone &lt;your-onprem-gitops-repo&gt;
