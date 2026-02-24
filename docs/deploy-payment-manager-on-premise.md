@@ -1,4 +1,4 @@
-# 🏢 Payment Manager for Mojaloop (PM4ML)
+# Payment Manager for Mojaloop (PM4ML)
 
 ## Production Deployment Guide (On-Premise)
 
@@ -13,7 +13,7 @@ This document provides step-by-step guidance for deploying **Payment Manager for
 
 ---
 
-# 📦 Code Base Reference
+# Code Base Reference
 
 This deployment architecture is derived from the official Mojaloop Infrastructure as Code (IaC) modules:
 
@@ -22,7 +22,7 @@ This deployment architecture is derived from the official Mojaloop Infrastructur
 The original AWS-focused implementation has been adapted and extended to support on-premise infrastructure using MicroK8s, HAProxy, and GitOps-based workflows.
 
 ---
-# 🏗 PM4ML On-Premise Architecture Overview
+# PM4ML On-Premise Architecture Overview
 
 The following diagram illustrates the logical and network architecture of the PM4ML on-premise deployment.
 
@@ -71,8 +71,8 @@ The following diagram illustrates the logical and network architecture of the PM
 
 ## 1.3 Storage Requirements
 
-* Ceph RBD / CephFS
-* S3-compatible storage
+* Ceph RBD for persistent storage
+* Ceph-backed storage for logs,backups and non-critical workloads
 
 ---
 
@@ -284,6 +284,19 @@ Required for:
 
 # 6. GitOps Deployment
 
+The customer must provide and maintain their own Git repository for GitOps-based deployment.
+
+Requirements:
+
+- Repository accessible from the cluster (HTTPS or SSH)
+- Proper branch or tag strategy defined
+- Secure credential/token management
+- Access configured in Argo CD
+
+All platform manifests and Helm values must be stored in the customer's repository.
+
+---
+
 ## 6.1 Platform Applications Deployment Order
 
 Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.
@@ -356,57 +369,48 @@ cd <repo>
 
 ---
 
-## 6.3 Update Configuration
+# PM4ML Deployment – Quick Guide
 
-### ansible/inventory.ini
+## 1. Configure Inventory
 
-```ini
-[cluster]
-node1 ansible_host=10.x.x.x role=master
-node2 ansible_host=10.x.x.x role=master
-node3 ansible_host=10.x.x.x role=master
-node4 ansible_host=10.x.x.x role=worker
-node5 ansible_host=10.x.x.x role=worker
-node6 ansible_host=10.x.x.x role=worker
-;if you want both master and worker in one single node remove the role
+Edit:
 
-[haproxy]
-haproxy ansible_host=10.x.x.x ext_haproxy_ip=13.x.x.x int_haproxy_ip=10.x.x.x 
-
-[ceph]
-node1 ansible_host=10.x.x.x
-node2 ansible_host=10.x.x.x
-node3 ansible_host=10.x.x.x
-
-[all:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file=~/<sshkeyname>
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ```
-
----
-
-### ansible/group_vars/all.yml
-
-```yaml
-microk8s_version : "1.31/stable"
-git_url: "https://<your gitops repo>.git"
-git_branch: "<user main branch or tag>"
-git_user: "<git username>"
-git_password: "<git password or toen>"
-nic_iface: <eth0>
+ansible/inventory.ini
 ```
 
 Update:
 
-* DNS configurations
-* URLs
-* S3 bucket configurations
-* PM4ML configurations
+* Cluster node IPs (master/worker)
+* HAProxy internal and external IPs
+* Ceph node IPs
+* SSH key path
 
 ---
 
-## 6.4 Run Ansible Playbooks
+## 2. Configure Global Variables
+
+Edit:
+
+```
+ansible/group_vars/all.yml
+```
+
+Update:
+
+* `microk8s_version`
+* `git_url`
+* `git_branch`
+* `git_user`
+* `git_password`
+* `nic_iface`
+* DNS and storage settings
+
+---
+
+## 3. Run Deployment
+
+Execute in order:
 
 ```bash
 ansible-playbook -i inventory.ini 1.microk8s_setup.yml
@@ -419,102 +423,57 @@ ansible-playbook -i inventory.ini 6.system-tuning.yml
 
 ---
 
-# 7. Storage Configuration Changes
+## 4. Storage Backend
 
-## 7.1 Longhorn Backup (NFS Example)
+Use **Ceph** for:
 
-```yaml
-backupTarget: "nfs://10.10.0.50:/longhorn-backup"
-```
+- Loki log storage
+- Non-critical persistent volume workloads
 
-## 7.2 Loki Configuration
+Ceph is **not** used for latency-sensitive or transaction-critical workloads.
 
-```yaml
-loki:
-  storage:
-    type: filesystem
-    filesystem:
-      directory: /var/loki
-```
+Ensure:
 
-## 7.3 Tempo Configuration
+- The Ceph cluster is healthy
+- A proper StorageClass is configured
+- Relevant applications reference the Ceph StorageClass in their Helm values
+---
 
-```yaml
-tempo:
-  storage:
-    trace:
-      backend: local
-      local:
-        path: /var/tempo
-```
+## 5. Certificate Configuration
+
+Choose one:
+
+* Public domain → HTTP01 challenge
+* Internal environment → Vault PKI or Corporate CA
 
 ---
 
-# 8. Certificate Management
-
-### Option A – Public Domain (HTTP01)
-
-Use HTTP challenge if publicly reachable.
-
-### Option B – Internal CA
-
-Use:
-
-* Vault PKI
-* Corporate CA
-
-Remove Route53 DNS01 solver configuration.
-
----
-
-# 9. DNS Configuration
+## 6. DNS Records
 
 Create A records:
 
 ```
-argocd.prod-pm4ml.domain.com → External HAProxy IP
-wallet1.prod-pm4ml.domain.com → External HAProxy IP
+argocd.<domain> → <external_haproxy_ip>
+walletX.<domain> → <external_haproxy_ip>
 ```
 
 ---
 
-# 10. Vault Configuration
+## 7. Vault Setup
 
-* Use Integrated Storage (Raft)
-* Disable AWS KMS auto-unseal
-* Configure Vault PKI
+* Use Raft storage
+* Enable PKI
 * Enable Kubernetes Auth
 
 ---
 
-# 11. Monitoring Stack Adjustments
+## 8. Manual Secret (Hub Integration)
+To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.
 
-Replace:
-
-* S3-backed Loki
-* S3-backed Tempo
-
-With:
-
-* NFS
-* Ceph
-* MinIO (optional)
-
-Update:
-
-* `values-loki.yaml`
-* `values-tempo.yaml`
-
----
-
-# 12. Manual Secret Sync (Hub → PM4ML)
-
-Request client secret from Hub operator.
-
-Create secret in Vault:
+Create in Vault:
 
 ```
-secret/<yourpm4ml_id>
+secret/<pm4ml_id>/
 ```
 
 Key:
@@ -523,32 +482,20 @@ Key:
 mcmdev_client_secret
 ```
 
-Value:
-
-```
-secret_key_from_hub_operator
-```
-
 ---
 
-# 13. Verification
-
-## Verify Cluster
+## 9. Verification
 
 ```bash
 kubectl get nodes
-```
-
-## Verify Argo CD Applications
-
-```bash
 kubectl get app -A
-```
-
-## Verify HAProxy
-
-```bash
 systemctl status haproxy
 ```
+
+Deployment is successful when:
+
+* All nodes are `Ready`
+* Argo CD applications are `Synced` and `Healthy`
+* HAProxy service is `active`
 
 ---
