@@ -34,8 +34,6 @@ The following diagram illustrates the logical and network architecture of the PM
 <img width="746" height="636" alt="image" src="https://github.com/user-attachments/assets/d48490fd-e95c-4956-9b8d-293f17af03d0" />
 
 ---
-
-
 # 1. Prerequisites
 
 ## 1.1 Infrastructure Requirements (Production Recommended)
@@ -45,35 +43,113 @@ The following diagram illustrates the logical and network architecture of the PM
 | HAProxy                 | 1–2   | Public & Private ingress load balancer |
 | MicroK8s Master Nodes   | 3     | Kubernetes control plane               |
 | Worker Nodes            | 3+    | Application workloads                  |
-| Storage Server (Ceph)   | 3+    | Cold storage                           |
-| Bastion Host (Optional) | 1     | Secure administrative access           |
-| NAT Gateway (Optional)  | 1     | Outbound internet for private subnet   |
+| Storage Servers (Ceph)  | 3+    | Distributed storage cluster            |
 
 ---
 
 ## 1.2 Network Requirements
 
-* Static IP address for each VM
-* Internal subnet (e.g., `10.10.0.0/16`)
-* Public IP mapped to HAProxy via firewall
-* DNS zone (AWS, Cloudflare, or enterprise DNS)
-
-### Required Ports
-
-| Port           | Purpose          |
-| -------------- | ---------------- |
-| 22             | SSH              |
-| 80             | HTTP             |
-| 443            | HTTPS            |
-| WireGuard Port | VPN (if enabled) |
+- Static IP address for each VM  
+- Dedicated internal subnet (e.g., `10.10.0.0/16`)  
+- Public IP mapped to HAProxy via firewall or edge device  
+- DNS zone (AWS Route53, Cloudflare, or enterprise DNS)  
 
 ---
 
-## 1.3 Storage Requirements
+## 1.3 Network Port Requirements
 
-* Ceph RBD for persistent storage
-* Ceph-backed storage for logs,backups and non-critical workloads
+### 1.3.1 Public Network (External Access)
 
+Ports exposed to the internet or external partners.
+
+| Port  | Protocol | Purpose       | Notes                       |
+| ----- | -------- | ------------- | --------------------------- |
+| 22    | TCP      | SSH           | Restricted by IP whitelist  |
+| 80    | TCP      | HTTP          | Redirect to HTTPS           |
+| 443   | TCP      | HTTPS         | Public API / Portal         |
+| 51820 | UDP      | WireGuard VPN | If WireGuard VPN is enabled |
+
+> Replace the WireGuard port with the actual port configured on your firewall or edge device (e.g., FortiGate, F5, or equivalent).
+
+---
+
+### 1.3.2 Private Network (Internal Communication)
+
+Ports used for internal cluster, storage, and load balancer communication.  
+These ports must not be exposed publicly.
+
+#### MicroK8s (Kubernetes Cluster)
+
+| Port         | Protocol | Purpose                            |
+|-------------|----------|------------------------------------|
+| 6443        | TCP      | Kubernetes API Server              |
+| 10250       | TCP      | Kubelet                            |
+| 25000       | TCP      | MicroK8s Cluster Agent             |
+| 12379-12380 | TCP      | etcd (MicroK8s datastore)          |
+
+---
+
+#### Istio Ingress Gateways (NodePort)
+
+HAProxy forwards traffic to Kubernetes nodes via NodePort services.
+
+**External Istio Ingress Gateway**
+
+| Port  | Protocol | Purpose              |
+|-------|----------|----------------------|
+| 32080 | TCP      | HTTP (NodePort)      |
+| 32443 | TCP      | HTTPS (NodePort)     |
+| 32081 | TCP      | Status Port (15021)  |
+
+**Internal Istio Ingress Gateway**
+
+| Port  | Protocol | Purpose              |
+|-------|----------|----------------------|
+| 31080 | TCP      | HTTP (NodePort)      |
+| 31443 | TCP      | HTTPS (NodePort)     |
+| 31081 | TCP      | Status Port (15021)  |
+
+> These NodePorts must be accessible only from HAProxy source IP addresses.  
+> They must not be exposed to public networks.
+
+---
+
+#### MicroCeph (Ceph Cluster)
+
+| Port       | Protocol | Purpose                     |
+|-----------|----------|-----------------------------|
+| 6789      | TCP      | Ceph Monitor (v1)           |
+| 3300      | TCP      | Ceph Monitor (v2)           |
+| 6800-7300 | TCP      | Ceph OSD communication      |
+
+---
+
+#### HAProxy (Load Balancer)
+
+| Port | Protocol | Purpose                         |
+|------|----------|---------------------------------|
+| 80   | TCP      | Frontend HTTP                   |
+| 443  | TCP      | Frontend HTTPS                  |
+| 8404 | TCP      | HAProxy statistics (if enabled) |
+
+---
+
+### Internal Security Controls
+
+- NodePort ranges must be restricted to HAProxy source IPs only.  
+- Kubernetes control-plane ports must be restricted to cluster nodes.  
+- Ceph cluster traffic must remain within the private storage network.  
+- No NodePort service may be directly exposed to the internet.  
+- All ingress traffic must pass through HAProxy before reaching Istio.  
+- TLS or mTLS must be enforced where applicable.  
+
+---
+
+## 1.4 Storage Requirements
+
+- Ceph RBD for Kubernetes persistent volumes  
+- Ceph-backed storage for logs, backups, and non-transaction-critical workloads  
+- Transaction-critical databases and messaging systems should use local high-performance storage (e.g., NVMe) where required  
 ---
 
 # 2. Tools & Versions
@@ -107,24 +183,48 @@ VMs may be provisioned using:
 
 ### Recommended Production Infrastructure Sizing
 
-| Component                 | Quantity   | CPU / RAM / Storage (Per Server)                                                              | Deployment Type | Notes                           |
-| ------------------------- | ---------- | --------------------------------------------------------------------------------------------- | --------------- | ------------------------------- |
-| Master Node Cluster       | ×3 Servers | 8 CPU Cores, 32 GB RAM, 2 × 300 GB NVMe                                                       | VM              | Dedicated control plane nodes   |
-| Worker Node Cluster       | ×3 Servers | 16 CPU Cores, 64 GB RAM, 2 × 500 GB NVMe                                                      | VM              | Application workloads only      |
-| Load Balancers (HAProxy)  | ×2 Servers | 4 CPU Cores, 16 GB RAM, 100 GB SSD                                                            | VM              | Active/Active or Active/Standby |
-| Cold Data Storage Cluster | ×3 Servers | 16 CPU Cores, 64 GB RAM; OS: 2 × 500 GB SSD (RAID1); Data: 6 × 8 TB HDD; Network: 2 × 10 Gbps | Physical        | Enterprise storage              |
+| Component                       | Quantity   | CPU / RAM / Storage (Per Server)                                                                 | Deployment Type | Notes                                   |
+|----------------------------------|------------|--------------------------------------------------------------------------------------------------|----------------|------------------------------------------|
+| Master Node Cluster              | ×3 Servers | 8 CPU Cores, 32 GB RAM, 2 × 300 GB NVMe                                                         | VM             | Dedicated control plane nodes            |
+| Worker Node Cluster              | ×3 Servers | 16 CPU Cores, 64 GB RAM, 2 × 500 GB NVMe                                                        | VM             | Application workloads only               |
+| Load Balancers (HAProxy)         | ×2 Servers | 4 CPU Cores, 16 GB RAM, 100 GB SSD                                                              | VM             | Active/Active or Active/Standby          |
+| Cold Data Storage Cluster        | ×3 Servers | 16 CPU Cores, 64 GB RAM; OS: 2 × 500 GB SSD (RAID1); Data: 6 × 8 TB HDD; Network: 2 × 10 Gbps | Physical       | Recommended enterprise-grade storage     |
+| Cold Data Storage Cluster (Alternative)  | ×3 VMs     | 16 vCPU, 64 GB RAM; OS: 200 GB SSD; Data: 20–40 TB dedicated enterprise block storage                | VM             | Must match physical capacity & IOPS SLA  |
+| Bastion Host (Optional)          | ×1 Server  | 2 CPU Cores, 8 GB RAM, 50 GB SSD                                                                | VM             | Secure administrative access             |
+| Backup Target                    | ×1         | External USB backup system                                                        | External       | Off-site backup retention                |
+
+---
 
 ### Cold Storage Purpose
 
-Cold storage devices are intended exclusively for:
+Cold storage infrastructure is designated exclusively for:
 
-* Long-term regulatory record retention
-* Backup archives
-* Ledger export snapshots
-* Log archival storage
+- Long-term regulatory record retention  
+- Backup archives  
+- Ledger export snapshots  
+- Log archival storage  
 
-Cold storage must not be used for latency-sensitive transaction processing workloads.
+Cold storage must **not** be used for:
 
+- Latency-sensitive transaction processing  
+- Real-time database workloads  
+- Messaging systems or performance-critical services  
+
+This separation ensures optimal transaction performance while meeting regulatory compliance and retention requirements.
+
+---
+
+### VM-Based Cold Storage Considerations
+
+If cold storage is deployed using virtual machines instead of physical servers, the following conditions must be met:
+
+- Underlying storage must be enterprise-grade (SAN, NAS, or dedicated block storage)
+- Storage must not be oversubscribed
+- IOPS and throughput guarantees must be documented
+- Network bandwidth must be sufficient (minimum 10 Gbps recommended)
+- Backup and redundancy policies must match physical deployment standards
+
+VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.
 ---
 
 ## 4.2 Staging Environment (STG)
@@ -138,12 +238,11 @@ Designed for:
 
 ### Recommended Staging Infrastructure Sizing
 
-| Component               | Quantity   | CPU / RAM / Storage (Per Server)   | Deployment Type      | Notes                 |
-| ----------------------- | ---------- | ---------------------------------- | -------------------- | --------------------- |
-| Master Node Cluster     | ×3 Servers | 4 CPU Cores, 16 GB RAM, 200 GB SSD | VM                   | Control plane         |
-| Worker Node Cluster     | ×2 Servers | 8 CPU Cores, 32 GB RAM, 300 GB SSD | VM                   | Application workloads |
-| Load Balancer (HAProxy) | ×1 Server  | 2 CPU Cores, 8 GB RAM, 50 GB SSD   | VM                   | Single instance       |
-| Cold Storage            | Optional   | Reduced capacity                   | VM or Shared Storage | Optional              |
+| Component                  | Quantity   | CPU / RAM / Storage (Per Server)                                   | Deployment Type | Notes                                |
+|----------------------------|------------|--------------------------------------------------------------------|----------------|--------------------------------------|
+| Master + Worker Cluster    | ×2 Servers | 8 CPU Cores, 16-32 GB RAM, 500 GB SSD                                 | VM             | Combined control plane & workloads   |
+| Load Balancer (HAProxy)    | ×1 Server  | 2 CPU Cores, 4 GB RAM, 100 GB SSD                                   | VM             | Single instance                      |
+| Cold Data Storage          | ×1 Server  | 8 CPU Cores, 32 GB RAM; OS: 200 GB SSD; Data: 2 × 2 TB HDD | VM or Physical | Reduced retention, non-production logs |
 
 ---
 
@@ -296,67 +395,55 @@ Requirements:
 All platform manifests and Helm values must be stored in the customer's repository.
 
 ---
-
 ## 6.1 Platform Applications Deployment Order
 
 Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.
 
 1. Base Utilities
-
-   * `base-utils`
+   - `base-utils`
 
 2. Storage Layer
-
-   * `storage-app`
+   - `storage-app`
 
 3. Certificate Management
-
-   * `certmanager-helm`
-   * `certmanager-app`
-   * `certmanager-clusterissuers`
+   - `certmanager-helm`
+   - `certmanager-app`
+   - `certmanager-clusterissuers`
 
 4. Service Mesh
-
-   * `istio-app`
-   * `istio-main-app`
-   * `istio-gateways-app`
+   - `istio-app`
+   - `istio-main-app`
+   - `istio-gateways-app`
 
 5. DNS Management
-
-   * `external-dns-app`
+   - `external-dns-app`
 
 6. Vault Storage Backend
-
-   * `consul-app`
+   - `consul-app`
 
 7. Vault & Secrets Management
-
-   * `vault-app`
-   * `vault`
-   * `vault-config-operator`
-   * `vault-pki-app`
+   - `vault-app`
+   - `vault`
+   - `vault-config-operator`
+   - `vault-pki-app`
 
 8. Stateful Resources
-
-   * `stateful-resources-operators-app`
-   * `common-stateful-resources-app`
+   - `stateful-resources-operators-app`
+   - `common-stateful-resources-app`
 
 9. Monitoring Stack
-
-   * `monitoring-app`
-   * `monitoring-install`
-   * `monitoring-post-config`
+   - `monitoring-app`
+   - `monitoring-install`
+   - `monitoring-post-config`
 
 10. Identity & Access Management
-
-* `keycloak-app`
-* `keycloak-install`
-* `keycloak-post-config`
-* `ory-app`
+   - `keycloak-app`
+   - `keycloak-install`
+   - `keycloak-post-config`
+   - `ory-app`
 
 11. PM4ML Core
-
-* `pm4ml`
+   - `pm4ml`
 
 ---
 
@@ -369,46 +456,50 @@ cd <repo>
 
 ---
 
-# PM4ML Deployment – Quick Guide
+## 6.3 Pre-Deployment Checklist (Applications)
 
-## 1. Configure Inventory
+Before running `5.apps_setup.yml`, verify the following:
 
-Edit:
+### Configuration
 
-```
-ansible/inventory.ini
-```
+* [ ] Environment values updated (prod / staging)
+* [ ] DNS hostnames updated
+* [ ] Istio Gateway hosts updated
+* [ ] VirtualService URLs updated
+* [ ] PM4ML endpoints configured correctly
 
-Update:
+### Certificates & TLS
 
-* Cluster node IPs (master/worker)
-* HAProxy internal and external IPs
-* Ceph node IPs
-* SSH key path
+* [ ] cert-manager Issuer / ClusterIssuer configured
+* [ ] TLS secrets created or auto-generated
+* [ ] DNS challenge credentials configured (if applicable)
+* [ ] Certificate CN/SAN matches domain
+* [ ] mTLS configuration validated (if required)
+
+### Secrets & Integrations
+
+* [ ] Database credentials updated
+* [ ] External service credentials updated
+* [ ] Vault / ExternalSecrets configuration validated
+* [ ] No placeholder secrets remain
+
+### Storage
+
+* [ ] Correct StorageClass referenced
+* [ ] PVC sizes reviewed
+* [ ] Stateful workloads reference correct volumes
+
+### Resource Management
+
+* [ ] CPU requests and limits defined
+* [ ] Memory requests and limits defined
+* [ ] HPA configuration validated (if enabled)
+
+Deployment must not proceed unless all checklist items are verified.
 
 ---
 
-## 2. Configure Global Variables
-
-Edit:
-
-```
-ansible/group_vars/all.yml
-```
-
-Update:
-
-* `microk8s_version`
-* `git_url`
-* `git_branch`
-* `git_user`
-* `git_password`
-* `nic_iface`
-* DNS and storage settings
-
----
-
-## 3. Run Deployment
+## 6.4 Run Deployment
 
 Execute in order:
 
@@ -423,51 +514,7 @@ ansible-playbook -i inventory.ini 6.system-tuning.yml
 
 ---
 
-## 4. Storage Backend
-
-Use **Ceph** for:
-
-- Loki log storage
-- Non-critical persistent volume workloads
-
-Ceph is **not** used for latency-sensitive or transaction-critical workloads.
-
-Ensure:
-
-- The Ceph cluster is healthy
-- A proper StorageClass is configured
-- Relevant applications reference the Ceph StorageClass in their Helm values
----
-
-## 5. Certificate Configuration
-
-Choose one:
-
-* Public domain → HTTP01 challenge
-* Internal environment → Vault PKI or Corporate CA
-
----
-
-## 6. DNS Records
-
-Create A records:
-
-```
-argocd.<domain> → <external_haproxy_ip>
-walletX.<domain> → <external_haproxy_ip>
-```
-
----
-
-## 7. Vault Setup
-
-* Use Raft storage
-* Enable PKI
-* Enable Kubernetes Auth
-
----
-
-## 8. Manual Secret (Hub Integration)
+## 6.5 Manual Secret (Hub Integration/Onboarding)
 
 To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.
 The client secret must be obtained securely from the Mojaloop Hub operator.
@@ -486,18 +533,18 @@ mcmdev_client_secret
 
 ---
 
-## 9. Verification
+## 6.6 Verification
 
 ```bash
 kubectl get nodes
 kubectl get app -A
-systemctl status haproxy
 ```
 
 Deployment is successful when:
 
-* All nodes are `Ready`
-* Argo CD applications are `Synced` and `Healthy`
-* HAProxy service is `active`
-
----
+- All nodes are `Ready`
+- Argo CD applications are `Synced` and `Healthy`
+- HAProxy service is `active`
+- `https://argocd.<domain>` is accessible and displays the Argo CD login page
+- PM4ML endpoint URLs respond with expected HTTP status codes
+- Internal services are reachable from within the cluster
