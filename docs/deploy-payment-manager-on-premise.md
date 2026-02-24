@@ -1,6 +1,6 @@
 # Payment Manager for Mojaloop (PM4ML)
 
-## Production Deployment Guide (On-Premise)
+## On-Premise Deployment & Environment Architecture Guide
 
 This document provides step-by-step guidance for deploying **Payment Manager for Mojaloop (PM4ML)** in an on-premise data center environment using:
 
