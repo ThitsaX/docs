@@ -915,22 +915,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-haproxy-configuration" class="md-nav__link">
+  <a href="#5-ingress-architecture-and-traffic-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. HAProxy Configuration
+        5. Ingress Architecture and Traffic Flow
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. HAProxy Configuration">
+    <nav class="md-nav" aria-label="5. Ingress Architecture and Traffic Flow">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51-overview" class="md-nav__link">
+  <a href="#51-traffic-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.1 Overview
+        5.1 Traffic Flow
       
     </span>
   </a>
@@ -1588,22 +1588,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-haproxy-configuration" class="md-nav__link">
+  <a href="#5-ingress-architecture-and-traffic-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. HAProxy Configuration
+        5. Ingress Architecture and Traffic Flow
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. HAProxy Configuration">
+    <nav class="md-nav" aria-label="5. Ingress Architecture and Traffic Flow">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51-overview" class="md-nav__link">
+  <a href="#51-traffic-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.1 Overview
+        5.1 Traffic Flow
       
     </span>
   </a>
@@ -2385,12 +2385,20 @@ They must not be exposed to public networks.</p>
 </ul>
 <p>If combined, formal risk acceptance is required.</p>
 <hr />
-<h2 id="5-haproxy-configuration">5. HAProxy Configuration</h2>
-<h3 id="51-overview">5.1 Overview</h3>
-<p>HAProxy acts as the ingress load-balancing layer in front of the MicroK8s cluster.</p>
-<p>Architecture:</p>
+<h2 id="5-ingress-architecture-and-traffic-flow">5. Ingress Architecture and Traffic Flow</h2>
+<p>In the on-premise deployment model, the ingress layer provides a controlled and secure entry point into the PM4ML Kubernetes environment.</p>
+<p>External traffic is not permitted to directly access Kubernetes nodes, NodePort services, or internal cluster components. All inbound requests must traverse a layered ingress architecture designed to enforce network security, traffic distribution, and service-level isolation.</p>
+<h3 id="51-traffic-flow">5.1 Traffic Flow</h3>
+<p>All inbound traffic follows the controlled path below:</p>
 <pre><code>Client → Perimeter Firewall → HAProxy → Istio Ingress Gateway → PM4ML Services
 </code></pre>
+<p>Each layer performs a distinct security and routing function:</p>
+<ul>
+<li>The perimeter firewall enforces IP filtering and port restrictions.</li>
+<li>HAProxy distributes TCP traffic across Kubernetes worker nodes.</li>
+<li>Istio Ingress Gateway terminates TLS and applies routing policies.</li>
+<li>PM4ML services operate within the Kubernetes cluster and are exposed externally only through the Istio Ingress Gateway.</li>
+</ul>
 <hr />
 <h3 id="52-architecture-components">5.2 Architecture Components</h3>
 <h4 id="perimeter-firewall">Perimeter Firewall</h4>
