@@ -865,6 +865,23 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-critical-components-databases-kafka-redis-and-other-low-latency-services-must-use-dedicated-local-nvme-or-equivalent-node-local-high-performance-storage-in-alignment-with-mojaloop-foundation-infrastructure-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        &gt; Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="&gt; Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#42-staging-environment-stg" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1537,6 +1554,23 @@
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-critical-components-databases-kafka-redis-and-other-low-latency-services-must-use-dedicated-local-nvme-or-equivalent-node-local-high-performance-storage-in-alignment-with-mojaloop-foundation-infrastructure-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        &gt; Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="&gt; Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#42-staging-environment-stg" class="md-nav__link">
@@ -2289,11 +2323,11 @@ They must not be exposed to public networks.</p>
 </table>
 <hr />
 <h3 id="cold-storage-purpose">Cold Storage Purpose</h3>
-<p>Cold storage infrastructure is designated exclusively for:</p>
+<p>Cold storage infrastructure is designated strictly for the following non-transactional purposes:</p>
 <ul>
 <li>Long-term regulatory record retention  </li>
 <li>Backup archives  </li>
-<li>Ledger export snapshots  </li>
+<li>Export Kubernetes persistent volume snapshots</li>
 <li>Log archival storage  </li>
 </ul>
 <p>Cold storage must <strong>not</strong> be used for:</p>
@@ -2305,16 +2339,16 @@ They must not be exposed to public networks.</p>
 <p>This separation ensures optimal transaction performance while meeting regulatory compliance and retention requirements.</p>
 <hr />
 <h3 id="vm-based-cold-storage-considerations">VM-Based Cold Storage Considerations</h3>
-<p>If cold storage is deployed using virtual machines instead of physical servers, the following conditions must be met:</p>
+<p>If cold storage is deployed using virtual machines instead of dedicated physical servers, the following conditions must be met:</p>
 <ul>
-<li>Underlying storage must be enterprise-grade (SAN, NAS, or dedicated block storage)</li>
-<li>Storage must not be oversubscribed</li>
-<li>IOPS and throughput guarantees must be documented</li>
-<li>Network bandwidth must be sufficient (minimum 10 Gbps recommended)</li>
-<li>Backup and redundancy policies must match physical deployment standards</li>
-<li>VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.</li>
+<li>The underlying storage platform must be enterprise-grade and suitable for non-transactional archival workloads.</li>
+<li>Storage resources must not be oversubscribed.</li>
+<li>IOPS and throughput characteristics must be documented and validated.</li>
+<li>Network bandwidth must be sufficient to support backup and archival operations (minimum 10 Gbps recommended for production environments).</li>
+<li>Backup, redundancy, and failure-domain design must match the resiliency standards of physical deployment.</li>
+<li>The virtualization platform must provide guaranteed performance isolation equivalent to dedicated infrastructure.</li>
 </ul>
-<hr />
+<h2 id="transaction-critical-components-databases-kafka-redis-and-other-low-latency-services-must-use-dedicated-local-nvme-or-equivalent-node-local-high-performance-storage-in-alignment-with-mojaloop-foundation-infrastructure-recommendations">&gt; Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.</h2>
 <h3 id="42-staging-environment-stg">4.2 Staging Environment (STG)</h3>
 <p>Designed for:</p>
 <ul>
