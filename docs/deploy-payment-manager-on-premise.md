@@ -224,8 +224,7 @@ If cold storage is deployed using virtual machines instead of dedicated physical
 - Network bandwidth must be sufficient to support backup and archival operations (minimum 10 Gbps recommended for production environments).
 - Backup, redundancy, and failure-domain design must match the resiliency standards of physical deployment.
 - The virtualization platform must provide guaranteed performance isolation equivalent to dedicated infrastructure.
-
-> Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.
+- Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.
 ---
 
 ### 4.2 Staging Environment (STG)
