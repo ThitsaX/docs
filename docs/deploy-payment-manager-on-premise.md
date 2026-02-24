@@ -223,8 +223,7 @@ If cold storage is deployed using virtual machines instead of physical servers, 
 - IOPS and throughput guarantees must be documented
 - Network bandwidth must be sufficient (minimum 10 Gbps recommended)
 - Backup and redundancy policies must match physical deployment standards
-
-VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.
+- VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.
 ---
 
 ### 4.2 Staging Environment (STG)
