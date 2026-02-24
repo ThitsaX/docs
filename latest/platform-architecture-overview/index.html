@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -1225,15 +1225,17 @@ Specific implementations may vary depending on regulatory, organizational, and o
 </ul>
 <hr />
 <h2 id="5-security-architecture-high-level">5. Security Architecture (High Level)</h2>
-<pre><code class="language-text">┌────────┐      mTLS + JWS       ┌─────────┐
-│  Hub   │  ◀────────────────▶   │  PM4ML  │
-└────────┘                       └─────────┘
-       │
-       │  Transaction Events
-       ▼
-┌─────────┐
-│ Tazama  │
-└─────────┘
+<pre><code class="language-text">                     ┌─────────┐
+                     │ Tazama  │
+                     └─────────┘
+                      ▲      ▲
+                      │      │
+        Transaction   │      │  Transaction
+        Events        │      │  Events
+                      │      │
+┌────────┐   HTTPS + Security Stack   ┌─────────┐
+│  Hub   │  ◀──────────────────────▶  │  PM4ML  │
+└────────┘  mTLS + OAuth2 + JWS + ILP └─────────┘
 </code></pre>
 <h3 id="security-principles">Security Principles</h3>
 <ul>
