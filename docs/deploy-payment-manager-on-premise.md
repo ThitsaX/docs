@@ -399,63 +399,51 @@ All platform manifests and Helm values must be stored in the customer's reposito
 
 Argo CD applications must be deployed in the following sequence to satisfy dependencies and ensure system stability.
 
-1. **Base Utilities**
+- **Base Utilities**
+  - `base-utils`
 
-   - `base-utils`
+- **Storage Layer**
+  - `storage-app`
 
-2. **Storage Layer**
+- **Certificate Management**
+  - `certmanager-helm`
+  - `certmanager-app`
+  - `certmanager-clusterissuers`
 
-   - `storage-app`
+- **Service Mesh**
+  - `istio-app`
+  - `istio-main-app`
+  - `istio-gateways-app`
 
-3. **Certificate Management**
+- **DNS Management**
+  - `external-dns-app`
 
-   - `certmanager-helm`
-   - `certmanager-app`
-   - `certmanager-clusterissuers`
+- **Vault Storage Backend**
+  - `consul-app`
 
-4. **Service Mesh**
+- **Vault & Secrets Management**
+  - `vault-app`
+  - `vault`
+  - `vault-config-operator`
+  - `vault-pki-app`
 
-   - `istio-app`
-   - `istio-main-app`
-   - `istio-gateways-app`
+- **Stateful Resources**
+  - `stateful-resources-operators-app`
+  - `common-stateful-resources-app`
 
-5. **DNS Management**
+- **Monitoring Stack**
+  - `monitoring-app`
+  - `monitoring-install`
+  - `monitoring-post-config`
 
-   - `external-dns-app`
+- **Identity & Access Management**
+  - `keycloak-app`
+  - `keycloak-install`
+  - `keycloak-post-config`
+  - `ory-app`
 
-6. **Vault Storage Backend**
-
-   - `consul-app`
-
-7. **Vault & Secrets Management**
-
-   - `vault-app`
-   - `vault`
-   - `vault-config-operator`
-   - `vault-pki-app`
-
-8. **Stateful Resources**
-
-   - `stateful-resources-operators-app`
-   - `common-stateful-resources-app`
-
-9. **Monitoring Stack**
-
-   - `monitoring-app`
-   - `monitoring-install`
-   - `monitoring-post-config`
-
-10. **Identity & Access Management**
-
-    - `keycloak-app`
-    - `keycloak-install`
-    - `keycloak-post-config`
-    - `ory-app`
-
-11. **PM4ML Core**
-
-    - `pm4ml`
-
+- **PM4ML Core**
+  - `pm4ml`
 ---
 
 ## 6.2 Clone Repository
