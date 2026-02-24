@@ -197,11 +197,11 @@ VMs may be provisioned using:
 
 ### Cold Storage Purpose
 
-Cold storage infrastructure is designated exclusively for:
+Cold storage infrastructure is designated strictly for the following non-transactional purposes:
 
 - Long-term regulatory record retention  
 - Backup archives  
-- Ledger export snapshots  
+- Export Kubernetes persistent volume snapshots
 - Log archival storage  
 
 Cold storage must **not** be used for:
@@ -216,14 +216,16 @@ This separation ensures optimal transaction performance while meeting regulatory
 
 ### VM-Based Cold Storage Considerations
 
-If cold storage is deployed using virtual machines instead of physical servers, the following conditions must be met:
+If cold storage is deployed using virtual machines instead of dedicated physical servers, the following conditions must be met:
 
-- Underlying storage must be enterprise-grade (SAN, NAS, or dedicated block storage)
-- Storage must not be oversubscribed
-- IOPS and throughput guarantees must be documented
-- Network bandwidth must be sufficient (minimum 10 Gbps recommended)
-- Backup and redundancy policies must match physical deployment standards
-- VM-based cold storage is acceptable only when the virtualization platform provides guaranteed performance and isolation equivalent to dedicated physical storage.
+- The underlying storage platform must be enterprise-grade and suitable for non-transactional archival workloads.
+- Storage resources must not be oversubscribed.
+- IOPS and throughput characteristics must be documented and validated.
+- Network bandwidth must be sufficient to support backup and archival operations (minimum 10 Gbps recommended for production environments).
+- Backup, redundancy, and failure-domain design must match the resiliency standards of physical deployment.
+- The virtualization platform must provide guaranteed performance isolation equivalent to dedicated infrastructure.
+
+> Transaction-critical components (databases, Kafka, Redis, and other low-latency services) must use dedicated local NVMe or equivalent node-local high-performance storage, in alignment with Mojaloop Foundation infrastructure recommendations.
 ---
 
 ### 4.2 Staging Environment (STG)
