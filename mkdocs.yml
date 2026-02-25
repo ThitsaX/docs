@@ -6,7 +6,7 @@ use_directory_urls: true
 theme:
   name: material
   logo: assets/logo.png
-  favicon: assets/logo.png
+  favicon: assets/fav.png
   features:
     - navigation.sections
     - navigation.top
