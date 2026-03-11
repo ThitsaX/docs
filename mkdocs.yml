@@ -18,10 +18,16 @@ theme:
     - header.autohide
     - navigation.expand
     - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
 
 markdown_extensions:
   - pymdownx.superfences
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
 
 extra:
   version:
