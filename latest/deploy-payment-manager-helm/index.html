@@ -1218,31 +1218,7 @@ It is intended for integration environments or basic deployments.</p>
 <hr />
 <h2 id="architecture-overview">Architecture Overview</h2>
 <p>The following diagram shows how <strong>PM4ML connects a DFSP to the Mojaloop Hub</strong>.</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
-
-    DFSP[DFSP System]
-
-    subgraph PM4ML Cluster
-        CORE[Core Connector]
-        SDK[SDK Scheme Adapter]
-        REDIS[(Redis HA)]
-    end
-
-    VPN[(VPN Tunnel)]
-    HUB[Mojaloop Hub]
-
-    DFSP --&gt;|API Calls| CORE
-    CORE --&gt; SDK
-
-    SDK --&gt;|State / Cache| REDIS
-    CORE --&gt;|State / Cache| REDIS
-
-    SDK --&gt;|mTLS FSPIOP API| VPN
-    VPN --&gt; HUB
-
-    HUB --&gt;|mTLS Callbacks| VPN
-    VPN --&gt; SDK
-</code></pre></div>
+<p><img width="1214" height="328" alt="image" src="https://github.com/user-attachments/assets/98d04729-f212-4bd2-bf37-f13eb08e0033" /></p>
 <h3 id="component-overview">Component Overview</h3>
 <table>
 <thead>
