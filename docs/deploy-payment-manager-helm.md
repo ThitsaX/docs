@@ -55,7 +55,7 @@ flowchart LR
 
     SDK --> REDIS
     CORE --> REDIS
-````
+```
 
 ### Component Overview
 
