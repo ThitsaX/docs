@@ -41,20 +41,19 @@ flowchart LR
     end
 
     VPN[(VPN Tunnel)]
-
     HUB[Mojaloop Hub]
 
     DFSP -->|API Calls| CORE
     CORE --> SDK
+
+    SDK -->|State / Cache| REDIS
+    CORE -->|State / Cache| REDIS
 
     SDK -->|mTLS FSPIOP API| VPN
     VPN --> HUB
 
     HUB -->|mTLS Callbacks| VPN
     VPN --> SDK
-
-    SDK --> REDIS
-    CORE --> REDIS
 ```
 
 ### Component Overview
