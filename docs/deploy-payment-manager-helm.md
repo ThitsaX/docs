@@ -4,11 +4,14 @@ This document describes the deployment maintained in the following project:
 
 👉 [PM4ML Deployment Repository](https://github.com/ThitsaX/pm4ml-deployment)
 
-## ⚠️ **Note**
+
+## ⚠️ Note
+
 This guide describes a **minimal PM4ML deployment using Helm**.  
-It is intended for integration environments or basic deployments.
+It is intended for **integration environments or basic deployments**.
 
 Production environments may require additional components such as:
+
 - Centralized logging
 - Monitoring and alerting
 - Backup and recovery
