@@ -624,6 +624,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -900,6 +928,34 @@
     <span class="md-ellipsis">
       
         Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
       
     </span>
   </a>
@@ -1187,43 +1243,55 @@ It is intended for integration environments or basic deployments.</p>
 
     SDK --&gt; REDIS
     CORE --&gt; REDIS
-````
-
-### Component Overview
-
-| Component              | Description                                   |
-| ---------------------- | --------------------------------------------- |
-| **SDK Scheme Adapter** | Handles Mojaloop SDK API interactions         |
-| **Core Connector**     | Communicates with the Mojaloop Hub            |
-| **Redis**              | Used for caching and message state management |
-| **Ingress / Gateway**  | Exposes PM4ML endpoints to external systems   |
-
----
-
-## Prerequisites
-
-Ensure the following components are available in your Kubernetes environment:
-
-- Kubernetes cluster
-- kubectl
-- Helm v3+
-- A **default StorageClass** or an available StorageClass for persistent volumes
-
-PM4ML uses Redis HA, which requires persistent storage.
-Your Kubernetes cluster must provide a **dynamic StorageClass** capable of provisioning PersistentVolumes.
-For Redis workloads, lower-latency storage is generally preferred. However, the optimal storage backend depends on the infrastructure and operational model of the Kubernetes cluster.
-
-Common examples include:
-
-- **Ceph / Rook-Ceph**
-- **Cloud provider disks** (AWS EBS, GCP Persistent Disk, Azure Disk)
-- **Longhorn** (commonly used for on-prem Kubernetes, but may introduce additional latency)
-- **Local Persistent Volumes** (low latency, but ties workloads to specific nodes)
-
-You can check available StorageClasses with:
-
-```bash
-kubectl get storageclass
+</code></pre>
+<h3 id="component-overview">Component Overview</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SDK Scheme Adapter</strong></td>
+<td>Handles Mojaloop SDK API interactions</td>
+</tr>
+<tr>
+<td><strong>Core Connector</strong></td>
+<td>Communicates with the Mojaloop Hub</td>
+</tr>
+<tr>
+<td><strong>Redis</strong></td>
+<td>Used for caching and message state management</td>
+</tr>
+<tr>
+<td><strong>Ingress / Gateway</strong></td>
+<td>Exposes PM4ML endpoints to external systems</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Ensure the following components are available in your Kubernetes environment:</p>
+<ul>
+<li>Kubernetes cluster</li>
+<li>kubectl</li>
+<li>Helm v3+</li>
+<li>A <strong>default StorageClass</strong> or an available StorageClass for persistent volumes</li>
+</ul>
+<p>PM4ML uses Redis HA, which requires persistent storage.
+Your Kubernetes cluster must provide a <strong>dynamic StorageClass</strong> capable of provisioning PersistentVolumes.
+For Redis workloads, lower-latency storage is generally preferred. However, the optimal storage backend depends on the infrastructure and operational model of the Kubernetes cluster.</p>
+<p>Common examples include:</p>
+<ul>
+<li><strong>Ceph / Rook-Ceph</strong></li>
+<li><strong>Cloud provider disks</strong> (AWS EBS, GCP Persistent Disk, Azure Disk)</li>
+<li><strong>Longhorn</strong> (commonly used for on-prem Kubernetes, but may introduce additional latency)</li>
+<li><strong>Local Persistent Volumes</strong> (low latency, but ties workloads to specific nodes)</li>
+</ul>
+<p>You can check available StorageClasses with:</p>
+<pre><code class="language-bash">kubectl get storageclass
 </code></pre>
 <p>Verify cluster access:</p>
 <pre><code class="language-bash">kubectl get nodes
