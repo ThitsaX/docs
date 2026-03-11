@@ -1189,14 +1189,14 @@ Specific implementations may vary depending on regulatory, organizational, and o
 <li>Maintained for service continuity</li>
 <li>Deployed in a <strong>separate cloud region</strong> or <strong>physical datacenter</strong></li>
 </ul>
-<pre><code class="language-text">┌───────────────┐        Secure Connectivity      ┌───────────────┐
+<div class="highlight"><pre><span></span><code>┌───────────────┐        Secure Connectivity      ┌───────────────┐
 │  Primary Site │  ◀────────────────────────────▶ │  Standby Site │
 │               │                                 │               │
 │ Hub           │                                 │ Hub           │
 │ PM4ML         │                                 │ PM4ML         │
 │ Tazama        │                                 │ Tazama        │
 └───────────────┘                                 └───────────────┘
-</code></pre>
+</code></pre></div>
 <p>Both sites share the same logical architecture. Differences are limited to <strong>capacity sizing</strong>, not functionality.</p>
 <hr />
 <h2 id="3-platform-components">3. Platform Components</h2>
@@ -1253,7 +1253,7 @@ Specific implementations may vary depending on regulatory, organizational, and o
 </ul>
 <hr />
 <h2 id="5-security-architecture-high-level">5. Security Architecture (High Level)</h2>
-<pre><code class="language-text">                     ┌─────────┐
+<div class="highlight"><pre><span></span><code>                     ┌─────────┐
                      │ Tazama  │
                      └─────────┘
                       ▲      ▲
@@ -1264,7 +1264,7 @@ Specific implementations may vary depending on regulatory, organizational, and o
 ┌────────┐   HTTPS + Security Stack   ┌─────────┐
 │  Hub   │  ◀──────────────────────▶  │  PM4ML  │
 └────────┘  mTLS + OAuth2 + JWS + ILP └─────────┘
-</code></pre>
+</code></pre></div>
 <h3 id="security-principles">Security Principles</h3>
 <ul>
 <li>Encrypted communication for all inter-platform traffic</li>

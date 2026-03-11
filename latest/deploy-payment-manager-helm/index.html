@@ -1218,7 +1218,7 @@ It is intended for integration environments or basic deployments.</p>
 <hr />
 <h2 id="architecture-overview">Architecture Overview</h2>
 <p>The following diagram shows how <strong>PM4ML connects a DFSP to the Mojaloop Hub</strong>.</p>
-<pre><code class="language-mermaid">flowchart LR
+<div class="highlight"><pre><span></span><code>flowchart LR
 
     DFSP[DFSP System]
 
@@ -1229,21 +1229,20 @@ It is intended for integration environments or basic deployments.</p>
     end
 
     VPN[(VPN Tunnel)]
-
     HUB[Mojaloop Hub]
 
     DFSP --&gt;|API Calls| CORE
     CORE --&gt; SDK
+
+    SDK --&gt;|State / Cache| REDIS
+    CORE --&gt;|State / Cache| REDIS
 
     SDK --&gt;|mTLS FSPIOP API| VPN
     VPN --&gt; HUB
 
     HUB --&gt;|mTLS Callbacks| VPN
     VPN --&gt; SDK
-
-    SDK --&gt; REDIS
-    CORE --&gt; REDIS
-</code></pre>
+</code></pre></div>
 <h3 id="component-overview">Component Overview</h3>
 <table>
 <thead>
@@ -1291,11 +1290,11 @@ For Redis workloads, lower-latency storage is generally preferred. However, the 
 <li><strong>Local Persistent Volumes</strong> (low latency, but ties workloads to specific nodes)</li>
 </ul>
 <p>You can check available StorageClasses with:</p>
-<pre><code class="language-bash">kubectl get storageclass
-</code></pre>
-<p>Verify cluster access:</p>
-<pre><code class="language-bash">kubectl get nodes
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>storageclass
+</code></pre></div>
+<p>Verify cluster access:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+</code></pre></div></p>
 <hr />
 <h2 id="configuration">Configuration</h2>
 <p>Before deploying PM4ML, review and update the configuration files in this repository to match your environment.</p>
@@ -1359,50 +1358,50 @@ For Redis workloads, lower-latency storage is generally preferred. However, the 
 <h3 id="storage-configuration">Storage Configuration</h3>
 <p>Ensure your Kubernetes cluster has a <strong>default StorageClass</strong> or update the Redis values file with the appropriate StorageClass.</p>
 <h2 id="1-add-helm-repositories">1. Add Helm Repositories</h2>
-<pre><code class="language-bash">helm repo add dandydeveloper https://dandydeveloper.github.io/charts
-helm repo add pm4ml https://pm4ml.github.io/mojaloop-payment-manager-helm/repo
-helm repo update
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>dandydeveloper<span class="w"> </span>https://dandydeveloper.github.io/charts
+helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>pm4ml<span class="w"> </span>https://pm4ml.github.io/mojaloop-payment-manager-helm/repo
+helm<span class="w"> </span>repo<span class="w"> </span>update
+</code></pre></div>
 <hr />
 <h2 id="2-deploy-redis">2. Deploy Redis</h2>
 <p>Create a namespace first.</p>
-<pre><code class="language-bash">kubectl create namespace pm4ml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>pm4ml
+</code></pre></div>
 <p>Install Redis HA:</p>
-<pre><code class="language-bash">helm install redis-ha \
-  dandydeveloper/redis-ha \
-  --version 4.35.5 \
-  -n pm4ml \
-  -f helm-values/values-redis-ha.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>redis-ha<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dandydeveloper/redis-ha<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span><span class="m">4</span>.35.5<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>pm4ml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>helm-values/values-redis-ha.yaml
+</code></pre></div>
 <p>Verify Redis deployment:</p>
-<pre><code class="language-bash">kubectl get pods -n pm4ml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>pm4ml
+</code></pre></div>
 <hr />
 <h2 id="3-deploy-pm4ml">3. Deploy PM4ML</h2>
 <p>Install PM4ML:</p>
-<pre><code class="language-bash">helm install pm4ml \
-  pm4ml/mojaloop-payment-manager \
-  --version 10.2.0 \
-  -n pm4ml \
-  -f helm-values/values-pm4ml.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>pm4ml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pm4ml/mojaloop-payment-manager<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--version<span class="w"> </span><span class="m">10</span>.2.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>pm4ml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>helm-values/values-pm4ml.yaml
+</code></pre></div>
 <p>Verify deployment:</p>
-<pre><code class="language-bash">kubectl get pods -n pm4ml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>pm4ml
+</code></pre></div>
 <hr />
 <h2 id="4-configure-networking">4. Configure Networking</h2>
 <p>Apply mTLS configuration:</p>
-<pre><code class="language-bash">kubectl apply -f networking/pm4ml-mtls.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>networking/pm4ml-mtls.yaml
+</code></pre></div>
 <p>Apply ingress configuration:</p>
-<pre><code class="language-bash">kubectl apply -f networking/ingress.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>networking/ingress.yaml
+</code></pre></div>
 <hr />
 <h2 id="5-verify-deployment">5. Verify Deployment</h2>
 <p>Check all PM4ML resources:</p>
-<pre><code class="language-bash">kubectl get all -n pm4ml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>all<span class="w"> </span>-n<span class="w"> </span>pm4ml
+</code></pre></div>
 <hr />
 <h2 id="notes">Notes</h2>
 <p>This deployment installs:</p>
@@ -1411,12 +1410,12 @@ helm repo update
 <li>PM4ML Helm chart version <strong>10.2.0</strong></li>
 </ul>
 <p>Service names follow the Helm release name:</p>
-<pre><code>pm4ml-*
-</code></pre>
+<div class="highlight"><pre><span></span><code>pm4ml-*
+</code></pre></div>
 <p>Examples:</p>
-<pre><code>pm4ml-mojaloop-core-connector
+<div class="highlight"><pre><span></span><code>pm4ml-mojaloop-core-connector
 pm4ml-sdk-scheme-adapter-api-svc
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="ingress-configuration">Ingress Configuration</h2>
 <p>PM4ML requires external access to several services.</p>
@@ -1454,10 +1453,10 @@ pm4ml-sdk-scheme-adapter-api-svc
 </tbody>
 </table>
 <p>Example domain configuration:</p>
-<pre><code>conn-pm4ml.example.com
+<div class="highlight"><pre><span></span><code>conn-pm4ml.example.com
 sdk-core-connector-pm4ml.example.com
 fsp-core-connector-pm4ml.example.com
-</code></pre>
+</code></pre></div>
 <h3 id="example-istio">Example (Istio)</h3>
 <p>If using Istio, refer to the example <code>VirtualService</code> manifest provided in this repository.</p>
 <h3 id="example-nginx-ingress">Example (NGINX Ingress)</h3>

@@ -1785,8 +1785,8 @@
 <p>Mojaloop uses Apache Kafka (in KRaft mode — no ZooKeeper) for event streaming between services. Download Kafka from https://dlcdn.apache.org/kafka/3.9.1/kafka_2.12-3.9.1.tgz.</p>
 <h4 id="11-configure">1.1 Configure</h4>
 <p>Copy the provided <code>server.properties</code> into your Kafka installation:</p>
-<pre><code class="language-bash">cp tools/kafka/server.properties &lt;KAFKA_HOME&gt;/config/server.properties
-</code></pre>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>tools/kafka/server.properties<span class="w"> </span>&lt;KAFKA_HOME&gt;/config/server.properties
+</code></pre></div>
 <p>Key settings in the provided configuration:</p>
 <table>
 <thead>
@@ -1820,19 +1820,19 @@
 </tbody>
 </table>
 <h4 id="12-initialize-and-start">1.2 Initialize and Start</h4>
-<pre><code class="language-bash"># From your Kafka installation directory:
+<div class="highlight"><pre><span></span><code><span class="c1"># From your Kafka installation directory:</span>
 
-# Initialize the storage (first time only)
+<span class="c1"># Initialize the storage (first time only)</span>
 ./tools/kafka/scripts/init-kafka.sh
 
-# Start the broker
+<span class="c1"># Start the broker</span>
 ./tools/kafka/scripts/start-kafka.sh
-</code></pre>
+</code></pre></div>
 <h4 id="13-create-topics">1.3 Create Topics</h4>
 <p>Mojaloop requires a set of predefined Kafka topics. Create them with:</p>
-<pre><code class="language-bash">./tools/kafka/scripts/create-topics.sh [KAFKA_HOST] [KAFKA_PORT]
-# Defaults to localhost:9092 if no arguments given
-</code></pre>
+<div class="highlight"><pre><span></span><code>./tools/kafka/scripts/create-topics.sh<span class="w"> </span><span class="o">[</span>KAFKA_HOST<span class="o">]</span><span class="w"> </span><span class="o">[</span>KAFKA_PORT<span class="o">]</span>
+<span class="c1"># Defaults to localhost:9092 if no arguments given</span>
+</code></pre></div>
 <p>This creates the following topics (replication-factor=1, partitions=1):</p>
 <table>
 <thead>
@@ -1897,50 +1897,50 @@
 </table>
 <h4 id="15-redpanda-console-optional">1.5 Redpanda Console (Optional)</h4>
 <p>For a web UI to inspect Kafka topics, consumer groups, and messages, you can run the Redpanda Console:</p>
-<pre><code class="language-bash">docker compose -f tools/redpanda/docker-compose.yml up -d
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>tools/redpanda/docker-compose.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
 <p>The console will be available at http://localhost:18080. It connects to Kafka via <code>host.docker.internal:9094</code> (the EXTERNAL listener).</p>
 <hr />
 <h3 id="2-redis-cluster">2. Redis Cluster</h3>
 <p>Mojaloop uses a Redis cluster as a distributed cache. The provided script sets up a 3-node cluster locally.</p>
 <p><strong>Prerequisites:</strong> Redis <strong>7</strong> must be installed. Ensure <code>redis-server</code> and <code>redis-cli</code> are available on your <code>PATH</code>.</p>
 <h4 id="21-start-the-cluster">2.1 Start the Cluster</h4>
-<pre><code class="language-bash">cd tools/redis
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>tools/redis
 ./start-redis-cluster.sh
-</code></pre>
+</code></pre></div>
 <p>This will:
 1. Create a <code>redis-cluster/</code> directory with per-node configuration and data
 2. Start 3 Redis instances on ports <strong>6379</strong>, <strong>6380</strong>, and <strong>6381</strong>
 3. Form them into a cluster with <code>--cluster-replicas 0</code> (no replicas, masters only)</p>
 <p>Each node runs with <code>cluster-enabled yes</code>, <code>appendonly yes</code>, and <code>protected-mode no</code>.</p>
 <h4 id="22-stop-the-cluster">2.2 Stop the Cluster</h4>
-<pre><code class="language-bash">cd tools/redis
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>tools/redis
 ./stop-redis-cluster.sh
-</code></pre>
+</code></pre></div>
 <p>This shuts down all 3 nodes (ports 6379–6381) gracefully.</p>
 <hr />
 <h3 id="3-mysql">3. MySQL</h3>
 <p>Mojaloop's central-ledger, quoting-service, and account-lookup-service store data in MySQL. Version <strong>8.4</strong> or lower is supported (Mojaloop recommends <strong>5.7</strong>).</p>
 <h4 id="31-configure">3.1 Configure</h4>
 <p>Use the provided <code>my.cnf</code> as a template:</p>
-<pre><code class="language-ini">[mysqld]
-basedir=/&lt;your_mysql_location&gt;
-datadir=/&lt;your_mysql_location&gt;/data
-socket=/tmp/mysql.sock
-port=3306
-mysql_native_password=ON
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">basedir</span><span class="o">=</span><span class="s">/&lt;your_mysql_location&gt;</span>
+<span class="na">datadir</span><span class="o">=</span><span class="s">/&lt;your_mysql_location&gt;/data</span>
+<span class="na">socket</span><span class="o">=</span><span class="s">/tmp/mysql.sock</span>
+<span class="na">port</span><span class="o">=</span><span class="s">3306</span>
+<span class="na">mysql_native_password</span><span class="o">=</span><span class="s">ON</span>
+</code></pre></div>
 <blockquote>
 <p><strong>Important:</strong> If using MySQL 8.4+, the <code>mysql_native_password=ON</code> setting is required because Mojaloop's database libraries rely on the <code>mysql_native_password</code> authentication plugin.</p>
 </blockquote>
 <h4 id="32-create-the-database-user">3.2 Create the Database User</h4>
-<pre><code class="language-sql">-- Create the user (or alter if it already exists)
-ALTER USER 'central_ledger'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+<div class="highlight"><pre><span></span><code><span class="c1">-- Create the user (or alter if it already exists)</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;central_ledger&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
 
--- Grant full privileges (required for Knex DB migrations)
-GRANT ALL PRIVILEGES ON *.* TO 'central_ledger'@'%';
-FLUSH PRIVILEGES;
-</code></pre>
+<span class="c1">-- Grant full privileges (required for Knex DB migrations)</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;central_ledger&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+</code></pre></div>
 <p><code>central_ledger</code> is the default username used by Mojaloop services. You can change it, but you will need to update the service configurations accordingly.</p>
 <hr />
 <h3 id="4-running-platform-services">4. Running Platform Services</h3>
@@ -1951,10 +1951,10 @@ FLUSH PRIVILEGES;
 <p>Services should be started in the following order:</p>
 <h4 id="41-central-ledger">4.1 Central Ledger</h4>
 <p>The central-ledger is the core service and must be started first, as other services depend on it.</p>
-<pre><code class="language-bash">cd platform/central-ledger-19.11.3
-npm install
-npm run start:api
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>platform/central-ledger-19.11.3
+npm<span class="w"> </span>install
+npm<span class="w"> </span>run<span class="w"> </span>start:api
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1981,10 +1981,10 @@ npm run start:api
 <p>On first run, Knex will automatically run database migrations (<code>MIGRATIONS.DISABLED: false</code>).</p>
 </blockquote>
 <h4 id="42-account-lookup-service">4.2 Account Lookup Service</h4>
-<pre><code class="language-bash">cd platform/account-lookup-service-17.14.4
-npm install
-npm run start:all
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>platform/account-lookup-service-17.14.4
+npm<span class="w"> </span>install
+npm<span class="w"> </span>run<span class="w"> </span>start:all
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2019,10 +2019,10 @@ npm run start:all
 <p>This service uses a separate MySQL user (<code>account_lookup</code>). Make sure to create it the same way as <code>central_ledger</code> (see <a href="#32-create-the-database-user">Section 3.2</a>).</p>
 </blockquote>
 <h4 id="43-quoting-service-api">4.3 Quoting Service (API)</h4>
-<pre><code class="language-bash">cd platform/quoting-service-17.13.8
-npm install
-npm run start:api
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>platform/quoting-service-17.13.8
+npm<span class="w"> </span>install
+npm<span class="w"> </span>run<span class="w"> </span>start:api
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2051,17 +2051,17 @@ npm run start:api
 </table>
 <h4 id="44-quoting-service-handlers">4.4 Quoting Service (Handlers)</h4>
 <p>In a <strong>separate terminal</strong>, start the Kafka consumer handlers for the quoting service:</p>
-<pre><code class="language-bash">cd platform/quoting-service-17.13.8
-npm run start:handlers
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>platform/quoting-service-17.13.8
+npm<span class="w"> </span>run<span class="w"> </span>start:handlers
+</code></pre></div>
 <blockquote>
 <p>The handlers consume from Kafka topics (<code>topic-quotes-*</code>, <code>topic-bulkquotes-*</code>, <code>topic-fx-quotes-*</code>) and process quote requests asynchronously. <code>npm install</code> is not needed again if already done in step 4.3.</p>
 </blockquote>
 <h4 id="45-ml-api-adapter">4.5 ML API Adapter</h4>
-<pre><code class="language-bash">cd platform/ml-api-adapter-16.6.1
-npm install
-npm run start:api
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>platform/ml-api-adapter-16.6.1
+npm<span class="w"> </span>install
+npm<span class="w"> </span>run<span class="w"> </span>start:api
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2088,10 +2088,10 @@ npm run start:api
 <p>This is the main entry point for FSPIOP API calls. It forwards transfer requests to the central-ledger via Kafka.</p>
 </blockquote>
 <h4 id="46-central-settlement">4.6 Central Settlement</h4>
-<pre><code class="language-bash">cd platform/central-settlement-17.2.6
-npm install
-npm run start:api
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>platform/central-settlement-17.2.6
+npm<span class="w"> </span>install
+npm<span class="w"> </span>run<span class="w"> </span>start:api
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2149,34 +2149,34 @@ npm run start:api
 </blockquote>
 <p><strong>Prerequisites:</strong> Apache Maven and <strong>JDK 21</strong> (or 25) must be installed.</p>
 <h4 id="51-build-the-simulator">5.1 Build the Simulator</h4>
-<pre><code class="language-bash">cd simulator
-mvn install -DskipTests=true
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>simulator
+mvn<span class="w"> </span>install<span class="w"> </span>-DskipTests<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
 <h4 id="52-prepare-the-wallets">5.2 Prepare the Wallets</h4>
 <p>After the build completes, copy the connector JAR and its dependencies into the <code>wallets/</code> folder:</p>
-<pre><code class="language-bash">mkdir -p wallets/lib
-cp simulator/connector/target/mod_connector-1.0.0.jar wallets/
-cp simulator/connector/target/lib/* wallets/lib/
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>wallets/lib
+cp<span class="w"> </span>simulator/connector/target/mod_connector-1.0.0.jar<span class="w"> </span>wallets/
+cp<span class="w"> </span>simulator/connector/target/lib/*<span class="w"> </span>wallets/lib/
+</code></pre></div>
 <p>Your <code>wallets/</code> folder should look like this:</p>
-<pre><code>wallets/
+<div class="highlight"><pre><span></span><code>wallets/
 ├── mod_connector-1.0.0.jar
 ├── lib/                          # dependency JARs
 ├── wallet1.sh
 ├── wallet1-log4j2.xml
 ├── wallet2.sh
 └── wallet2-log4j2.xml
-</code></pre>
+</code></pre></div>
 <h4 id="53-run-the-wallets">5.3 Run the Wallets</h4>
 <p>Start each wallet in a <strong>separate terminal</strong>:</p>
-<pre><code class="language-bash"># Terminal 1 — Wallet 1
-cd wallets
+<div class="highlight"><pre><span></span><code><span class="c1"># Terminal 1 — Wallet 1</span>
+<span class="nb">cd</span><span class="w"> </span>wallets
 ./wallet1.sh
-</code></pre>
-<pre><code class="language-bash"># Terminal 2 — Wallet 2
-cd wallets
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Terminal 2 — Wallet 2</span>
+<span class="nb">cd</span><span class="w"> </span>wallets
 ./wallet2.sh
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2255,9 +2255,9 @@ cd wallets
 </blockquote>
 <h4 id="63-register-wallet-endpoints">6.3 Register Wallet Endpoints</h4>
 <p>After completing the Postman steps above, run the endpoint registration scripts to register all FSPIOP callback URLs for each wallet:</p>
-<pre><code class="language-bash">./onboarding/register-wallet1-endpoints.sh
+<div class="highlight"><pre><span></span><code>./onboarding/register-wallet1-endpoints.sh
 ./onboarding/register-wallet2-endpoints.sh
-</code></pre>
+</code></pre></div>
 <p>These scripts register callback endpoints (parties, quotes, transfers, bulk operations, etc.) against the central-ledger, pointing to each wallet's outbound port:</p>
 <table>
 <thead>

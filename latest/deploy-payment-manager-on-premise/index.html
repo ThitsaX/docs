@@ -2421,9 +2421,9 @@ They must not be exposed to public networks.</p>
 <p>External traffic is not permitted to directly access Kubernetes nodes, NodePort services, or internal cluster components. All inbound requests must traverse a layered ingress architecture designed to enforce network security, traffic distribution, and service-level isolation.</p>
 <h3 id="51-traffic-flow">5.1 Traffic Flow</h3>
 <p>All inbound traffic follows the controlled path below:</p>
-<pre><code>Client → Perimeter Firewall → HAProxy → Istio Ingress Gateway → PM4ML Services
-</code></pre>
-<p>Each layer performs a distinct security and routing function:</p>
+<p><div class="highlight"><pre><span></span><code>Client → Perimeter Firewall → HAProxy → Istio Ingress Gateway → PM4ML Services
+</code></pre></div>
+Each layer performs a distinct security and routing function:</p>
 <ul>
 <li>The perimeter firewall enforces IP filtering and port restrictions.</li>
 <li>HAProxy distributes TCP traffic across Kubernetes worker nodes.</li>
@@ -2507,8 +2507,8 @@ They must not be exposed to public networks.</p>
 <li>Recommended: 1 Public VIP</li>
 </ul>
 <p>Example:</p>
-<pre><code>Internet → Firewall → NAT → HAProxy → Istio → Services
-</code></pre>
+<div class="highlight"><pre><span></span><code>Internet → Firewall → NAT → HAProxy → Istio → Services
+</code></pre></div>
 <h3 id="private-ip">Private IP</h3>
 <p>Required for:</p>
 <ul>
@@ -2611,9 +2611,9 @@ They must not be exposed to public networks.</p>
 </ul>
 <hr />
 <h3 id="62-clone-repository">6.2 Clone Repository</h3>
-<pre><code class="language-bash">git clone &lt;your-onprem-gitops-repo&gt;
-cd &lt;repo&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>&lt;your-onprem-gitops-repo&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;repo&gt;
+</code></pre></div>
 <hr />
 <h3 id="63-pre-deployment-checklist-applications">6.3 Pre-Deployment Checklist (Applications)</h3>
 <p>Before running <code>5.apps_setup.yml</code>, verify the following:</p>
@@ -2656,28 +2656,28 @@ cd &lt;repo&gt;
 <hr />
 <h3 id="64-run-deployment">6.4 Run Deployment</h3>
 <p>Execute in order:</p>
-<pre><code class="language-bash">ansible-playbook -i inventory.ini 1.microk8s_setup.yml
-ansible-playbook -i inventory.ini 2.argocd_setup.yml
-ansible-playbook -i inventory.ini 3.haproxy_setup.yml
-ansible-playbook -i inventory.ini 4.ceph.yml
-ansible-playbook -i inventory.ini 5.apps_setup.yml
-ansible-playbook -i inventory.ini 6.system-tuning.yml
-</code></pre>
+<div class="highlight"><pre><span></span><code>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span><span class="m">1</span>.microk8s_setup.yml
+ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span><span class="m">2</span>.argocd_setup.yml
+ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span><span class="m">3</span>.haproxy_setup.yml
+ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span><span class="m">4</span>.ceph.yml
+ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span><span class="m">5</span>.apps_setup.yml
+ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span><span class="m">6</span>.system-tuning.yml
+</code></pre></div>
 <hr />
 <h3 id="65-manual-secret-hub-integrationonboarding">6.5 Manual Secret (Hub Integration/Onboarding)</h3>
 <p>To enable PM4ML to connect with the Mojaloop Hub, create the following secret in Vault.
 The client secret must be obtained securely from the Mojaloop Hub operator.</p>
 <p>Create in Vault (KV path):</p>
-<pre><code>secret/&lt;pm4ml_id&gt;/
-</code></pre>
+<div class="highlight"><pre><span></span><code>secret/&lt;pm4ml_id&gt;/
+</code></pre></div>
 <p>Key:</p>
-<pre><code>mcmdev_client_secret
-</code></pre>
+<div class="highlight"><pre><span></span><code>mcmdev_client_secret
+</code></pre></div>
 <hr />
 <h3 id="66-verification">6.6 Verification</h3>
-<pre><code class="language-bash">kubectl get nodes
-kubectl get app -A
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+kubectl<span class="w"> </span>get<span class="w"> </span>app<span class="w"> </span>-A
+</code></pre></div>
 <p>Deployment is successful when:</p>
 <ul>
 <li>All nodes are <code>Ready</code></li>

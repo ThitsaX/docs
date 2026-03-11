@@ -1167,9 +1167,9 @@
 <li>PM4ML acts as <strong>TLS server</strong></li>
 <li>PM4ML presents a <strong>server certificate</strong></li>
 </ul>
-<pre><code class="language-text">Hub ──mTLS──▶ PM4ML
+<div class="highlight"><pre><span></span><code>Hub ──mTLS──▶ PM4ML
         (PM4ML server cert)
-</code></pre>
+</code></pre></div>
 <h3 id="certificate-lifecycle">Certificate lifecycle</h3>
 <ul>
 <li>
@@ -1203,9 +1203,9 @@
 <li>PM4ML acts as <strong>TLS client</strong></li>
 <li>PM4ML presents a <strong>client certificate</strong></li>
 </ul>
-<pre><code class="language-text">PM4ML ──mTLS──▶ Hub
+<div class="highlight"><pre><span></span><code>PM4ML ──mTLS──▶ Hub
         (PM4ML client cert)
-</code></pre>
+</code></pre></div>
 <h3 id="certificate-lifecycle-dfsp-trust-workflow">Certificate lifecycle (DFSP trust workflow)</h3>
 <ul>
 <li>
@@ -1276,11 +1276,11 @@
 <hr />
 <h2 id="5-jws-application-level-message-signing">5. JWS (Application-Level Message Signing)</h2>
 <p>JWS is used to ensure <strong>message integrity and authenticity</strong>, independent of TLS.</p>
-<pre><code class="language-text">┌──────────────┐        JWS-signed payloads        ┌──────────────┐
+<div class="highlight"><pre><span></span><code>┌──────────────┐        JWS-signed payloads        ┌──────────────┐
 │     HUB      │  ─────────────────────────────▶   │    PM4ML     │
 │              │  ◀─────────────────────────────   │              │
 └──────────────┘        JWS-signed payloads        └──────────────┘
-</code></pre>
+</code></pre></div>
 <h3 id="key-model">Key model</h3>
 <ul>
 <li>
@@ -1307,7 +1307,7 @@
 </ul>
 <hr />
 <h2 id="6-jws-public-key-publishing-hub-example">6. JWS Public-Key Publishing (Hub example)</h2>
-<pre><code class="language-text">cert-manager
+<div class="highlight"><pre><span></span><code>cert-manager
    │
    │ rotates switch-jws certificate
    ▼
@@ -1322,7 +1322,7 @@ jws-pubkey-job
    │ POST /api/hub/jwscerts
    ▼
 MCM Server
-</code></pre>
+</code></pre></div>
 <ul>
 <li>cert-manager rotates the certificate</li>
 <li>Public key is extracted and published</li>

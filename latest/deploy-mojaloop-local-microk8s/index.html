@@ -718,133 +718,133 @@
 <li>sudo privileges</li>
 </ul>
 <p>Verify Ubuntu version:</p>
-<pre><code class="language-bash">lsb_release -a
-</code></pre>
+<div class="highlight"><pre><span></span><code>lsb_release<span class="w"> </span>-a
+</code></pre></div>
 <hr />
 <h1 id="1-install-microk8s">1️⃣ Install MicroK8s</h1>
-<pre><code class="language-bash">sudo snap install microk8s --classic --channel=1.31/stable
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>microk8s<span class="w"> </span>--classic<span class="w"> </span>--channel<span class="o">=</span><span class="m">1</span>.31/stable
+</code></pre></div>
 <p>Add your user:</p>
-<pre><code class="language-bash">sudo usermod -a -G microk8s $USER
-newgrp microk8s
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>microk8s<span class="w"> </span><span class="nv">$USER</span>
+newgrp<span class="w"> </span>microk8s
+</code></pre></div>
 <p>Verify:</p>
-<pre><code class="language-bash">microk8s status --wait-ready
-</code></pre>
+<div class="highlight"><pre><span></span><code>microk8s<span class="w"> </span>status<span class="w"> </span>--wait-ready
+</code></pre></div>
 <hr />
 <h1 id="2-enable-required-add-ons">2️⃣ Enable Required Add-ons</h1>
-<pre><code class="language-bash">microk8s enable dns
-microk8s enable ingress
-microk8s enable storage
-microk8s enable helm3
-</code></pre>
+<div class="highlight"><pre><span></span><code>microk8s<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>dns
+microk8s<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ingress
+microk8s<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>storage
+microk8s<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>helm3
+</code></pre></div>
 <p>Alias kubectl:</p>
-<pre><code class="language-bash">echo &quot;alias kubectl='microk8s kubectl'&quot; &gt;&gt; ~/.bashrc
-source ~/.bashrc
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;alias kubectl=&#39;microk8s kubectl&#39;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
+</code></pre></div>
 <hr />
 <h1 id="3-add-helm-repositories">3️⃣ Add Helm Repositories</h1>
-<pre><code class="language-bash">helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo add elastic https://helm.elastic.co
-helm repo add mojaloop https://mojaloop.io/helm/repo/
-helm repo update
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>bitnami<span class="w"> </span>https://charts.bitnami.com/bitnami
+helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>elastic<span class="w"> </span>https://helm.elastic.co
+helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>mojaloop<span class="w"> </span>https://mojaloop.io/helm/repo/
+helm<span class="w"> </span>repo<span class="w"> </span>update
+</code></pre></div>
 <hr />
 <h1 id="4-deploy-mojaloop-backend">4️⃣ Deploy Mojaloop Backend</h1>
-<pre><code class="language-bash">helm install backend mojaloop/example-mojaloop-backend \
-  --namespace mojaloop \
-  --create-namespace
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>backend<span class="w"> </span>mojaloop/example-mojaloop-backend<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>mojaloop<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--create-namespace
+</code></pre></div>
 <p>Wait for pods:</p>
-<pre><code class="language-bash">kubectl get pods -n mojaloop
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>mojaloop
+</code></pre></div>
 <hr />
 <h1 id="5-deploy-mojaloop-core">5️⃣ Deploy Mojaloop Core</h1>
-<pre><code class="language-bash">helm install dev mojaloop/mojaloop \
-  --namespace mojaloop
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>dev<span class="w"> </span>mojaloop/mojaloop<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>mojaloop
+</code></pre></div>
 <p>Verify:</p>
-<pre><code class="language-bash">kubectl get pods -n mojaloop
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>mojaloop
+</code></pre></div>
 <hr />
 <h1 id="6-configure-local-dns">6️⃣ Configure Local DNS</h1>
 <p>Edit:</p>
-<pre><code class="language-bash">sudo nano /etc/hosts
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts
+</code></pre></div>
 <p>Add:</p>
-<pre><code>127.0.0.1 testing-toolkit.local
+<div class="highlight"><pre><span></span><code>127.0.0.1 testing-toolkit.local
 127.0.0.1 testing-toolkit.payer
 127.0.0.1 testing-toolkit.payee
 127.0.0.1 mojaloop.local
-</code></pre>
+</code></pre></div>
 <hr />
 <h1 id="7-deploy-dfsp-1-payer">7️⃣ Deploy DFSP 1 — Payer</h1>
 <h2 id="create-namespace">Create Namespace</h2>
-<pre><code class="language-bash">kubectl create namespace payer
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>payer
+</code></pre></div>
 <h2 id="create-payer_valuesyaml">Create payer_values.yaml</h2>
-<pre><code class="language-bash">touch payer_values.yaml
-nano payer_values.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>touch<span class="w"> </span>payer_values.yaml
+nano<span class="w"> </span>payer_values.yaml
+</code></pre></div>
 <p>Add:</p>
-<pre><code class="language-yaml">global:
-  fspId: payer
+<div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fspId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">payer</span>
 
-config:
-  mojaloop:
-    endpoint: http://dev-ml-api-adapter-service.mojaloop:3000
-  callback:
-    endpoint: http://payer-ml-testing-toolkit-backend.payer:4040
+<span class="nt">config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mojaloop</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://dev-ml-api-adapter-service.mojaloop:3000</span>
+<span class="w">  </span><span class="nt">callback</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://payer-ml-testing-toolkit-backend.payer:4040</span>
 
-ingress:
-  enabled: true
-  hosts:
-    - host: testing-toolkit.payer
-      paths:
-        - /
-</code></pre>
+<span class="nt">ingress</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testing-toolkit.payer</span>
+<span class="w">      </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+</code></pre></div>
 <h2 id="deploy">Deploy</h2>
-<pre><code class="language-bash">helm install payer mojaloop/ml-testing-toolkit \
-  --namespace payer \
-  -f payer_values.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>payer<span class="w"> </span>mojaloop/ml-testing-toolkit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>payer<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>payer_values.yaml
+</code></pre></div>
 <p>Verify:</p>
-<pre><code class="language-bash">kubectl get pods -n payer
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>payer
+</code></pre></div>
 <p>Access:</p>
-<pre><code>http://testing-toolkit.payer
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://testing-toolkit.payer
+</code></pre></div>
 <hr />
 <h1 id="8-deploy-dfsp-2-payee">8️⃣ Deploy DFSP 2 — Payee</h1>
-<pre><code class="language-bash">kubectl create namespace payee
-touch payee_values.yaml
-nano payee_values.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>payee
+touch<span class="w"> </span>payee_values.yaml
+nano<span class="w"> </span>payee_values.yaml
+</code></pre></div>
 <p>Add:</p>
-<pre><code class="language-yaml">global:
-  fspId: payee
+<div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fspId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">payee</span>
 
-config:
-  mojaloop:
-    endpoint: http://dev-ml-api-adapter-service.mojaloop:3000
-  callback:
-    endpoint: http://payee-ml-testing-toolkit-backend.payee:4040
+<span class="nt">config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mojaloop</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://dev-ml-api-adapter-service.mojaloop:3000</span>
+<span class="w">  </span><span class="nt">callback</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://payee-ml-testing-toolkit-backend.payee:4040</span>
 
-ingress:
-  enabled: true
-  hosts:
-    - host: testing-toolkit.payee
-      paths:
-        - /
-</code></pre>
+<span class="nt">ingress</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testing-toolkit.payee</span>
+<span class="w">      </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+</code></pre></div>
 <p>Deploy:</p>
-<pre><code class="language-bash">helm install payee mojaloop/ml-testing-toolkit \
-  --namespace payee \
-  -f payee_values.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>payee<span class="w"> </span>mojaloop/ml-testing-toolkit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>payee<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>payee_values.yaml
+</code></pre></div>
 <p>Access:</p>
-<pre><code>http://testing-toolkit.payee
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://testing-toolkit.payee
+</code></pre></div>
 <hr />
 <h1 id="9-dfsp-onboarding">9️⃣ DFSP Onboarding</h1>
 <ol>
@@ -852,12 +852,12 @@ ingress:
 <li>Go to <strong>Test Runner</strong></li>
 <li>Import collections from:</li>
 </ol>
-<pre><code>https://github.com/mojaloop/testing-toolkit-test-cases
-</code></pre>
+<div class="highlight"><pre><span></span><code>https://github.com/mojaloop/testing-toolkit-test-cases
+</code></pre></div>
 <p>Run:</p>
-<pre><code>https://github.com/mojaloop/testing-toolkit-test-cases/blob/master/collections/hub/provisioning/new_hub/new_hub.json
+<div class="highlight"><pre><span></span><code>https://github.com/mojaloop/testing-toolkit-test-cases/blob/master/collections/hub/provisioning/new_hub/new_hub.json
 https://github.com/mojaloop/testing-toolkit-test-cases/blob/master/collections/hub/provisioning/new_participants/new_dfsp.json
-</code></pre>
+</code></pre></div>
 <ul>
 <li>new_hub.json  (for hub)</li>
 <li>new_dfsp.json (for payer)</li>
@@ -870,13 +870,13 @@ https://github.com/mojaloop/testing-toolkit-test-cases/blob/master/collections/h
 <ol>
 <li>Load:</li>
 </ol>
-<pre><code>p2ptransfer/collections/p2p_happy_path.json
-</code></pre>
+<div class="highlight"><pre><span></span><code>p2ptransfer/collections/p2p_happy_path.json
+</code></pre></div>
 <ol>
 <li>Load environment:</li>
 </ol>
-<pre><code>p2ptransfer/envs/p2p_happy_path_env.json
-</code></pre>
+<div class="highlight"><pre><span></span><code>p2ptransfer/envs/p2p_happy_path_env.json
+</code></pre></div>
 <ol>
 <li>Click Run</li>
 </ol>
@@ -889,10 +889,10 @@ https://github.com/mojaloop/testing-toolkit-test-cases/blob/master/collections/h
 </ul>
 <hr />
 <h1 id="cleanup">🧹 Cleanup</h1>
-<pre><code class="language-bash">helm uninstall dev -n mojaloop
-helm uninstall backend -n mojaloop
-kubectl delete namespace mojaloop payer payee pm4ml
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span>dev<span class="w"> </span>-n<span class="w"> </span>mojaloop
+helm<span class="w"> </span>uninstall<span class="w"> </span>backend<span class="w"> </span>-n<span class="w"> </span>mojaloop
+kubectl<span class="w"> </span>delete<span class="w"> </span>namespace<span class="w"> </span>mojaloop<span class="w"> </span>payer<span class="w"> </span>payee<span class="w"> </span>pm4ml
+</code></pre></div>
 <hr />
 <h1 id="summary">✅ Summary</h1>
 <p>You now have a full local Mojaloop environment including:</p>
