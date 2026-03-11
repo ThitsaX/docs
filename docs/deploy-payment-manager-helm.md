@@ -29,32 +29,8 @@ This deployment guide installs the following core components:
 
 The following diagram shows how **PM4ML connects a DFSP to the Mojaloop Hub**.
 
-```mermaid
-flowchart LR
+<img width="1214" height="328" alt="image" src="https://github.com/user-attachments/assets/98d04729-f212-4bd2-bf37-f13eb08e0033" />
 
-    DFSP[DFSP System]
-
-    subgraph PM4ML Cluster
-        CORE[Core Connector]
-        SDK[SDK Scheme Adapter]
-        REDIS[(Redis HA)]
-    end
-
-    VPN[(VPN Tunnel)]
-    HUB[Mojaloop Hub]
-
-    DFSP -->|API Calls| CORE
-    CORE --> SDK
-
-    SDK -->|State / Cache| REDIS
-    CORE -->|State / Cache| REDIS
-
-    SDK -->|mTLS FSPIOP API| VPN
-    VPN --> HUB
-
-    HUB -->|mTLS Callbacks| VPN
-    VPN --> SDK
-```
 
 ### Component Overview
 
