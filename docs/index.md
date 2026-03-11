@@ -27,6 +27,7 @@ Choose the deployment model that matches your environment:
 - **[Deploy Mojaloop Locally (MicroK8s)](deploy-mojaloop-local-microk8s)**
 - **[Deploy Mojaloop Locally (Without Kubernetes)](deploy-mojaloop-local-withoutk8s)**
 - **[Deploy Mojaloop Payment Manager (On-Premise)](deploy-payment-manager-on-premise)**
+- **[PM4ML Deployment Guide (Helm Installation)](deploy-payment-manager-helm)**
 ---
 
 ## 🏗️ Architecture
