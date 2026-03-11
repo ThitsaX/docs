@@ -10,13 +10,11 @@
       
       
       
-        <link rel="canonical" href="https://docs.thitsaworks.com/latest/hub-pm4ml-security-architecture/">
+        <link rel="canonical" href="https://docs.thitsaworks.com/latest/deploy-payment-manager-helm/">
       
       
-        <link rel="prev" href="../platform-architecture-overview/">
+        <link rel="prev" href="../deploy-payment-manager-on-premise/">
       
-      
-        <link rel="next" href="../deploy-mojaloop-local-microk8s/">
       
       
         
@@ -27,7 +25,7 @@
     
     
       
-        <title>Hub ↔ PM4ML Security Architecture - ThitsaWorks Platform</title>
+        <title>PM4ML Deployment Guide (Helm Installation) - ThitsaWorks Platform</title>
       
     
     
@@ -68,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hub-pm4ml-security-architecture" class="md-skip">
+        <a href="#pm4ml-deployment-guide-helm-installation" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Hub ↔ PM4ML Security Architecture
+              PM4ML Deployment Guide (Helm Installation)
             
           </span>
         </div>
@@ -317,8 +315,6 @@
       
   
   
-    
-  
   
   
     
@@ -331,11 +327,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -356,7 +354,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -371,37 +369,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Hub ↔ PM4ML
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../hub-pm4ml-security-architecture/" class="md-nav__link">
         
   
   
@@ -417,270 +388,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-mtls-transport-level-security" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. mTLS (Transport-Level Security)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-inbound-mtls-hub-pm4ml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Inbound mTLS (Hub → PM4ML)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Inbound mTLS (Hub → PM4ML)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#certificate-lifecycle" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Certificate lifecycle
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ownership" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ownership
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-outbound-mtls-pm4ml-hub" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Outbound mTLS (PM4ML → Hub)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Outbound mTLS (PM4ML → Hub)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#flow_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#certificate-lifecycle-dfsp-trust-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Certificate lifecycle (DFSP trust workflow)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rotation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rotation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-why-two-different-mtls-models-exist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Why Two Different mTLS Models Exist
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-jws-application-level-message-signing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. JWS (Application-Level Message Signing)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. JWS (Application-Level Message Signing)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key model
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#key-properties" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key properties
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-jws-public-key-publishing-hub-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. JWS Public-Key Publishing (Hub example)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-runtime-verification-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Runtime Verification Flow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Runtime Verification Flow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hub-pm4ml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hub → PM4ML
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pm4ml-hub" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PM4ML → Hub
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-expiry-rotation-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Expiry &amp; Rotation Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-key-takeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Key Takeaways
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -697,8 +404,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -709,13 +418,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -736,7 +443,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -835,10 +542,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../deploy-payment-manager-helm/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PM4ML Deployment Guide (Helm Installation)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -854,6 +588,264 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Note
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Helm Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-add-helm-repositories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Add Helm Repositories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deploy-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deploy Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deploy-pm4ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deploy PM4ML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-configure-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Configure Networking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-verify-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Verify Deployment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ingress-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingress Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ingress Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-istio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example (Istio)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-nginx-ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example (NGINX Ingress)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disclaimer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disclaimer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disclaimer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -893,10 +885,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-mtls-transport-level-security" class="md-nav__link">
+  <a href="#note" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. mTLS (Transport-Level Security)
+        ⚠️ Note
       
     </span>
   </a>
@@ -904,22 +896,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-inbound-mtls-hub-pm4ml" class="md-nav__link">
+  <a href="#architecture-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Inbound mTLS (Hub → PM4ML)
+        Architecture Overview
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Inbound mTLS (Hub → PM4ML)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#flow" class="md-nav__link">
+  <a href="#helm-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flow
+        Helm Values
       
     </span>
   </a>
@@ -927,10 +930,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#certificate-lifecycle" class="md-nav__link">
+  <a href="#networking-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Certificate lifecycle
+        Networking Configuration
       
     </span>
   </a>
@@ -938,10 +941,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ownership" class="md-nav__link">
+  <a href="#storage-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ownership
+        Storage Configuration
       
     </span>
   </a>
@@ -954,22 +957,88 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-outbound-mtls-pm4ml-hub" class="md-nav__link">
+  <a href="#1-add-helm-repositories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Outbound mTLS (PM4ML → Hub)
+        1. Add Helm Repositories
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Outbound mTLS (PM4ML → Hub)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deploy-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deploy Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deploy-pm4ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deploy PM4ML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-configure-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Configure Networking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-verify-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Verify Deployment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ingress-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingress Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ingress Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#flow_1" class="md-nav__link">
+  <a href="#required-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flow
+        Required Endpoints
       
     </span>
   </a>
@@ -977,10 +1046,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#certificate-lifecycle-dfsp-trust-workflow" class="md-nav__link">
+  <a href="#example-istio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Certificate lifecycle (DFSP trust workflow)
+        Example (Istio)
       
     </span>
   </a>
@@ -988,10 +1057,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rotation" class="md-nav__link">
+  <a href="#example-nginx-ingress" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Rotation
+        Example (NGINX Ingress)
       
     </span>
   </a>
@@ -1004,10 +1073,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-why-two-different-mtls-models-exist" class="md-nav__link">
+  <a href="#production-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Why Two Different mTLS Models Exist
+        Production Considerations
       
     </span>
   </a>
@@ -1015,22 +1084,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-jws-application-level-message-signing" class="md-nav__link">
+  <a href="#disclaimer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. JWS (Application-Level Message Signing)
+        Disclaimer
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. JWS (Application-Level Message Signing)">
+    <nav class="md-nav" aria-label="Disclaimer">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-model" class="md-nav__link">
+  <a href="#log-management" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key model
+        Log Management
       
     </span>
   </a>
@@ -1038,10 +1107,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#key-properties" class="md-nav__link">
+  <a href="#troubleshooting-responsibility" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key properties
+        Troubleshooting Responsibility
       
     </span>
   </a>
@@ -1050,89 +1119,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-jws-public-key-publishing-hub-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. JWS Public-Key Publishing (Hub example)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-runtime-verification-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Runtime Verification Flow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Runtime Verification Flow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hub-pm4ml" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hub → PM4ML
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pm4ml-hub" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PM4ML → Hub
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-expiry-rotation-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Expiry &amp; Rotation Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-key-takeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Key Takeaways
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Summary
-      
-    </span>
-  </a>
   
 </li>
       
@@ -1153,301 +1139,288 @@
 
 
 
-<h1 id="hub-pm4ml-security-architecture">🔐 Hub ↔ PM4ML Security Architecture</h1>
-<p>This document describes the <strong>actual security architecture</strong> between the <strong>Hub</strong> and <strong>PM4ML</strong>, covering <strong>mTLS (transport security)</strong> and <strong>JWS (application-level signing)</strong>, based on the current PM4ML implementation.</p>
+<h1 id="pm4ml-deployment-guide-helm-installation">PM4ML Deployment Guide – Helm Installation</h1>
+<p>This document describes the deployment maintained in the following project:</p>
+<p>👉 <a href="https://github.com/ThitsaX/pm4ml-deployment">PM4ML Deployment Repository</a></p>
+<h2 id="note">⚠️ <strong>Note</strong></h2>
+<p>This guide describes a <strong>minimal PM4ML deployment using Helm</strong>.<br />
+It is intended for integration environments or basic deployments.</p>
+<p>Production environments may require additional components such as:
+- Centralized logging
+- Monitoring and alerting
+- Backup and recovery
+- Secret management
+- High availability architecture</p>
 <hr />
-<h2 id="1-mtls-transport-level-security">1. mTLS (Transport-Level Security)</h2>
-<p>mTLS is used to secure HTTPS communication between Hub and PM4ML.
-<strong>Inbound and outbound directions use different certificate lifecycles.</strong></p>
-<hr />
-<h2 id="2-inbound-mtls-hub-pm4ml">2. Inbound mTLS (Hub → PM4ML)</h2>
-<h3 id="flow">Flow</h3>
+<p>This deployment guide installs the following core components:</p>
 <ul>
-<li>Hub initiates a connection to PM4ML</li>
-<li>PM4ML acts as <strong>TLS server</strong></li>
-<li>PM4ML presents a <strong>server certificate</strong></li>
+<li>Redis HA</li>
+<li>PM4ML Helm chart</li>
+<li>mTLS configuration</li>
+<li>Ingress configuration</li>
 </ul>
-<pre><code class="language-text">Hub ──mTLS──▶ PM4ML
-        (PM4ML server cert)
+<hr />
+<h2 id="architecture-overview">Architecture Overview</h2>
+<p>The following diagram shows how <strong>PM4ML connects a DFSP to the Mojaloop Hub</strong>.</p>
+<pre><code class="language-mermaid">flowchart LR
+
+    DFSP[DFSP System]
+
+    subgraph PM4ML Cluster
+        CORE[Core Connector]
+        SDK[SDK Scheme Adapter]
+        REDIS[(Redis HA)]
+    end
+
+    VPN[(VPN Tunnel)]
+
+    HUB[Mojaloop Hub]
+
+    DFSP --&gt;|API Calls| CORE
+    CORE --&gt; SDK
+
+    SDK --&gt;|mTLS FSPIOP API| VPN
+    VPN --&gt; HUB
+
+    HUB --&gt;|mTLS Callbacks| VPN
+    VPN --&gt; SDK
+
+    SDK --&gt; REDIS
+    CORE --&gt; REDIS
+````
+
+### Component Overview
+
+| Component              | Description                                   |
+| ---------------------- | --------------------------------------------- |
+| **SDK Scheme Adapter** | Handles Mojaloop SDK API interactions         |
+| **Core Connector**     | Communicates with the Mojaloop Hub            |
+| **Redis**              | Used for caching and message state management |
+| **Ingress / Gateway**  | Exposes PM4ML endpoints to external systems   |
+
+---
+
+## Prerequisites
+
+Ensure the following components are available in your Kubernetes environment:
+
+- Kubernetes cluster
+- kubectl
+- Helm v3+
+- A **default StorageClass** or an available StorageClass for persistent volumes
+
+PM4ML uses Redis HA, which requires persistent storage.
+Your Kubernetes cluster must provide a **dynamic StorageClass** capable of provisioning PersistentVolumes.
+For Redis workloads, lower-latency storage is generally preferred. However, the optimal storage backend depends on the infrastructure and operational model of the Kubernetes cluster.
+
+Common examples include:
+
+- **Ceph / Rook-Ceph**
+- **Cloud provider disks** (AWS EBS, GCP Persistent Disk, Azure Disk)
+- **Longhorn** (commonly used for on-prem Kubernetes, but may introduce additional latency)
+- **Local Persistent Volumes** (low latency, but ties workloads to specific nodes)
+
+You can check available StorageClasses with:
+
+```bash
+kubectl get storageclass
 </code></pre>
-<h3 id="certificate-lifecycle">Certificate lifecycle</h3>
-<ul>
-<li>
-<p>Certificate is:</p>
-</li>
-<li>
-<p>Issued by <strong>cert-manager</strong></p>
-</li>
-<li>Backed by a <strong>Vault CA (ClusterIssuer)</strong></li>
-<li>Stored as a Kubernetes <code>Secret</code></li>
-<li>
-<p>Rotation:</p>
-</li>
-<li>
-<p>Fully managed by <strong>cert-manager</strong></p>
-</li>
-<li>Based on <code>duration</code> and <code>renewBefore</code></li>
-<li>Pods reload or restart to pick up new certs</li>
-</ul>
-<h3 id="ownership">Ownership</h3>
-<ul>
-<li>PM4ML owns and manages its <strong>server certificate</strong></li>
-<li>Hub only verifies the certificate chain</li>
-</ul>
-<p>✔ <strong>Inbound mTLS is cert-manager–managed</strong></p>
-<hr />
-<h2 id="3-outbound-mtls-pm4ml-hub">3. Outbound mTLS (PM4ML → Hub)</h2>
-<h3 id="flow_1">Flow</h3>
-<ul>
-<li>PM4ML initiates a connection to Hub</li>
-<li>PM4ML acts as <strong>TLS client</strong></li>
-<li>PM4ML presents a <strong>client certificate</strong></li>
-</ul>
-<pre><code class="language-text">PM4ML ──mTLS──▶ Hub
-        (PM4ML client cert)
+<p>Verify cluster access:</p>
+<pre><code class="language-bash">kubectl get nodes
 </code></pre>
-<h3 id="certificate-lifecycle-dfsp-trust-workflow">Certificate lifecycle (DFSP trust workflow)</h3>
-<ul>
-<li>
-<p>PM4ML:</p>
-</li>
-<li>
-<p>Generates a <strong>private key + CSR</strong></p>
-</li>
-<li>Sends CSR to <strong>Hub</strong></li>
-<li>
-<p>Hub:</p>
-</li>
-<li>
-<p>Validates DFSP identity</p>
-</li>
-<li><strong>Signs the CSR</strong></li>
-<li>
-<p>PM4ML:</p>
-</li>
-<li>
-<p>Stores:</p>
-<ul>
-<li>private key</li>
-<li>signed certificate</li>
-<li>CA chain</li>
-<li>Storage location: <strong>Vault</strong></li>
-</ul>
-</li>
-</ul>
-<h3 id="rotation">Rotation</h3>
-<ul>
-<li>No cert-manager involvement</li>
-<li>
-<p>Rotation is triggered by:</p>
-</li>
-<li>
-<p>deleting Vault secrets</p>
-</li>
-<li>restarting management-api</li>
-<li>management-api re-runs the CSR → Hub signing flow</li>
-</ul>
-<p>✔ <strong>Outbound mTLS is Vault-stored and Hub-signed</strong>
-✔ <strong>cert-manager is intentionally NOT used</strong></p>
 <hr />
-<h2 id="4-why-two-different-mtls-models-exist">4. Why Two Different mTLS Models Exist</h2>
+<h2 id="configuration">Configuration</h2>
+<p>Before deploying PM4ML, review and update the configuration files in this repository to match your environment.</p>
+<h3 id="helm-values">Helm Values</h3>
+<p>Update the following Helm values files as needed:</p>
 <table>
 <thead>
 <tr>
-<th>Direction</th>
-<th>Trust owner</th>
-<th>Reason</th>
+<th>File</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Hub → PM4ML</td>
-<td>Platform / Infra</td>
-<td>Standard service identity</td>
+<td><code>helm-values/values-redis-ha.yaml</code></td>
+<td>Redis HA configuration</td>
 </tr>
 <tr>
-<td>PM4ML → Hub</td>
-<td>Hub (business trust)</td>
-<td>DFSP onboarding &amp; approval</td>
+<td><code>helm-values/values-pm4ml.yaml</code></td>
+<td>PM4ML application configuration</td>
 </tr>
 </tbody>
 </table>
-<p>Outbound mTLS is part of <strong>DFSP trust establishment</strong>, which requires explicit Hub approval and therefore cannot be automated by cert-manager.</p>
-<hr />
-<h2 id="5-jws-application-level-message-signing">5. JWS (Application-Level Message Signing)</h2>
-<p>JWS is used to ensure <strong>message integrity and authenticity</strong>, independent of TLS.</p>
-<pre><code class="language-text">┌──────────────┐        JWS-signed payloads        ┌──────────────┐
-│     HUB      │  ─────────────────────────────▶   │    PM4ML     │
-│              │  ◀─────────────────────────────   │              │
-└──────────────┘        JWS-signed payloads        └──────────────┘
-</code></pre>
-<h3 id="key-model">Key model</h3>
+<p>Typical parameters to review:</p>
 <ul>
-<li>
-<p>Hub and PM4ML each own:</p>
-</li>
-<li>
-<p>a <strong>JWS private key</strong></p>
-</li>
-<li>a corresponding <strong>public key</strong></li>
-<li>Public keys are published to <strong>MCM Server</strong></li>
-<li>Private keys are never shared</li>
-</ul>
-<h3 id="key-properties">Key properties</h3>
-<ul>
-<li>
-<p>JWS keys:</p>
-</li>
-<li>
-<p>❌ do not expire</p>
-</li>
-<li>❌ have no TTL</li>
-<li>Rotation is <strong>policy-based</strong>, not time-based</li>
-<li>Old keys remain valid for verification until removed</li>
+<li>StorageClass</li>
+<li>Resource requests and limits</li>
+<li>External Mojaloop Hub endpoints</li>
+<li>Redis configuration</li>
+<li>Environment-specific values</li>
 </ul>
 <hr />
-<h2 id="6-jws-public-key-publishing-hub-example">6. JWS Public-Key Publishing (Hub example)</h2>
-<pre><code class="language-text">cert-manager
-   │
-   │ rotates switch-jws certificate
-   ▼
-Kubernetes Secret (switch-jws)
-   │
-   │ initContainers:
-   │  - read tls.crt
-   │  - extract public key
-   ▼
-jws-pubkey-job
-   │
-   │ POST /api/hub/jwscerts
-   ▼
-MCM Server
-</code></pre>
-<ul>
-<li>cert-manager rotates the certificate</li>
-<li>Public key is extracted and published</li>
-<li>MCM stores multiple valid public keys</li>
-<li>Enables safe JWS key rotation with overlap</li>
-</ul>
-<hr />
-<h2 id="7-runtime-verification-flow">7. Runtime Verification Flow</h2>
-<h3 id="hub-pm4ml">Hub → PM4ML</h3>
-<ol>
-<li>
-<p>mTLS:</p>
-</li>
-<li>
-<p>PM4ML verifies Hub’s TLS certificate</p>
-</li>
-<li>
-<p>JWS:</p>
-</li>
-<li>
-<p>PM4ML verifies signature using Hub public key from MCM</p>
-</li>
-</ol>
-<h3 id="pm4ml-hub">PM4ML → Hub</h3>
-<ol>
-<li>
-<p>mTLS:</p>
-</li>
-<li>
-<p>Hub verifies PM4ML’s client certificate (Hub-signed)</p>
-</li>
-<li>
-<p>JWS:</p>
-</li>
-<li>
-<p>Hub verifies signature using PM4ML public key from MCM</p>
-</li>
-</ol>
-<p>Both layers must succeed for a request to be accepted.</p>
-<hr />
-<h2 id="8-expiry-rotation-summary">8. Expiry &amp; Rotation Summary</h2>
+<h3 id="networking-configuration">Networking Configuration</h3>
+<p>Review the networking configuration files under the <code>networking/</code> directory.</p>
 <table>
 <thead>
 <tr>
-<th>Item</th>
-<th>Direction</th>
-<th>Expires?</th>
-<th>Managed by</th>
-<th>Rotation method</th>
+<th>File</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Inbound mTLS cert (PM4ML server)</td>
-<td>Hub → PM4ML</td>
-<td>✅ Yes</td>
-<td>cert-manager</td>
-<td>Automatic</td>
+<td><code>networking/pm4ml-mtls.yaml</code></td>
+<td>Mutual TLS configuration</td>
 </tr>
 <tr>
-<td>Outbound mTLS cert (Hub as client)</td>
-<td>Hub → PM4ML</td>
-<td>✅ Yes</td>
-<td>Hub + Vault</td>
-<td>Manual / workflow</td>
-</tr>
-<tr>
-<td>Inbound mTLS cert (Hub server)</td>
-<td>PM4ML → Hub</td>
-<td>✅ Yes</td>
-<td>cert-manager</td>
-<td>Automatic</td>
-</tr>
-<tr>
-<td>Outbound mTLS cert (PM4ML as client)</td>
-<td>PM4ML → Hub</td>
-<td>✅ Yes</td>
-<td>PM4ML + Vault</td>
-<td>Manual / workflow</td>
-</tr>
-<tr>
-<td>JWS public key (Hub)</td>
-<td>Hub → PM4ML</td>
-<td>❌ No</td>
-<td>MCM-Server</td>
-<td>Published on rotation</td>
-</tr>
-<tr>
-<td>JWS public key (PM4ML)</td>
-<td>PM4ML → Hub</td>
-<td>❌ No</td>
-<td>MCM-Client</td>
-<td>Published on rotation</td>
-</tr>
-<tr>
-<td>JWT token (issued by Hub)</td>
-<td>PM4ML → Hub</td>
-<td>✅ Yes</td>
-<td>Application</td>
-<td><code>exp</code> claim</td>
+<td><code>networking/ingress.yaml</code></td>
+<td>External access configuration</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="9-key-takeaways">9. Key Takeaways</h2>
+<p>Update the following items:</p>
 <ul>
-<li><strong>Inbound mTLS</strong> → cert-manager–managed</li>
-<li><strong>Outbound mTLS</strong> → Vault-stored, Hub-signed</li>
-<li><strong>JWS</strong> → key-based, no expiry, rotated by policy</li>
-<li><strong>MCM</strong> is the trust registry for JWS public keys</li>
+<li>Domain names</li>
+<li>TLS certificates</li>
+<li>Gateway or ingress controller configuration</li>
+<li>Hostnames used for PM4ML endpoints</li>
 </ul>
 <hr />
-<h2 id="10-summary">10. Summary</h2>
-<blockquote>
-<p><strong>Hub–PM4ML communication uses cert-manager–managed mTLS for inbound connections, Hub-signed Vault-stored certificates for outbound connections, and JWS for message integrity with public keys distributed via MCM.</strong></p>
-</blockquote>
+<h3 id="storage-configuration">Storage Configuration</h3>
+<p>Ensure your Kubernetes cluster has a <strong>default StorageClass</strong> or update the Redis values file with the appropriate StorageClass.</p>
+<h2 id="1-add-helm-repositories">1. Add Helm Repositories</h2>
+<pre><code class="language-bash">helm repo add dandydeveloper https://dandydeveloper.github.io/charts
+helm repo add pm4ml https://pm4ml.github.io/mojaloop-payment-manager-helm/repo
+helm repo update
+</code></pre>
+<hr />
+<h2 id="2-deploy-redis">2. Deploy Redis</h2>
+<p>Create a namespace first.</p>
+<pre><code class="language-bash">kubectl create namespace pm4ml
+</code></pre>
+<p>Install Redis HA:</p>
+<pre><code class="language-bash">helm install redis-ha \
+  dandydeveloper/redis-ha \
+  --version 4.35.5 \
+  -n pm4ml \
+  -f helm-values/values-redis-ha.yaml
+</code></pre>
+<p>Verify Redis deployment:</p>
+<pre><code class="language-bash">kubectl get pods -n pm4ml
+</code></pre>
+<hr />
+<h2 id="3-deploy-pm4ml">3. Deploy PM4ML</h2>
+<p>Install PM4ML:</p>
+<pre><code class="language-bash">helm install pm4ml \
+  pm4ml/mojaloop-payment-manager \
+  --version 10.2.0 \
+  -n pm4ml \
+  -f helm-values/values-pm4ml.yaml
+</code></pre>
+<p>Verify deployment:</p>
+<pre><code class="language-bash">kubectl get pods -n pm4ml
+</code></pre>
+<hr />
+<h2 id="4-configure-networking">4. Configure Networking</h2>
+<p>Apply mTLS configuration:</p>
+<pre><code class="language-bash">kubectl apply -f networking/pm4ml-mtls.yaml
+</code></pre>
+<p>Apply ingress configuration:</p>
+<pre><code class="language-bash">kubectl apply -f networking/ingress.yaml
+</code></pre>
+<hr />
+<h2 id="5-verify-deployment">5. Verify Deployment</h2>
+<p>Check all PM4ML resources:</p>
+<pre><code class="language-bash">kubectl get all -n pm4ml
+</code></pre>
+<hr />
+<h2 id="notes">Notes</h2>
+<p>This deployment installs:</p>
+<ul>
+<li>Redis HA</li>
+<li>PM4ML Helm chart version <strong>10.2.0</strong></li>
+</ul>
+<p>Service names follow the Helm release name:</p>
+<pre><code>pm4ml-*
+</code></pre>
+<p>Examples:</p>
+<pre><code>pm4ml-mojaloop-core-connector
+pm4ml-sdk-scheme-adapter-api-svc
+</code></pre>
+<hr />
+<h2 id="ingress-configuration">Ingress Configuration</h2>
+<p>PM4ML requires external access to several services.</p>
+<p>The ingress configuration depends on the ingress controller used in your Kubernetes cluster (for example <strong>NGINX, Istio, Traefik, AWS ALB</strong>).</p>
+<p>Update the ingress configuration according to your environment.</p>
+<h3 id="required-endpoints">Required Endpoints</h3>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Service</th>
+<th>Port</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>conn-<domain></td>
+<td>pm4ml-sdk-scheme-adapter-api-svc</td>
+<td>4000</td>
+<td>Inbound Mojaloop SDK connector from HUB</td>
+</tr>
+<tr>
+<td>sdk-core-connector-<domain></td>
+<td>pm4ml-mojaloop-core-connector</td>
+<td>3003</td>
+<td>Core connector SDK</td>
+</tr>
+<tr>
+<td>fsp-core-connector-<domain></td>
+<td>pm4ml-mojaloop-core-connector</td>
+<td>3004</td>
+<td>Core connector FSP</td>
+</tr>
+</tbody>
+</table>
+<p>Example domain configuration:</p>
+<pre><code>conn-pm4ml.example.com
+sdk-core-connector-pm4ml.example.com
+fsp-core-connector-pm4ml.example.com
+</code></pre>
+<h3 id="example-istio">Example (Istio)</h3>
+<p>If using Istio, refer to the example <code>VirtualService</code> manifest provided in this repository.</p>
+<h3 id="example-nginx-ingress">Example (NGINX Ingress)</h3>
+<p>If using NGINX ingress, configure routes to the services listed above using standard Kubernetes <code>Ingress</code> resources.</p>
+<hr />
+<h2 id="production-considerations">Production Considerations</h2>
+<p>Production deployments should also include:</p>
+<ul>
+<li>Mutual TLS (mTLS) between <strong>Hub and PM4ML</strong></li>
+<li>Monitoring and alerting</li>
+<li>Backup strategy</li>
+<li>Secret management</li>
+<li>High availability configuration</li>
+</ul>
+<hr />
+<h2 id="disclaimer">Disclaimer</h2>
+<p>This deployment guide provides general instructions for deploying <strong>PM4ML in Kubernetes environments</strong> and supports deployment in both <strong>cloud-based</strong> and <strong>on-premise</strong> infrastructure, depending on DFSP requirements.</p>
+<p>As infrastructure, networking, security, and operational models vary between DFSPs, the final deployment approach may differ from one environment to another. DFSPs may proceed with their preferred deployment setup according to their own technical and operational requirements.</p>
+<h3 id="log-management">Log Management</h3>
+<p>Log management cannot be fully controlled or standardized within the PM4ML deployment itself, as log generation, retention, aggregation, and visibility depend on the underlying Kubernetes platform and the logging stack implemented in the environment.</p>
+<p>If a DFSP requires centralized or advanced logging capability, they will need to deploy the appropriate supporting components as part of the full PM4ML stack or integrate PM4ML with their existing logging solution.</p>
+<h3 id="troubleshooting-responsibility">Troubleshooting Responsibility</h3>
+<p>Each DFSP operates and manages its own PM4ML deployment environment. Therefore, initial troubleshooting and operational investigation remain the responsibility of the DFSP.</p>
+<p>Issues related to infrastructure, networking, Kubernetes configuration, storage, ingress, certificates, or logging should be investigated within the DFSP environment first. Platform or integration teams may assist with application-level investigation where required, but environment-level troubleshooting remains under the DFSP’s responsibility.</p>
+<hr />
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -1479,7 +1452,7 @@ MCM Server
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../platform-architecture-overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Platform Architecture Overview">
+          <a href="../deploy-payment-manager-on-premise/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Deploy Mojaloop Payment Manager (On-Premise)">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1489,27 +1462,11 @@ MCM Server
                 Previous
               </span>
               <div class="md-ellipsis">
-                Platform Architecture Overview
+                Deploy Mojaloop Payment Manager (On-Premise)
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../deploy-mojaloop-local-microk8s/" class="md-footer__link md-footer__link--next" aria-label="Next: Deploy Mojaloop Locally (MicroK8s)">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Deploy Mojaloop Locally (MicroK8s)
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
