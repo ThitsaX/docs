@@ -8,7 +8,7 @@ This document describes the deployment maintained in the following project:
 ## ⚠️ Note
 
 This guide describes a **minimal PM4ML deployment using Helm**.  
-It is intended for **integration environments or basic deployments**.
+It is intended for **basic non-production deployments or DFSP integration testing**.
 
 Production environments may require additional components such as:
 

@@ -1,6 +1,6 @@
 # Pre-Deployment Checklist
 
-This checklist is used before deploying Mojaloop platform components or Payment Manager for Mojaloop (PM4ML) into an integration, staging, or production environment.
+This checklist is used before deploying Mojaloop components or Payment Manager for Mojaloop (PM4ML) into a local lab, development, test, staging, production, or DR target.
 
 It does not replace the deployment guide. It confirms that the environment, access, networking, security, and operational basics are ready before the deployment begins.
 
@@ -14,7 +14,7 @@ Confirm the deployment model before preparing the environment.
 
 | Check | Expected result |
 | ----- | --------------- |
-| Target environment is identified | Integration, staging, production, DR, or local lab |
+| Target deployment context is identified | Local lab, development, test, staging, production, or DR |
 | Deployment type is selected | Helm, GitOps, on-premise, cloud, hybrid, or local |
 | Components are in scope | PM4ML, Mojaloop Hub, Redis, Kafka, MySQL, Tazama, monitoring, logging |
 | Out-of-scope items are recorded | Items not being deployed in this phase are explicitly listed |
@@ -398,6 +398,6 @@ Follow-up actions:
 
 ## Summary
 
-A deployment is ready to start when the platform is healthy, the deployment source is reviewed, access is controlled, trust material is prepared, observability is available, and recovery expectations are agreed.
+A deployment is ready to start when the Kubernetes platform is healthy, the deployment source is reviewed, access is controlled, trust material is prepared, observability is available, and recovery expectations are agreed.
 
 This checklist should be completed before following the environment-specific deployment guide.

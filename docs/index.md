@@ -2,11 +2,11 @@
 title: Home
 ---
 
-# 📘 ThitsaWorks Platform Documentation
+# 📘 ThitsaWorks Technical Documentation
 
-Welcome to the technical documentation for **platform security and architecture** within the **Mojaloop ecosystem**.
+Welcome to the ThitsaWorks technical documentation for **security, architecture, deployment, and operations** within the **Mojaloop ecosystem**.
 
-This documentation describes how the platform is **actually implemented, secured, deployed, and operated** in real-world environments.
+This documentation describes how Mojaloop-based systems are **actually implemented, secured, deployed, and operated** in real-world environments.
 
 It focuses on:
 
@@ -69,7 +69,7 @@ The following sections are being developed and will reflect validated production
 
 ## 🌐 More Information
 
-For general information about **ThitsaWorks**, including services and platform offerings:
+For general information about **ThitsaWorks**, including company services and offerings:
 
 👉 https://thitsaworks.com
 

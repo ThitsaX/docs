@@ -1,5 +1,5 @@
-site_name: ThitsaWorks Platform
-site_description: Mojaloop platform documentation
+site_name: ThitsaWorks Technical Documentation
+site_description: Mojaloop deployment, security, and operations documentation
 site_url: https://docs.thitsaworks.com
 use_directory_urls: true
 
