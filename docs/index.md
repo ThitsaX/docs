@@ -24,6 +24,8 @@ This is **implementation-driven documentation**, not theoretical reference mater
 
 Choose the deployment model that matches your environment:
 
+- **[Pre-Deployment Checklist](pre-deployment-checklist)**
+  Confirm environment readiness before starting a deployment.
 - **[Deploy Mojaloop Locally (MicroK8s)](deploy-mojaloop-local-microk8s)**
 - **[Deploy Mojaloop Locally (Without Kubernetes)](deploy-mojaloop-local-withoutk8s)**
 - **[Deploy Mojaloop Payment Manager (On-Premise)](deploy-payment-manager-on-premise)**
@@ -56,6 +58,7 @@ Choose the deployment model that matches your environment:
 
 The following sections are being developed and will reflect validated production behavior:
 
+- ✅ [Pre-Deployment Checklist](pre-deployment-checklist)
 - 🔁 Certificate & Key Management  
 - 🚨 Incident & Failure Scenarios  
 - 📐 Environment & Capacity Model  

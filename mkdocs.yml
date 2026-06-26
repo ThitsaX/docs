@@ -43,6 +43,7 @@ nav:
       - Hub ↔ PM4ML: hub-pm4ml-security-architecture.md
 
   - Deployment:
+      - Pre-Deployment Checklist: pre-deployment-checklist.md
       - Deploy Mojaloop Locally (MicroK8s): deploy-mojaloop-local-microk8s.md    
       - Deploy Mojaloop Locally (Without Kubernetes): deploy-mojaloop-local-withoutk8s.md
       - Deploy Mojaloop Payment Manager (On-Premise): deploy-payment-manager-on-premise.md
