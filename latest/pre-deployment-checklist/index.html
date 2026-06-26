@@ -1,0 +1,1674 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Mojaloop platform documentation">
+      
+      
+      
+        <link rel="canonical" href="https://docs.thitsaworks.com/latest/pre-deployment-checklist/">
+      
+      
+        <link rel="prev" href="../hub-pm4ml-security-architecture/">
+      
+      
+        <link rel="next" href="../deploy-mojaloop-local-microk8s/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/fav.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Pre-Deployment Checklist - ThitsaWorks Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pre-deployment-checklist" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ThitsaWorks Platform" class="md-header__button md-logo" aria-label="ThitsaWorks Platform" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ThitsaWorks Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pre-Deployment Checklist
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ThitsaWorks Platform" class="md-nav__button md-logo" aria-label="ThitsaWorks Platform" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    ThitsaWorks Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hub-pm4ml-security-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hub ↔ PM4ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deployment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Deployment Checklist
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Deployment Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-deployment-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Deployment Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-infrastructure-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Infrastructure Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-network-and-dns-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Network and DNS Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-kubernetes-platform-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Kubernetes Platform Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gitops-and-release-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. GitOps and Release Inputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-secrets-certificates-and-trust-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Secrets, Certificates, and Trust Material
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-security-and-access-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Security and Access Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-observability-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Observability Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-backup-and-recovery-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Backup and Recovery Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-go-no-go-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Go / No-Go Review
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-mojaloop-local-microk8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Mojaloop Locally (MicroK8s)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-mojaloop-local-withoutk8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Mojaloop Locally (Without Kubernetes)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-payment-manager-on-premise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Mojaloop Payment Manager (On-Premise)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-payment-manager-helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PM4ML Deployment Guide (Helm Installation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-deployment-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Deployment Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-infrastructure-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Infrastructure Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-network-and-dns-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Network and DNS Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-kubernetes-platform-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Kubernetes Platform Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gitops-and-release-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. GitOps and Release Inputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-secrets-certificates-and-trust-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Secrets, Certificates, and Trust Material
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-security-and-access-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Security and Access Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-observability-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Observability Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-backup-and-recovery-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Backup and Recovery Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-go-no-go-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Go / No-Go Review
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="pre-deployment-checklist">Pre-Deployment Checklist</h1>
+<p>This checklist is used before deploying Mojaloop platform components or Payment Manager for Mojaloop (PM4ML) into an integration, staging, or production environment.</p>
+<p>It does not replace the deployment guide. It confirms that the environment, access, networking, security, and operational basics are ready before the deployment begins.</p>
+<p>The main goal is to avoid starting a deployment when a required dependency is still missing or unclear.</p>
+<hr />
+<h2 id="1-deployment-scope">1. Deployment Scope</h2>
+<p>Confirm the deployment model before preparing the environment.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Target environment is identified</td>
+<td>Integration, staging, production, DR, or local lab</td>
+</tr>
+<tr>
+<td>Deployment type is selected</td>
+<td>Helm, GitOps, on-premise, cloud, hybrid, or local</td>
+</tr>
+<tr>
+<td>Components are in scope</td>
+<td>PM4ML, Mojaloop Hub, Redis, Kafka, MySQL, Tazama, monitoring, logging</td>
+</tr>
+<tr>
+<td>Out-of-scope items are recorded</td>
+<td>Items not being deployed in this phase are explicitly listed</td>
+</tr>
+<tr>
+<td>Deployment owner is assigned</td>
+<td>One person or team owns coordination</td>
+</tr>
+<tr>
+<td>Technical approvers are known</td>
+<td>Infrastructure, security, network, application, and Hub/operator contacts</td>
+</tr>
+</tbody>
+</table>
+<p>Record the following before the deployment starts:</p>
+<div class="highlight"><pre><span></span><code>Environment:
+Deployment date:
+Deployment owner:
+Application owner:
+Infrastructure owner:
+Security owner:
+Git repository:
+Git branch or commit:
+Helm chart versions:
+Target namespace:
+Base domain:
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>Deployment issues become harder to resolve when ownership is unclear.</li>
+<li>Version drift between Git, Helm, and the running cluster can make rollback difficult.</li>
+<li>Explicit scope prevents teams from assuming that monitoring, backups, or security controls are already included.</li>
+</ul>
+<hr />
+<h2 id="2-infrastructure-readiness">2. Infrastructure Readiness</h2>
+<p>Confirm that compute, storage, and operating system requirements are ready.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servers or VMs are provisioned</td>
+<td>Required master, worker, load balancer, and storage nodes exist</td>
+</tr>
+<tr>
+<td>OS version is confirmed</td>
+<td>Ubuntu 24.04 LTS or the approved target OS</td>
+</tr>
+<tr>
+<td>Time synchronization is enabled</td>
+<td>NTP or chrony is configured on all nodes</td>
+</tr>
+<tr>
+<td>Hostnames are stable</td>
+<td>Hostnames match the deployment inventory</td>
+</tr>
+<tr>
+<td>Static IPs are assigned</td>
+<td>IPs match the network plan</td>
+</tr>
+<tr>
+<td>Disk layout is confirmed</td>
+<td>OS, application, database, logs, and backup disks are separated where required</td>
+</tr>
+<tr>
+<td>CPU and memory sizing is approved</td>
+<td>Sizing matches the expected environment tier</td>
+</tr>
+<tr>
+<td>Storage backend is available</td>
+<td>Ceph, Rook-Ceph, Longhorn, cloud disk, or local PV is ready</td>
+</tr>
+</tbody>
+</table>
+<p>Basic validation commands:</p>
+<div class="highlight"><pre><span></span><code>hostnamectl
+timedatectl
+df<span class="w"> </span>-h
+lsblk
+free<span class="w"> </span>-h
+ip<span class="w"> </span>addr
+</code></pre></div>
+<p>For Kubernetes nodes:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+kubectl<span class="w"> </span>describe<span class="w"> </span>nodes
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>Time drift can break certificates, JWS validation, logs, and audit trails.</li>
+<li>Incorrect disk layout can cause transaction workloads, logs, and backups to compete for the same storage.</li>
+<li>Node sizing issues usually appear later as pod scheduling, Redis, Kafka, database, or ingress instability.</li>
+</ul>
+<hr />
+<h2 id="3-network-and-dns-readiness">3. Network and DNS Readiness</h2>
+<p>Confirm that all required network paths are open before application deployment.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internal subnet is confirmed</td>
+<td>Cluster nodes can communicate privately</td>
+</tr>
+<tr>
+<td>Public IP or edge routing is confirmed</td>
+<td>External traffic reaches HAProxy, ingress, or the approved edge component</td>
+</tr>
+<tr>
+<td>Firewall rules are approved</td>
+<td>Only required ports are open</td>
+</tr>
+<tr>
+<td>NodePorts are restricted</td>
+<td>NodePort access is allowed only from the load balancer where applicable</td>
+</tr>
+<tr>
+<td>DNS zone is available</td>
+<td>Required records can be created or updated</td>
+</tr>
+<tr>
+<td>Internal DNS is available</td>
+<td>Internal services and private endpoints resolve correctly</td>
+</tr>
+<tr>
+<td>Partner or Hub endpoints are reachable</td>
+<td>Outbound traffic to required external endpoints is allowed</td>
+</tr>
+<tr>
+<td>VPN access is tested</td>
+<td>Administrative or partner VPN paths work if required</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended DNS records to confirm:</p>
+<div class="highlight"><pre><span></span><code>argocd.&lt;domain&gt;
+pm4ml.&lt;domain&gt;
+admin.&lt;domain&gt;
+api.&lt;domain&gt;
+hub.&lt;domain&gt;
+</code></pre></div>
+<p>Basic validation commands:</p>
+<div class="highlight"><pre><span></span><code>dig<span class="w"> </span>argocd.&lt;domain&gt;
+dig<span class="w"> </span>pm4ml.&lt;domain&gt;
+curl<span class="w"> </span>-vk<span class="w"> </span>https://pm4ml.&lt;domain&gt;
+nc<span class="w"> </span>-vz<span class="w"> </span>&lt;host&gt;<span class="w"> </span><span class="m">443</span>
+nc<span class="w"> </span>-vz<span class="w"> </span>&lt;host&gt;<span class="w"> </span>&lt;nodeport&gt;
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>A Kubernetes deployment can be healthy while users and partners still cannot reach it.</li>
+<li>DNS and firewall issues are often mistaken for application failures.</li>
+<li>NodePort exposure mistakes can bypass the intended HAProxy or ingress security boundary.</li>
+</ul>
+<hr />
+<h2 id="4-kubernetes-platform-readiness">4. Kubernetes Platform Readiness</h2>
+<p>Confirm that the Kubernetes platform is ready for application workloads.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cluster access works</td>
+<td><code>kubectl get nodes</code> returns all nodes</td>
+</tr>
+<tr>
+<td>Nodes are ready</td>
+<td>All required nodes are <code>Ready</code></td>
+</tr>
+<tr>
+<td>CNI is healthy</td>
+<td>Pods can communicate across nodes</td>
+</tr>
+<tr>
+<td>CoreDNS is healthy</td>
+<td>Cluster DNS resolves service names</td>
+</tr>
+<tr>
+<td>Ingress controller or Istio is installed</td>
+<td>Required gateways and services exist</td>
+</tr>
+<tr>
+<td>StorageClass is available</td>
+<td>Redis and other persistent workloads can provision volumes</td>
+</tr>
+<tr>
+<td>Metrics are available</td>
+<td>CPU, memory, and pod metrics can be collected</td>
+</tr>
+<tr>
+<td>Namespace plan is agreed</td>
+<td>Namespaces and labels match the deployment model</td>
+</tr>
+<tr>
+<td>Resource quota policy is known</td>
+<td>Quotas and limits will not block deployment</td>
+</tr>
+</tbody>
+</table>
+<p>Validation commands:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A
+kubectl<span class="w"> </span>get<span class="w"> </span>storageclass
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A
+kubectl<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>-A
+kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-A
+</code></pre></div>
+<p>If Istio is used:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>istio-system
+kubectl<span class="w"> </span>get<span class="w"> </span>gateway<span class="w"> </span>-A
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualservice<span class="w"> </span>-A
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>Application deployment should not begin until the platform control plane, networking, ingress, and storage are already healthy.</li>
+<li>Missing StorageClass or broken DNS usually causes application failures that are expensive to debug after Helm or GitOps has started.</li>
+</ul>
+<hr />
+<h2 id="5-gitops-and-release-inputs">5. GitOps and Release Inputs</h2>
+<p>Confirm that the deployment source is ready and reviewed.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deployment repository is accessible</td>
+<td>Deployment team can clone and review the repo</td>
+</tr>
+<tr>
+<td>Target branch is confirmed</td>
+<td>Branch name or commit SHA is recorded</td>
+</tr>
+<tr>
+<td>Environment values are reviewed</td>
+<td>No placeholder values remain</td>
+</tr>
+<tr>
+<td>Helm chart versions are pinned</td>
+<td>Versions are explicit and reproducible</td>
+</tr>
+<tr>
+<td>Image tags are pinned</td>
+<td>Production does not use floating tags such as <code>latest</code></td>
+</tr>
+<tr>
+<td>Argo CD access is available</td>
+<td>Operators can view sync and health status</td>
+</tr>
+<tr>
+<td>Sync order is understood</td>
+<td>Platform dependencies deploy before applications</td>
+</tr>
+<tr>
+<td>Rollback source is known</td>
+<td>Previous working commit or chart version is documented</td>
+</tr>
+</tbody>
+</table>
+<p>Values to review before deployment:</p>
+<div class="highlight"><pre><span></span><code>Domain names
+Ingress hosts
+TLS and mTLS settings
+StorageClass names
+Resource requests and limits
+Redis configuration
+Hub endpoint URLs
+DFSP identifiers
+OAuth or client settings
+Vault secret paths
+Log level
+Replica counts
+</code></pre></div>
+<p>Useful validation commands:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+git<span class="w"> </span>branch<span class="w"> </span>--show-current
+git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
+helm<span class="w"> </span>lint<span class="w"> </span>&lt;chart-path&gt;
+helm<span class="w"> </span>template<span class="w"> </span>&lt;release-name&gt;<span class="w"> </span>&lt;chart-path&gt;<span class="w"> </span>-f<span class="w"> </span>&lt;values-file&gt;
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>GitOps makes deployment repeatable only when the repository state is clean, reviewed, and pinned.</li>
+<li>Placeholder values can deploy successfully but fail at runtime when traffic begins.</li>
+<li>Rollback is slower when the previous known-good version is not recorded.</li>
+</ul>
+<hr />
+<h2 id="6-secrets-certificates-and-trust-material">6. Secrets, Certificates, and Trust Material</h2>
+<p>Confirm that secret and certificate ownership is clear before deployment.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Secret manager is ready</td>
+<td>Vault, Kubernetes secrets, or approved secret store is available</td>
+</tr>
+<tr>
+<td>Secret paths are defined</td>
+<td>Expected secret locations are documented</td>
+</tr>
+<tr>
+<td>No secrets are stored in Git</td>
+<td>Repositories contain references only</td>
+</tr>
+<tr>
+<td>TLS certificate source is known</td>
+<td>cert-manager, enterprise CA, public CA, or manual import</td>
+</tr>
+<tr>
+<td>mTLS model is agreed</td>
+<td>Inbound and outbound certificate ownership is clear</td>
+</tr>
+<tr>
+<td>JWS key process is agreed</td>
+<td>Signing keys and public key publishing flow are defined</td>
+</tr>
+<tr>
+<td>Certificate expiry is known</td>
+<td>Expiry dates and rotation owners are recorded</td>
+</tr>
+<tr>
+<td>Hub/operator trust workflow is ready</td>
+<td>CSR, signing, exchange, or approval process is agreed</td>
+</tr>
+</tbody>
+</table>
+<p>Minimum certificate and key inventory:</p>
+<div class="highlight"><pre><span></span><code>PM4ML server TLS certificate:
+PM4ML outbound client certificate:
+Hub server CA or trust bundle:
+Hub client certificate or public key:
+JWS private key owner:
+JWS public key publishing location:
+Vault path:
+Rotation owner:
+Expiry date:
+</code></pre></div>
+<p>Useful validation commands:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-A
+kubectl<span class="w"> </span>get<span class="w"> </span>certificate<span class="w"> </span>-A
+kubectl<span class="w"> </span>get<span class="w"> </span>certificaterequest<span class="w"> </span>-A
+openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>&lt;certificate-file&gt;<span class="w"> </span>-noout<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-dates
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>TLS, mTLS, OAuth, and JWS failures can look like application bugs when the real issue is trust material.</li>
+<li>Manual certificate workflows must be planned before the deployment window, especially when Hub approval is required.</li>
+<li>Unknown expiry dates create operational risk after go-live.</li>
+</ul>
+<hr />
+<h2 id="7-security-and-access-controls">7. Security and Access Controls</h2>
+<p>Confirm that access is ready and restricted to the right teams.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin access is approved</td>
+<td>Only required operators have privileged access</td>
+</tr>
+<tr>
+<td>Break-glass access exists</td>
+<td>Emergency access is documented and controlled</td>
+</tr>
+<tr>
+<td>SSH access is restricted</td>
+<td>Bastion, VPN, or IP allowlist is enforced</td>
+</tr>
+<tr>
+<td>Kubernetes RBAC is reviewed</td>
+<td>Users and service accounts have required permissions only</td>
+</tr>
+<tr>
+<td>Argo CD access is restricted</td>
+<td>Sync and admin rights are limited</td>
+</tr>
+<tr>
+<td>Vault access is restricted</td>
+<td>Secret read/write access is limited by role</td>
+</tr>
+<tr>
+<td>Audit logging is enabled</td>
+<td>Administrative actions can be traced</td>
+</tr>
+<tr>
+<td>Public endpoints are approved</td>
+<td>Exposed endpoints match the security design</td>
+</tr>
+</tbody>
+</table>
+<p>Why this matters:</p>
+<ul>
+<li>Deployment access often becomes permanent access if it is not reviewed before go-live.</li>
+<li>Weak RBAC or broad secret access increases the impact of mistakes and compromise.</li>
+<li>Security controls are easier to validate before production traffic is enabled.</li>
+</ul>
+<hr />
+<h2 id="8-observability-readiness">8. Observability Readiness</h2>
+<p>Confirm that the team can see the system after it is deployed.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logging stack is available</td>
+<td>Application and platform logs can be searched</td>
+</tr>
+<tr>
+<td>Metrics stack is available</td>
+<td>CPU, memory, network, pod, and service metrics are collected</td>
+</tr>
+<tr>
+<td>Dashboards are prepared</td>
+<td>Platform and application dashboards exist or are planned</td>
+</tr>
+<tr>
+<td>Alerts are configured</td>
+<td>Critical deployment and runtime failures page the right team</td>
+</tr>
+<tr>
+<td>Log retention is agreed</td>
+<td>Retention period matches operational and compliance needs</td>
+</tr>
+<tr>
+<td>Alert ownership is assigned</td>
+<td>Each alert has an owning team</td>
+</tr>
+</tbody>
+</table>
+<p>Minimum alerts to prepare:</p>
+<div class="highlight"><pre><span></span><code>Node NotReady
+Pod CrashLoopBackOff
+Pod Pending
+PersistentVolumeClaim Pending
+Ingress or gateway unavailable
+Certificate near expiry
+Argo CD application OutOfSync
+Argo CD application Degraded
+Redis unavailable
+Database unavailable
+High error rate on public endpoints
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>A deployment is not operationally ready if the team cannot see failures.</li>
+<li>Alert ownership prevents incidents from bouncing between application, infrastructure, and security teams.</li>
+<li>Certificate and storage alerts are especially important for PM4ML and Mojaloop-style deployments.</li>
+</ul>
+<hr />
+<h2 id="9-backup-and-recovery-readiness">9. Backup and Recovery Readiness</h2>
+<p>Confirm that recovery requirements are understood before production use.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backup scope is defined</td>
+<td>Databases, Vault, GitOps repo, certificates, configs, and persistent data are covered</td>
+</tr>
+<tr>
+<td>Backup target is available</td>
+<td>Local, remote, or off-site backup target is ready</td>
+</tr>
+<tr>
+<td>Retention is agreed</td>
+<td>Retention matches business and compliance requirements</td>
+</tr>
+<tr>
+<td>Restore process is documented</td>
+<td>Operators know how to restore critical data</td>
+</tr>
+<tr>
+<td>Restore test is planned</td>
+<td>Backups will be validated, not only created</td>
+</tr>
+<tr>
+<td>RPO and RTO are known</td>
+<td>Recovery expectations are realistic and agreed</td>
+</tr>
+</tbody>
+</table>
+<p>Minimum backup inventory:</p>
+<div class="highlight"><pre><span></span><code>Application database:
+Redis data:
+Vault data:
+TLS and mTLS certificates:
+JWS keys:
+GitOps repository:
+Helm values:
+Ingress configuration:
+DNS records:
+</code></pre></div>
+<p>Why this matters:</p>
+<ul>
+<li>A backup is not useful until restore has been tested.</li>
+<li>Certificate, key, and Vault recovery are as important as database recovery for secure payment integrations.</li>
+<li>RPO and RTO expectations should be agreed before production incidents happen.</li>
+</ul>
+<hr />
+<h2 id="10-go-no-go-review">10. Go / No-Go Review</h2>
+<p>Use this final review before starting the deployment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deployment scope confirmed</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Owners and approvers confirmed</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Infrastructure ready</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Network and DNS ready</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Kubernetes platform healthy</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>GitOps or Helm inputs reviewed</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Secrets and certificates ready</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Security access reviewed</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Observability ready</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Backup and recovery plan agreed</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Rollback point identified</td>
+<td>Pass / Fail</td>
+</tr>
+<tr>
+<td>Deployment window approved</td>
+<td>Pass / Fail</td>
+</tr>
+</tbody>
+</table>
+<p>Deployment should not begin if any required area is marked <code>Fail</code>.</p>
+<p>Record the decision:</p>
+<div class="highlight"><pre><span></span><code>Go / No-Go decision:
+Decision time:
+Approved by:
+Known risks:
+Follow-up actions:
+</code></pre></div>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>A deployment is ready to start when the platform is healthy, the deployment source is reviewed, access is controlled, trust material is prepared, observability is available, and recovery expectations are agreed.</p>
+<p>This checklist should be completed before following the environment-specific deployment guide.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../hub-pm4ml-security-architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Hub ↔ PM4ML">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Hub ↔ PM4ML
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../deploy-mojaloop-local-microk8s/" class="md-footer__link md-footer__link--next" aria-label="Next: Deploy Mojaloop Locally (MicroK8s)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Deploy Mojaloop Locally (MicroK8s)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "search.highlight", "search.suggest", "navigation.instant", "content.tabs.link", "navigation.footer", "header.autohide", "navigation.expand", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
